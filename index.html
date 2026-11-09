@@ -7270,22 +7270,66 @@ window.fopTree = function (tog) {
       facet('역분개된 항목 수', '<Text text="0 / 1"/><ProgressIndicator percentValue="0" width="10rem" displayOnly="true" showValue="false"/>') +
       kvs([['참조', '구매오더 4500019567'], ['납품', '80012345']])) }));
 
-  /* ───────── 구매오더 (PO 납기 변경) ───────── */
-  const V_PO = view(shell('구매오더 관리', 'agent3', 'agent3') + op(
-    title('구매오더 4500019234', 'ACME Components Korea (1001234)', '<Button text="편집" type="Emphasized"/><Button text="복사"/><Button text="출력 미리보기"/>' + ico('action', '공유'),
-      `<uxap:breadcrumbs><Breadcrumbs><Link text="구매오더" press="H.go('agent3')"/></Breadcrumbs></uxap:breadcrumbs>`),
-    sec('항목', `<VBox><MessageStrip text="Joule MRP Exception Agent가 항목 10의 납기일을 변경하고 ACME Components Korea에 확약을 요청했습니다." type="Information" showIcon="true" customIcon="sap-icon://ai" class="sapUiSmallMarginBottom"/>
-      <Table>${tbar('항목 (2)', ico('action-settings', '보기 설정') + ico('excel-attachment', '내보내기'))}
-      <columns><Column><Text text="항목"/></Column><Column><Text text="자재"/></Column><Column hAlign="End"><Text text="오더 수량"/></Column><Column><Text text="납기일 (변경 전)"/></Column><Column><Text text="납기일 (변경 후)"/></Column><Column hAlign="End"><Text text="단축 일수"/></Column><Column><Text text="확인 상태"/></Column></columns>
+  /* ───────── 구매오더 (PO 납기 변경) — S/4HANA Cloud '구매오더 관리' Object Page 구성 ───────── */
+  const poStat = (l, v) => `<form:FormElement><form:label><Label text="${l}" showColon="true"/></form:label><form:fields><ObjectStatus text="${v}" state="Success"/></form:fields></form:FormElement>`;
+  const poNoteTab = (t, content = '') => `<IconTabFilter text="${t}">${content || '<TextArea editable="false" width="100%" rows="6" value=""/>'}</IconTabFilter>`;
+  const V_PO = view(shell('구매오더', 'agent3', 'agent3') + op(
+    title('4500019234', '표준 구매오더',
+      '<Button text="편집" type="Emphasized"/><Button text="복사" type="Ghost"/><Button text="약정 표시" type="Ghost"/><Button text="상태 세부사항" type="Ghost"/><Button text="변경 로그 표시" type="Ghost"/>' +
+      '<Button text="Easy Fill" icon="sap-icon://ai" type="Ghost" press="H.toast(\'Joule Easy Fill — 데모에서는 시연하지 않습니다\')"/>' +
+      '<Button text="요약" icon="sap-icon://ai" type="Ghost" press="H.toast(\'Joule: 항목 10 납기가 3일 앞당겨져 공급업체 확약을 기다리고 있습니다\')"/>' + ico('action', '공유')),
+    sec('일반 정보', form([
+      ['기본 데이터', [['구매 문서 유형', '표준 구매오더 (NB)'], ['공급업체', 'ACME Components Korea (1001234)', true], ['통화', '대한민국 원 (KRW)'], ['언어 키', '한국어 (KO)']]],
+      ['조직', [['구매그룹', '김재형 (MMK)'], ['구매조직', 'BestRun Korea 구매 (1000)'], ['회사코드', 'BestRun Korea (1000)']]],
+      ['추가 정보', [['생성자', 'JKIM (김재형)'], ['구매오더 일자', '2026.11.01'], ['승인 상태', '–'], ['승인자 이름', '–']]]
+    ], 3)) +
+    sec('항목', `<Table sticky="ColumnHeaders,HeaderToolbar"><headerToolbar><OverflowToolbar style="Clear"><Title text="항목 (2)" level="H3"/>
+        <VariantManagement selectedKey="std" defaultKey="std"><items><VariantItem key="std" title="표준"/></items></VariantManagement><ToolbarSpacer/>
+        <SearchField width="17.5rem" placeholder="검색"/><Button text="복사" type="Transparent" enabled="false"/>${ico('copy', '붙여넣기')}${ico('action-settings', '보기 설정')}${ico('excel-attachment', '내보내기')}</OverflowToolbar></headerToolbar>
+      <columns><Column width="4.5rem"><Text text="항목"/></Column><Column><Text text="항목 범주"/></Column><Column><Text text="자재"/></Column><Column><Text text="내역"/></Column>
+        <Column><Text text="자재 그룹"/></Column><Column><Text text="플랜트"/></Column><Column hAlign="End"><Text text="오더 수량"/></Column>
+        <Column><Text text="납품일"/></Column><Column><Text text="확인 상태"/></Column></columns>
       <items>
-        <ColumnListItem type="Navigation" highlight="Information"><cells><Text text="10"/><ObjectIdentifier title="A-4315" text="유압실린더" titleActive="true"/><ObjectNumber number="45" unit="EA"/><Text text="2026.12.15"/><ObjectStatus text="2026.12.12" state="Information"/><ObjectNumber number="-3" unit="일" state="Information"/><ObjectStatus text="확약 대기" state="Warning" icon="sap-icon://pending"/></cells></ColumnListItem>
-        <ColumnListItem type="Navigation"><cells><Text text="20"/><ObjectIdentifier title="B-2290" text="베어링 어셈블리" titleActive="true"/><ObjectNumber number="100" unit="EA"/><Text text="2026.12.10"/><Text text="2026.12.10"/><ObjectNumber number="0" unit="일"/><ObjectStatus text="확약됨" state="Success" icon="sap-icon://sys-enter-2"/></cells></ColumnListItem>
-      </items></Table></VBox>`) +
-    sec('처리 이력', form([['자동화 로그', [['처리 Agent', 'Joule MRP Exception Agent'], ['처리 시각', '{/times/po}']]], ['', [['트리거', 'MRP 예외 10 (일정 앞당김) — 제조오더 MO-26-0891'], ['처리 방법', 'ERP MCP → PO 납기 변경 + 공급업체 확약 요청']]]], 2)),
-    { header: hc(kvs([['오더일자', '2026.11.01'], ['구매그룹', 'MMK'], ['플랜트', '1050 (부산 생산공장)']]) +
-      facet('순 오더 금액', '<ObjectNumber number="28,720,000" unit="KRW" class="sapMObjectNumberLarge"/>') +
-      facet('상태', '<ObjectStatus text="납기 변경 · 확약 대기" state="Information" icon="sap-icon://information" class="sapMObjectStatusLarge"/>') +
-      facet('납기 단축', '<ObjectNumber number="-3" unit="일" state="Success" class="sapMObjectNumberLarge"/>')) }));
+        <ColumnListItem type="Navigation" highlight="Information"><cells><Text text="10"/><Text text="표준"/><Link text="A-4315 (A-4315)"/><Text text="유압실린더"/><Text text="유압 부품 (HYD01)"/><Text text="부산 생산공장 (1050)"/><ObjectNumber number="45" unit="EA"/>
+          <VBox><ObjectStatus text="2026.12.12" state="Information"/><Text text="변경 전 2026.12.15 (-3일)" class="sapUiTinyMarginTop"/></VBox><ObjectStatus text="확약 대기" state="Warning" icon="sap-icon://pending"/></cells></ColumnListItem>
+        <ColumnListItem type="Navigation"><cells><Text text="20"/><Text text="표준"/><Link text="B-2290 (B-2290)"/><Text text="베어링 어셈블리"/><Text text="구동 부품 (DRV02)"/><Text text="부산 생산공장 (1050)"/><ObjectNumber number="100" unit="EA"/>
+          <Text text="2026.12.10"/><ObjectStatus text="확약됨" state="Success" icon="sap-icon://sys-enter-2"/></cells></ColumnListItem>
+      </items></Table>`) +
+    sec('한도 항목', `<Table noDataText="아직 항목이 없습니다. 항목이 생기면 여기에 표시됩니다."><headerToolbar><OverflowToolbar style="Clear"><Title text="한도 항목" level="H3"/>
+        <VariantManagement selectedKey="std" defaultKey="std"><items><VariantItem key="std" title="표준"/></items></VariantManagement><ToolbarSpacer/>
+        <SearchField width="17.5rem" placeholder="검색"/>${ico('copy', '붙여넣기')}${ico('action-settings', '보기 설정')}${ico('excel-attachment', '내보내기')}</OverflowToolbar></headerToolbar>
+      <columns><Column width="4.5rem"><Text text="항목"/></Column><Column><Text text="내역"/></Column><Column hAlign="End"><Text text="예상 금액"/></Column><Column hAlign="End"><Text text="전체 한도"/></Column>
+        <Column><Text text="한도 계약"/></Column><Column><Text text="계약 항목"/></Column><Column><Text text="계정 지정 범주"/></Column><Column><Text text="제품 유형 그룹"/></Column><Column><Text text="플랜트"/></Column></columns>
+      <items></items></Table>`) +
+    sec('납품 및 송장', form([
+      ['', [['인코텀즈 버전', '버전 없음'], ['인코텀즈', 'FCA (운송인 인도)']]],
+      ['', [['인코텀즈 위치 1', '부산'], ['인코텀즈 위치 2', '–']]],
+      ['', [['인트라스탯 관련성', '아니요'], ['인트라스탯 제외', '아니요']]]
+    ], 3)) +
+    sec('공급업체 연락처 데이터', form([
+      ['공급업체 주소', [['전체 이름', 'ACME Components Korea'], ['도로', '테헤란로'], ['번지', '152']]],
+      ['', [['우편번호', '06236'], ['도시', '서울'], ['국가 / 지역 키', 'KR'], ['지역', '서울특별시']]],
+      ['', [['전화번호', '02-555-0142'], ['팩스 번호', '–'], ['이메일 주소', 'order@acme-components.kr']]],
+      ['담당자', [['영업 담당자', '박민수'], ['공급업체 전화', '010-2345-6789'], ['귀사 참조', '–'], ['당사 참조', 'MMK-2026-1101']]]
+    ], 4)) +
+    sec('제품 규정 준수', `<form:Form editable="false"><form:layout><form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" labelCellsLarge="12"/></form:layout><form:formContainers>
+      <form:FormContainer title="규정 준수 상태"><form:formElements>${poStat('공급업체 점검 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
+      <form:FormContainer><form:formElements>${poStat('제품 판매 가능 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
+      <form:FormContainer><form:formElements>${poStat('위험물 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
+      <form:FormContainer><form:formElements>${poStat('안전 데이터 시트 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
+    </form:formContainers></form:Form>`) +
+    sec('메모', `<IconTabBar expandable="false" headerMode="Inline" class="sapUiNoContentPadding"><items>` +
+      poNoteTab('헤더 텍스트', `<TextArea editable="false" width="100%" rows="6" growing="true" value="[Joule MRP Exception Agent] MRP 예외 10 (일정 앞당김) — 제조오더 MO-26-0891 대응으로 항목 10(A-4315)의 납기를 2026.12.15 → 2026.12.12로 변경하고 ACME Components Korea에 확약을 요청했습니다. (ERP MCP · {/times/po})"/>`) +
+      ['헤더 메모', '가격 유형', '기한', '납품 조건', '선적 지시', '지급 조건', '보증', '계약 위반 위약금', '보증서'].map(t => poNoteTab(t)).join('') +
+      `</items></IconTabBar>`) +
+    sec('출력 관리', `<Table>${tbar('출력 항목 (1)', ico('action-settings', '보기 설정'), false)}
+      <columns><Column><Text text="출력 유형"/></Column><Column><Text text="채널"/></Column><Column><Text text="수신자"/></Column><Column><Text text="양식 템플릿"/></Column><Column><Text text="상태"/></Column><Column><Text text="변경일"/></Column></columns>
+      <items><ColumnListItem><cells><Text text="구매오더"/><Text text="이메일"/><Text text="order@acme-components.kr"/><Text text="MM_PUR_PURCHASE_ORDER"/><ObjectStatus text="완료됨" state="Success"/><Text text="{/times/po}"/></cells></ColumnListItem></items></Table>`) +
+    sec('첨부', emptyList('첨부 (0)')),
+    { header: hc(
+      facet('상태', '<Text text="확약 대기" class="demoHeaderValue"/>') +
+      facet('구매오더 일자', '<Text text="2026.11.01" class="demoHeaderValue"/>') +
+      facet('순 금액', '<Text text="28,720,000   대한민국 원 (KRW)" class="demoHeaderValue"/>')) }));
 
   /* ───────── 구매요청 (Purchase Requisition) ───────── */
   const V_PR = view(shell('구매요청', 'agent6', 'agent6') + op(
