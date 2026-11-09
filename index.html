@@ -2395,6 +2395,76 @@ body.story-on .page { bottom: 52px !important; }
 .at-flow { fill: none; stroke: #B57BF1; stroke-width: 3; stroke-dasharray: 8 7; animation: atDash 0.9s linear infinite; }
 @keyframes atDash { to { stroke-dashoffset: -15; } }
 @media (prefers-reduced-motion: reduce) { .at-hl, .at-flow { animation: none; } }
+
+/* ═══ SAP GUI for HTML (WebGUI · Horizon) — 재고 이전 오더 표시 (ME23N) ═══ */
+.gui { --g-field: #EEF0F2; --g-line: #8396A8; --g-blue: #0064D9; }
+.gui .gui-shell-title { font-size: 15px; }
+.gui-body { flex: 1; overflow-y: auto; background: var(--fop-bg); padding-bottom: 24px; }
+.gui-appbar { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 8px 12px; background: #fff; border-bottom: 1px solid var(--fop-border); }
+.gui-menu { font-weight: 700; color: var(--g-blue); background: none; border: none; font-size: 14px; padding: 4px 6px; display: inline-flex; align-items: center; gap: 4px; }
+.gui-btn { font-size: 14px; font-weight: 600; color: var(--g-blue); background: #fff; border: 1px solid #BCC3CA; border-radius: 6px; padding: 3px 6px; line-height: 18px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
+.gui-btn:hover:not(:disabled) { background: var(--fop-hover); }
+.gui-btn:disabled { color: #9EADBB; border-color: #DDE1E5; cursor: default; }
+.gui-btn.emph { background: var(--fop-emph); border-color: var(--fop-emph); color: #fff; }
+.gui-btn.emph:hover { background: var(--fop-emph-hover); }
+.gui-appbar .gui-sep { width: 1px; height: 22px; background: var(--fop-border); margin: 0 4px; }
+.gui-exit { font-weight: 700; color: var(--g-blue); background: none; border: none; font-size: 14px; padding: 4px 8px; }
+.gui-hdr { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 48px; padding: 14px 12px 6px 8px; }
+.gui-cart { width: 30px; height: 30px; color: #1D2D3E; margin-right: -30px; }
+.gui-f { display: inline-flex; align-items: center; gap: 6px; }
+.gui-l { color: #1D2D3E; white-space: nowrap; }
+.gui-v { background: var(--g-field); border-bottom: 1px dashed var(--g-line); padding: 3px 4px; min-height: 18px; line-height: 18px; font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; color: #1D2D3E; white-space: nowrap; box-sizing: content-box; }
+.gui-v.r { text-align: right; }
+.gui-v.dd { display: inline-flex; justify-content: space-between; align-items: center; font-family: inherit; font-size: 14px; }
+.gui-v.dd svg { width: 14px; height: 14px; margin-left: 8px; }
+.gui-t { color: #1D2D3E; white-space: nowrap; }
+.gui-card { background: #fff; border-radius: 12px; margin: 0 12px 0 38px; position: relative; }
+.gui-row { display: flex; align-items: flex-start; }
+.gui-toggle { width: 28px; height: 24px; border: 1px solid #BCC3CA; border-radius: 6px; background: #fff; color: var(--g-blue); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin: 6px 2px 0 8px; }
+.gui-toggle svg { width: 16px; height: 16px; }
+.gui-tabs { display: flex; align-items: center; gap: 0; border-bottom: 1px solid #D9D9D9; padding: 0 24px; overflow-x: auto; }
+.gui-tabs button { background: none; border: none; font-size: 14px; font-weight: 700; color: #1D2D3E; padding: 8px 18px 7px; border-bottom: 3px solid transparent; white-space: nowrap; }
+.gui-tabs button.on { color: var(--g-blue); border-bottom-color: var(--g-blue); }
+.gui-tabs .gui-tabs-more:first-of-type { margin-left: auto; }
+.gui-tabs .gui-tabs-more { color: var(--g-blue); font-weight: 700; padding: 8px 6px; }
+.gui-pane { padding: 18px 24px 24px; min-height: 230px; box-sizing: border-box; }
+.gui-pane[hidden] { display: none !important; }
+.gui-grid { display: grid; grid-template-columns: max-content max-content max-content; gap: 10px 8px; align-items: center; }
+.gui-grid .gui-l { text-align: right; }
+.gui-empty { color: #556B82; padding: 6px 0; }
+.gui-sect-title { font-size: 16px; font-weight: 700; color: #1D2D3E; padding: 16px 16px 8px; display: flex; align-items: center; }
+.gui-sect-title .gui-gear { margin-left: auto; color: var(--g-blue); width: 16px; height: 16px; }
+.gui-tbl-wrap { overflow-x: auto; border-top: 1px solid #D9D9D9; }
+.gui-tbl { border-collapse: collapse; font-size: 14px; min-width: 1500px; width: 100%; }
+.gui-tbl th { text-align: left; font-weight: 700; padding: 8px 6px; border-right: 1px solid #E5E5E5; border-bottom: 1px solid #D9D9D9; white-space: nowrap; background: #fff; }
+.gui-tbl td { padding: 4px 4px; border-right: 1px solid #F0F0F0; background: #F2F3F4; height: 17px; white-space: nowrap; }
+.gui-tbl td .c { display: block; border-bottom: 1px dashed var(--g-line); min-height: 17px; font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; }
+.gui-tbl td .c.u { text-decoration: underline; }
+.gui-tbl td .c.r { text-align: right; }
+.gui-tbl td .c.t { font-family: inherit; font-size: 14px; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+.gui-tbl td.sel, .gui-tbl th.sel { background: #fff; width: 22px; text-align: center; }
+.gui-tbl td.sel span { display: inline-block; width: 14px; height: 14px; border: 1px solid #556B82; border-radius: 3px; vertical-align: middle; }
+.gui-tbl td.st { background: #fff; width: 26px; text-align: center; }
+.gui-tbl td.st span { display: inline-block; width: 18px; height: 18px; border: 1px solid #BCC3CA; border-radius: 50%; vertical-align: middle; }
+.gui-tbl tr.on td:not(.sel):not(.st) { background: #E8ECEF; }
+.gui-iconbar { display: flex; flex-wrap: wrap; gap: 4px; padding: 14px 4px 4px 0; align-items: center; }
+.gui-ib { width: 30px; height: 24px; border: 1px solid #BCC3CA; border-radius: 6px; background: #fff; color: var(--g-blue); display: inline-flex; align-items: center; justify-content: center; }
+.gui-ib.dis { color: #B8C3CD; border-color: #E5E8EB; }
+.gui-ib svg { width: 15px; height: 15px; }
+.gui-ib-gap { width: 10px; }
+.gui-itemsel { display: flex; align-items: center; gap: 8px; padding: 14px 0 6px 96px; flex-wrap: wrap; }
+.gui-itemsel .gui-v.dd { min-width: 380px; background: #fff; border: 1px solid var(--g-blue); border-radius: 4px; padding: 3px 6px; }
+.gui-qty { display: grid; grid-template-columns: max-content 180px 36px max-content 40px 1fr; gap: 10px 6px; align-items: center; }
+.gui-qty .gui-l { text-align: right; }
+.gui-qty2 { display: grid; grid-template-columns: repeat(2, max-content max-content); gap: 10px 60px; }
+.gui-status-list { display: grid; grid-template-columns: max-content max-content; gap: 10px 10px; align-items: center; margin-bottom: 18px; }
+.gui-note { background: var(--g-field); border: 1px dashed var(--g-line); padding: 10px 12px; line-height: 1.6; max-width: 980px; white-space: normal; }
+.gui-stat { display: grid; grid-template-columns: 270px 150px 120px 40px minmax(40px, 380px) 120px 40px; row-gap: 14px; align-items: center; color: #1D2D3E; }
+.gui-stat .ic { display: inline-flex; align-items: center; gap: 12px; color: #556B82; }
+.gui-stat .ic svg { width: 18px; height: 18px; color: #1D2D3E; flex-shrink: 0; }
+.gui-stat .n { font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; text-align: right; padding-right: 8px; }
+.gui-stat .u { font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; }
+.gui .fop-table { font-size: 14px; }
 </style>
 </head>
 <body>
@@ -3592,145 +3662,100 @@ body.story-on .page { bottom: 52px !important; }
   </div>
 </section>
 
-<section id="fiori-sto-object" class="page fop">
+<section id="fiori-sto-object" class="page fop gui">
   <header class="fop-shell">
+    <button class="fop-shell-btn" title="메뉴"><svg class="fop-i" viewBox="0 0 16 16"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
     <button class="fop-shell-btn" onclick="router.go('fiori-sto-display')" title="뒤로"><svg class="fop-i"><use href="#fi-back"/></svg></button>
-    <span class="fop-logo">SAP</span>
-    <span class="fop-shell-title">구매오더 관리 <svg class="fop-i fop-shell-chev"><use href="#fi-down"/></svg></span>
+    <span class="fop-logo" onclick="router.go('home')" style="cursor:pointer">SAP</span>
+    <span class="fop-shell-title gui-shell-title">재고 이전 오더 4500019567 생성자: 김재형 <svg class="fop-i fop-shell-chev"><use href="#fi-down"/></svg></span>
     <span class="fop-sp"></span>
     <button class="fop-shell-btn" title="검색"><svg class="fop-i"><use href="#fi-search"/></svg></button>
     <button class="fop-shell-btn fop-joule" title="Joule" onclick="router.go('agent7')"><svg class="fop-i"><use href="#fi-joule-shell"/></svg></button>
     <button class="fop-shell-btn" title="알림"><svg class="fop-i"><use href="#fi-bell"/></svg></button>
     <span class="fop-avatar" title="김재형 (JKIM)">JK</span>
   </header>
-  <div class="fop-body">
-    <div class="fop-header">
-      <nav class="fop-crumbs"><a onclick="router.go('fiori-sto-display')">구매오더</a><span>/</span></nav>
-      <div class="fop-title-row">
-        <div class="fop-title-wrap">
-          <h1 class="fop-title">구매오더 4500019567</h1>
-          <div class="fop-subtitle">재고 이전 오더 (UB) · 1060 인천 물류창고 → 1050 부산 생산공장</div>
-        </div>
-        <div class="fop-actions">
-          <button class="fop-btn sm">편집</button>
-          <button class="fop-btn sm" id="sto-act-dlv" onclick="stoCreateDelivery()">아웃바운드 납품 생성</button>
-          <button class="fop-btn sm" id="sto-act-gi" onclick="stoPostGI()">출고</button>
-          <button class="fop-btn sm" id="sto-act-gr" onclick="stoPostGR()">입고</button>
-          <button class="fop-btn ghost icon" title="공유"><svg class="fop-i"><use href="#fi-share"/></svg></button>
-        </div>
-      </div>
-      <div class="fop-hc">
-        <div class="fop-facet">
-          <div class="fop-kv"><span class="fop-k">문서 유형:</span><span class="fop-v">UB (재고 이전 오더)</span></div>
-          <div class="fop-kv"><span class="fop-k">공급 플랜트:</span><span class="fop-v">1060 (인천 물류창고)</span></div>
-          <div class="fop-kv"><span class="fop-k">수령 플랜트:</span><span class="fop-v">1050 (부산 생산공장)</span></div>
-        </div>
-        <div class="fop-facet"><div class="fop-hf-lbl">전체 상태</div><div id="sto-op-status" style="margin-top:6px"></div></div>
-      </div>
+  <div class="gui-appbar">
+    <button class="gui-menu">메뉴 <svg class="fop-i"><use href="#fi-down"/></svg></button>
+    <button class="gui-btn">문서 개요 설정</button><button class="gui-btn">생성</button><button class="gui-btn">표시/변경</button>
+    <button class="gui-btn">기타 구매오더</button><button class="gui-btn">메시지</button><button class="gui-btn">도움말</button>
+    <button class="gui-btn">개인 설정</button><button class="gui-btn">템플릿으로 저장</button><button class="gui-btn">객체 서비스 <svg class="fop-i"><use href="#fi-down"/></svg></button>
+    <span class="gui-sep"></span>
+    <button class="gui-btn" id="sto-act-dlv" onclick="stoCreateDelivery()">아웃바운드 납품 생성</button>
+    <button class="gui-btn" id="sto-act-gi" onclick="stoPostGI()">출고</button>
+    <button class="gui-btn" id="sto-act-gr" onclick="stoPostGR()">입고</button>
+    <span class="fop-sp"></span>
+    <button class="fop-shell-btn" title="검색"><svg class="fop-i"><use href="#fi-search"/></svg></button>
+    <button class="gui-exit" onclick="router.go('fiori-sto-display')">종료</button>
+  </div>
+  <div class="gui-body">
+    <div class="gui-hdr">
+      <svg class="gui-cart" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="3" fill="#F5F6F7" stroke="#BCC3CA"/><path d="M5 9h3l3 11h13l2-8H10" fill="none" stroke="#1D2D3E" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12.5" cy="24" r="1.8" fill="#1D2D3E"/><circle cx="22" cy="24" r="1.8" fill="#1D2D3E"/><path d="M11 15h14" stroke="#1D2D3E" stroke-width="1.2"/></svg>
+      <span class="gui-f" style="margin-left:40px"><span class="gui-l">오더 유형:</span><span class="gui-v dd" style="width:190px">재고 이전 오더 <svg class="fop-i"><use href="#fi-down"/></svg></span></span>
+      <span class="gui-f"><span class="gui-l">구매 문서:</span><span class="gui-v " style="width:100px">4500019567</span></span>
+      <span class="gui-f"><span class="gui-l">공급 플랜트:</span><span class="gui-v dd" style="width:260px;font-family:inherit">1060 인천 물류창고</span></span>
+      <span class="gui-f"><span class="gui-l">문서일:</span><span class="gui-v" style="width:100px" data-doc-time="sto" data-fmt="date">2026.11.10</span></span>
     </div>
-    <nav class="fop-anchor">
-      <button class="on" onclick="fopGo(this,'sto-sec-gen')">일반 정보</button>
-      <button onclick="fopGo(this,'sto-sec-items')">품목</button>
-      <button onclick="fopGo(this,'sto-sec-dlv')">납품</button>
-      <button onclick="fopGo(this,'sto-sec-hist')">구매오더 이력</button>
-      <button onclick="fopGo(this,'sto-sec-flow')">문서 흐름</button>
-      <button onclick="fopGo(this,'sto-sec-reco')">추천 세부사항</button>
-    </nav>
-    <div class="fop-sections">
-      <section class="fop-section" id="sto-sec-gen">
-        <h2 class="fop-section-title">일반 정보</h2>
-        <div class="fop-fgroups">
-          <div class="fop-fgroup"><h3>기본 데이터</h3>
-            <div class="fop-fe"><span class="fop-k">문서 유형:</span><span class="fop-v">UB (재고 이전 오더)</span></div>
-            <div class="fop-fe"><span class="fop-k">회사코드:</span><span class="fop-v">1000 (BestRun Korea)</span></div>
-            <div class="fop-fe"><span class="fop-k">구매조직:</span><span class="fop-v">1000 (BestRun Korea 구매)</span></div>
-            <div class="fop-fe"><span class="fop-k">구매그룹:</span><span class="fop-v">MMK (김재형)</span></div>
-          </div>
-          <div class="fop-fgroup"><h3>공급</h3>
-            <div class="fop-fe"><span class="fop-k">공급 플랜트:</span><span class="fop-v">1060 (인천 물류창고)</span></div>
-            <div class="fop-fe"><span class="fop-k">출하지점:</span><span class="fop-v">1060 (인천 물류창고)</span></div>
-          </div>
-          <div class="fop-fgroup"><h3>일자</h3>
-            <div class="fop-fe"><span class="fop-k">문서일:</span><span class="fop-v" data-doc-time="sto" data-fmt="date">2026.11.10</span></div>
-            <div class="fop-fe"><span class="fop-k">생성자:</span><span class="fop-v">JKIM (김재형)</span></div>
-          </div>
-        </div>
-      </section>
-      <section class="fop-section" id="sto-sec-items">
-        <h2 class="fop-section-title">품목</h2>
-        <div class="fop-table-card">
-          <div class="fop-tb"><span class="fop-tb-title">품목 (1)</span><span class="fop-tb-var">표준 <svg class="fop-i"><use href="#fi-down"/></svg></span><span class="fop-sp"></span>
-            <button class="fop-btn ghost icon" title="정렬"><svg class="fop-i"><use href="#fi-sort"/></svg></button>
-            <button class="fop-btn ghost icon" title="보기 설정"><svg class="fop-i"><use href="#fi-settings"/></svg></button></div>
-          <div class="fop-table-scroll"><table class="fop-table">
-            <thead><tr><th>품목</th><th>자재</th><th class="r">수량</th><th>수령 플랜트</th><th>저장위치</th><th>납품일</th><th>처리 상태</th></tr></thead>
-            <tbody><tr><td>10</td><td><a class="fop-link">A-4315</a><div class="fop-sub">유압실린더</div></td><td class="r"><b>40</b> <span class="fop-unit">EA</span></td><td>1050 (부산 생산공장)</td><td>0001</td><td><span data-rel-day="1">2026.11.11</span></td><td id="sto-item-status"></td></tr></tbody>
-          </table></div>
-        </div>
-      </section>
-      <section class="fop-section" id="sto-sec-dlv">
-        <h2 class="fop-section-title">납품</h2>
-        <div class="fop-table-card">
-          <div class="fop-tb"><span class="fop-tb-title" id="sto-dlv-title">아웃바운드 납품 (0)</span></div>
-          <div class="fop-table-scroll"><table class="fop-table">
-            <thead><tr><th>납품</th><th>출하지점</th><th>납품일</th><th>피킹 상태</th><th>출고 상태</th></tr></thead>
-            <tbody id="sto-dlv-body"></tbody>
-          </table></div>
-        </div>
-      </section>
-      <section class="fop-section" id="sto-sec-hist">
-        <h2 class="fop-section-title">구매오더 이력</h2>
-        <div class="fop-table-card">
-          <div class="fop-tb"><span class="fop-tb-title">변경 및 처리 이력</span></div>
-          <div class="fop-table-scroll"><table class="fop-table">
-            <thead><tr><th>일시</th><th>이벤트</th><th>수행자</th><th>참조 문서</th></tr></thead>
-            <tbody id="sto-hist-body"></tbody>
-          </table></div>
-        </div>
-      </section>
-      <section class="fop-section" id="sto-sec-flow">
-        <h2 class="fop-section-title">문서 흐름</h2>
-        <div class="fop-card"><div class="fop-pf" id="sto-docflow"></div></div>
-      </section>
-      <section class="fop-section" id="sto-sec-reco">
-        <h2 class="fop-section-title">추천 세부사항</h2>
-        <div class="fop-ms info"><svg class="fop-i"><use href="#fi-ai"/></svg><span><b>Joule</b> 재고 이동 최적화 Agent의 추천 정보입니다. 구매오더의 공식 데이터·상태와 별개로 관리되는 확장 영역입니다.</span></div>
-        <div class="fop-fgroups">
-          <div class="fop-fgroup"><h3>추천</h3>
-            <div class="fop-fe"><span class="fop-k">추천 내용:</span><span class="fop-v">1060 → 1050, A-4315 40 EA 이전</span></div>
-            <div class="fop-fe"><span class="fop-k">추천 사유:</span><span class="fop-v">1050 2주 수요 85 EA 대비 재고 45 EA · Delta Co. PO 4500019188 납기 지연 위험 75점</span></div>
-          </div>
-          <div class="fop-fgroup"><h3>예상 효과</h3>
-            <div class="fop-fe"><span class="fop-k">예상 절감액:</span><span class="fop-v">4,200,000 KRW</span></div>
-            <div class="fop-fe"><span class="fop-k">계산 기준:</span><span class="fop-v">긴급 외부조달 프리미엄 40 EA × 115,000 = 4,600,000 − 플랜트 간 운송비 400,000</span></div>
-            <div class="fop-fe"><span class="fop-k">통화 / 기준일:</span><span class="fop-v">KRW / <span data-doc-time="sto" data-fmt="date">2026.11.10</span></span></div>
-          </div>
-        </div>
-        <h3 class="fop-sub-title">플랜트별 재고 예측</h3>
-        <div class="fop-table-card">
-          <div class="fop-table-scroll"><table class="fop-table">
-            <thead><tr><th>플랜트</th><th class="r">이전 전</th><th class="r">이전</th><th class="r">이전 후</th><th class="r">2주 수요</th><th>수요 충족률</th></tr></thead>
-            <tbody>
-              <tr><td>1050 (부산 생산공장)</td><td class="r"><span class="fop-status neg">45 EA</span></td><td class="r"><span class="fop-status pos">+40 EA</span></td><td class="r"><b>85 EA</b></td><td class="r">85 EA</td><td><div class="fop-cov"><span class="fop-cov-bar"><span style="width:100%" class="pos"></span></span>100%</div></td></tr>
-              <tr><td>1060 (인천 물류창고)</td><td class="r">140 EA</td><td class="r">−40 EA</td><td class="r"><b>100 EA</b></td><td class="r">60 EA</td><td><div class="fop-cov"><span class="fop-cov-bar"><span style="width:100%" class="pos"></span></span>167%</div></td></tr>
-              <tr><td>1070 (수원 공장)</td><td class="r">60 EA</td><td class="r">0 EA</td><td class="r"><b>60 EA</b></td><td class="r">60 EA</td><td><div class="fop-cov"><span class="fop-cov-bar"><span style="width:100%" class="pos"></span></span>100%</div></td></tr>
-            </tbody>
-          </table></div>
-        </div>
-        <h3 class="fop-sub-title">자동화 로그</h3>
-        <div class="fop-table-card">
-          <div class="fop-tb"><span class="fop-tb-title" id="sto-log-title">이벤트</span></div>
-          <div class="fop-table-scroll"><table class="fop-table">
-            <thead><tr><th>일시</th><th>수행 주체</th><th>이벤트</th><th>결과</th></tr></thead>
-            <tbody id="sto-log"></tbody>
-          </table></div>
-        </div>
-      </section>
-    </div>
+    <div class="gui-row"><button class="gui-toggle" title="화면 영역 접기/펼치기"><svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 6h3M4 8.5h6M4 11h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button><div class="gui-card" style="margin-left:2px;flex:1"><nav class="gui-tabs"><button class="" onclick="guiTab(this,'h','dlv')">납품/송장</button><button class="" onclick="guiTab(this,'h','cond')">조건</button><button class="" onclick="guiTab(this,'h','txt')">텍스트</button><button class="" onclick="guiTab(this,'h','addr')">주소</button><button class="" onclick="guiTab(this,'h','comm')">커뮤니케이션</button><button class="" onclick="guiTab(this,'h','part')">파트너</button><button class="" onclick="guiTab(this,'h','add')">추가 데이터</button><button class="on" onclick="guiTab(this,'h','org')">조직 데이터</button><button class="" onclick="guiTab(this,'h','stat')">상태</button><button class="" onclick="guiTab(this,'h','pay')">지급 처리</button><button class="" onclick="guiTab(this,'h','inco')">인코텀즈</button><button class="" onclick="guiTab(this,'h','comp')">규정 준수</button><span class="gui-tabs-more">›</span><span class="gui-tabs-more">⋯</span></nav><div class="gui-pane" data-g="h" data-k="dlv" hidden><div class="gui-grid"><span class="gui-l">지급 조건:</span><span class="gui-v " style="width:40px">0001</span><span class="gui-t">즉시 지급, 공제 없음</span><span class="gui-l">통화:</span><span class="gui-v " style="width:40px">KRW</span><span class="gui-t">대한민국 원</span><span class="gui-l">환율:</span><span class="gui-v " style="width:80px">1.00000</span><span class="gui-t"></span></div></div><div class="gui-pane" data-g="h" data-k="cond" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="h" data-k="txt" hidden><div class="gui-status-list"><span class="gui-l">텍스트 유형:</span><span class="gui-t"><b>헤더 텍스트</b></span></div><div class="gui-note">[Joule 재고 이동 최적화 Agent] 부산 생산공장(1050)의 2주 수요 85 EA 대비 재고 45 EA 부족 · Delta Co. PO 4500019188 납기 지연 위험(75점)에 대응해 인천 물류창고(1060)의 A-4315 40 EA를 이전합니다. 긴급 외부조달 대비 예상 절감액 4,200,000 KRW (프리미엄 40 EA × 115,000 − 플랜트 간 운송비 400,000).</div></div><div class="gui-pane" data-g="h" data-k="addr" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="h" data-k="comm" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="h" data-k="part" hidden><div class="gui-grid"><span class="gui-l">공급 플랜트:</span><span class="gui-v " style="width:60px">1060</span><span class="gui-t">인천 물류창고</span><span class="gui-l">수령 플랜트:</span><span class="gui-v " style="width:60px">1050</span><span class="gui-t">부산 생산공장</span><span class="gui-l">출하지점:</span><span class="gui-v " style="width:60px">1060</span><span class="gui-t">인천 물류창고</span></div></div><div class="gui-pane" data-g="h" data-k="add" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="h" data-k="org"><div class="gui-grid"><span class="gui-l">구매조직:</span><span class="gui-v " style="width:56px">1000</span><span class="gui-t">BestRun Korea 구매</span><span class="gui-l">구매그룹:</span><span class="gui-v " style="width:56px">MMK</span><span class="gui-t">김재형</span><span class="gui-l">회사코드:</span><span class="gui-v " style="width:56px">1000</span><span class="gui-t">BestRun Korea</span></div></div><div class="gui-pane" data-g="h" data-k="stat" hidden><div class="gui-stat" id="gui-stat"></div></div><div class="gui-pane" data-g="h" data-k="pay" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="h" data-k="inco" hidden><div class="gui-grid"><span class="gui-l">인코텀즈:</span><span class="gui-v " style="width:60px"></span><span class="gui-t"></span><span class="gui-l">인코텀즈 위치 1:</span><span class="gui-v " style="width:180px"></span><span class="gui-t"></span></div></div><div class="gui-pane" data-g="h" data-k="comp" hidden><div class="gui-grid"><span class="gui-l">공급업체 점검 상태:</span><span class="gui-v " style="width:40px">OK</span><span class="gui-t">관련 없음</span><span class="gui-l">위험물 상태:</span><span class="gui-v " style="width:40px">OK</span><span class="gui-t">관련 없음</span><span class="gui-l">안전 데이터 시트 상태:</span><span class="gui-v " style="width:40px">OK</span><span class="gui-t">관련 없음</span></div></div></div></div>
+    <div class="gui-row" style="margin-top:14px"><button class="gui-toggle" title="화면 영역 접기/펼치기"><svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 6h3M4 8.5h6M4 11h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button><div style="flex:1;min-width:0;margin-right:12px">
+      <div class="gui-card" style="margin:0">
+        <div class="gui-sect-title">항목 테이블<svg class="gui-gear"><use href="#fi-settings"/></svg></div>
+        <div class="gui-tbl-wrap"><table class="gui-tbl">
+          <thead><tr><th class="sel"><span style="display:inline-block;width:14px;height:14px;border:1px solid #556B82;border-radius:3px"></span></th><th>S..</th><th>항목</th><th>A</th><th>I</th><th>자재</th><th>내역</th><th>PO 수량</th><th>OUn</th><th>C</th><th>납품일</th><th>자재 그룹</th><th>플랜트</th><th>저장위치</th><th>S..</th><th>배치</th><th>요청 번호</th><th>요청자</th></tr></thead>
+          <tbody><tr class="on"><td class="sel"><span></span></td><td class="st"><span></span></td><td><span class="c">10</span></td><td><span class="c"></span></td><td><span class="c">U</span></td><td><span class="c u">A-4315</span></td><td><span class="c t">유압실린더</span></td><td><span class="c r">40</span></td><td><span class="c">EA</span></td><td><span class="c">D</span></td><td><span class="c" data-rel-day="1">2026.11.11</span></td><td><span class="c t">유압 부품</span></td><td><span class="c t">부산 생산공장</span></td><td><span class="c t">표준 저장위치</span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td></tr><tr><td class="sel"><span></span></td><td class="st"><span></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td></tr><tr><td class="sel"><span></span></td><td class="st"><span></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td></tr><tr><td class="sel"><span></span></td><td class="st"><span></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td></tr><tr><td class="sel"><span></span></td><td class="st"><span></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td></tr><tr><td class="sel"><span></span></td><td class="st"><span></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td><td><span class="c"></span></td></tr></tbody>
+        </table></div>
+      </div>
+      <div class="gui-iconbar"><span class="gui-ib"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m10.5 10.5 3.5 3.5M5 7h4M7 5v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span><span class="gui-ib-gap"></span><span class="gui-ib"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="2" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="9" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="gui-ib"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="2" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="9" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="gui-ib-gap"></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><path d="M3 4h10M6 4V2.5h4V4M4.5 4l.7 9.5h5.6l.7-9.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="gui-ib-gap"></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="8.5" height="8.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3h8" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><path d="M8 2v4M4 9V7h8v2M2.5 9h3v4h-3zM10.5 9h3v4h-3z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span class="gui-ib-gap"></span><span class="gui-ib"><svg viewBox="0 0 16 16"><path d="M3 13h10M5 10h6M8 3v5M5.5 5.5 8 3l2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="gui-ib"><svg viewBox="0 0 16 16"><path d="M3 3h10M5 6h6M8 8v5M5.5 10.5 8 13l2.5-2.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="gui-ib"><svg viewBox="0 0 16 16"><path d="M2 3h12L9.5 8.5V13l-3-1.5v-3z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><path d="M2 3h12L9.5 8.5V13l-3-1.5v-3z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></span><span class="gui-ib-gap"></span><span class="gui-ib"><svg viewBox="0 0 16 16"><rect x="3" y="2.5" width="10" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 6h4M6 8.5h4M6 11h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="gui-ib-gap"></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="3" y="2.5" width="10" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 6h4M6 8.5h4M6 11h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><path d="M8 2v4M4 9V7h8v2M2.5 9h3v4h-3zM10.5 9h3v4h-3z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span style="flex:1"></span><span class="gui-ib"><svg viewBox="0 0 16 16"><rect x="3" y="2.5" width="10" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 6h4M6 8.5h4M6 11h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span></div><div class="gui-iconbar" style="padding:2px 0 0 310px"><span class="gui-ib dis"><svg viewBox="0 0 16 16"><path d="M8 2v4M4 9V7h8v2M2.5 9h3v4h-3zM10.5 9h3v4h-3z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><path d="M8 2v4M4 9V7h8v2M2.5 9h3v4h-3zM10.5 9h3v4h-3z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="8.5" height="8.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3h8" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="8.5" height="8.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3h8" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="3" y="2.5" width="10" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M6 6h4M6 8.5h4M6 11h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><circle cx="4.5" cy="11.5" r="2" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="11.5" cy="11.5" r="2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 10 12 2M10 10 4 2" stroke="currentColor" stroke-width="1.2"/></svg></span><span class="gui-ib dis"><svg viewBox="0 0 16 16"><rect x="5" y="5" width="8.5" height="8.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 11V3h8" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></div>
+    </div></div>
+    <div class="gui-row" style="margin-top:18px"><button class="gui-toggle" title="화면 영역 접기/펼치기"><svg viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 6h3M4 8.5h6M4 11h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></button><div style="flex:1;min-width:0;margin-right:12px">
+      <div class="gui-itemsel" style="padding-left:96px;padding-top:0"><span class="gui-l">항목:</span><span class="gui-v dd">[ 10 ] A-4315 , 유압실린더 <svg class="fop-i"><use href="#fi-down"/></svg></span>
+        <button class="gui-ib"><svg viewBox="0 0 16 16"><path d="m4 10 4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button class="gui-ib"><svg viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
+      <div class="gui-card" style="margin:0"><nav class="gui-tabs"><button class="" onclick="guiTab(this,'i','mat')">자재 데이터</button><button class="on" onclick="guiTab(this,'i','qty')">수량/중량</button><button class="" onclick="guiTab(this,'i','sched')">납품 일정</button><button class="" onclick="guiTab(this,'i','idlv')">납품</button><button class="" onclick="guiTab(this,'i','inv')">송장</button><button class="" onclick="guiTab(this,'i','itxt')">텍스트</button><button class="" onclick="guiTab(this,'i','daddr')">납품 주소</button><button class="" onclick="guiTab(this,'i','conf')">확인</button><button class="" onclick="guiTab(this,'i','retail')">리테일</button><button class="" onclick="guiTab(this,'i','iinco')">인코텀즈</button><button class="" onclick="guiTab(this,'i','icomp')">규정 준수</button><span class="gui-tabs-more">›</span><span class="gui-tabs-more">⋯</span></nav><div class="gui-pane" data-g="i" data-k="mat" hidden><div class="gui-grid"><span class="gui-l">자재:</span><span class="gui-v " style="width:120px">A-4315</span><span class="gui-t">유압실린더</span><span class="gui-l">자재 그룹:</span><span class="gui-v " style="width:120px">HYD01</span><span class="gui-t">유압 부품</span><span class="gui-l">공급 플랜트:</span><span class="gui-v " style="width:120px">1060</span><span class="gui-t">인천 물류창고</span></div></div><div class="gui-pane" data-g="i" data-k="qty"><div style="display:flex;gap:120px;flex-wrap:wrap"><div class="gui-qty"><span class="gui-l">PO 수량:</span><span class="gui-v r" style="width:170px">40</span><span class="gui-v " style="width:26px">EA</span><span></span><span></span><span></span><span class="gui-l">SKU 기준 PO 수량:</span><span class="gui-v r" style="width:170px">40</span><span class="gui-v " style="width:26px">EA</span><span></span><span></span><span></span><span style="grid-column:1/-1;height:18px"></span><span class="gui-l">순중량:</span><span class="gui-v r" style="width:170px">12.500</span><span class="gui-v " style="width:26px">KG</span><span class="gui-t">/1:</span><span class="gui-v " style="width:30px">EA</span><span></span><span class="gui-l">총중량:</span><span class="gui-v r" style="width:170px">13.200</span><span class="gui-v " style="width:26px">KG</span><span class="gui-t">/1:</span><span class="gui-v " style="width:30px">EA</span><span></span><span class="gui-l">부피:</span><span class="gui-v r" style="width:170px">0.018</span><span class="gui-v " style="width:26px">M3</span><span class="gui-t">/1:</span><span class="gui-v " style="width:30px">EA</span><span></span><span class="gui-l">포인트:</span><span class="gui-v r" style="width:170px">0.000</span><span class="gui-v " style="width:26px"></span><span class="gui-t">/1:</span><span class="gui-v " style="width:30px">EA</span><span></span></div><div class="gui-qty" style="grid-template-columns:max-content 180px 36px max-content"><span></span><span></span><span class="gui-v " style="width:26px">EA</span><span></span><span class="gui-l">오더 단위 &lt;-&gt; SKU:</span><span style="display:inline-flex;gap:6px"><span class="gui-v " style="width:60px">1</span><span class="gui-v " style="width:26px">EA</span><span class="gui-t">&lt;-&gt;:</span><span class="gui-v " style="width:60px">1</span></span><span class="gui-v " style="width:26px">EA</span><span></span><span style="grid-column:1/-1;height:18px"></span><span class="gui-l">순중량:</span><span class="gui-v r" style="width:170px">500.000</span><span class="gui-v " style="width:26px">KG</span><span class="gui-t">/항목</span><span class="gui-l">총중량:</span><span class="gui-v r" style="width:170px">528.000</span><span class="gui-v " style="width:26px">KG</span><span class="gui-t">/항목</span><span class="gui-l">부피:</span><span class="gui-v r" style="width:170px">0.720</span><span class="gui-v " style="width:26px">M3</span><span class="gui-t">/항목</span><span class="gui-l">포인트:</span><span class="gui-v r" style="width:170px">0.000</span><span class="gui-v " style="width:26px"></span><span class="gui-t">/항목</span></div></div></div><div class="gui-pane" data-g="i" data-k="sched" hidden><table class="fop-table"><thead><tr><th>C</th><th>납품일</th><th class="r">일정 수량</th><th>통계적 납품일</th><th class="r">GR 수량</th><th class="r">출고 수량</th></tr></thead><tbody><tr><td>D</td><td><span data-rel-day="1">2026.11.11</span></td><td class="r">40 EA</td><td><span data-rel-day="1">2026.11.11</span></td><td class="r">0</td><td class="r">0</td></tr></tbody></table></div><div class="gui-pane" data-g="i" data-k="idlv" hidden><div class="gui-status-list"><span class="gui-l">항목 처리 상태:</span><span id="sto-item-status"></span><span class="gui-l">출하지점:</span><span class="gui-t">1060 (인천 물류창고)</span><span class="gui-l">납품 유형:</span><span class="gui-t">NL (재고 이전 납품)</span></div><div class="gui-status-list"><span class="gui-l" id="sto-dlv-title">아웃바운드 납품 (0)</span><span></span></div><table class="fop-table"><thead><tr><th>납품</th><th>출하지점</th><th>납품일</th><th>피킹 상태</th><th>출고 상태</th></tr></thead><tbody id="sto-dlv-body"></tbody></table></div><div class="gui-pane" data-g="i" data-k="inv" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="i" data-k="itxt" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="i" data-k="daddr" hidden><div class="gui-grid"><span class="gui-l">플랜트:</span><span class="gui-v " style="width:60px">1050</span><span class="gui-t">부산 생산공장</span><span class="gui-l">저장위치:</span><span class="gui-v " style="width:60px">0001</span><span class="gui-t">표준 저장위치</span></div></div><div class="gui-pane" data-g="i" data-k="conf" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="i" data-k="retail" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="i" data-k="iinco" hidden><div class="gui-empty">이 탭에는 표시할 데이터가 없습니다.</div></div><div class="gui-pane" data-g="i" data-k="icomp" hidden><div class="gui-grid"><span class="gui-l">제품 판매 가능 상태:</span><span class="gui-v " style="width:40px">OK</span><span class="gui-t">관련 없음</span><span class="gui-l">위험물 상태:</span><span class="gui-v " style="width:40px">OK</span><span class="gui-t">관련 없음</span></div></div></div>
+    </div></div>
   </div>
 </section>
 
 
+<script>
+/* SAP GUI 탭 스트립 전환 */
+function guiTab(btn, group, key) {
+  btn.parentNode.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === btn));
+  btn.closest('.gui-card').querySelectorAll('.gui-pane[data-g="' + group + '"]').forEach(p => { p.hidden = p.dataset.k !== key; });
+}
+</script>
+<script>
+/* GUI 헤더 '상태' 탭 — 재고 이전 오더 진행 단계(window.stoState.s)에 맞춰 수량·금액 표시 */
+(function () {
+  const ICO = {
+    info: '<svg viewBox="0 0 18 18"><rect x="2.5" y="2.5" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9 8v5" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="5.7" r=".9" fill="currentColor"/></svg>',
+    print: '<svg viewBox="0 0 18 18"><path d="M5 7V2.5h8V7M5 13H2.5V7h13v6H13M5 10.5h8v5H5z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+    truck: '<svg viewBox="0 0 18 18"><path d="M1.5 4.5h9v8h-9zM10.5 7.5h3.5l2.5 2.8v2.2h-6z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="4.5" cy="13.5" r="1.5" fill="#fff" stroke="currentColor" stroke-width="1.3"/><circle cx="13" cy="13.5" r="1.5" fill="#fff" stroke="currentColor" stroke-width="1.3"/></svg>',
+    sum: '<svg viewBox="0 0 18 18"><path d="M13 3.5H5l4.5 5.5L5 14.5h8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>'
+  };
+  const QTY = 40, VAL = 4240000;
+  const n = (x, dec) => dec ? x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : String(x);
+  window.guiStatRender = function () {
+    const el = document.getElementById('gui-stat'); if (!el) return;
+    const st = window.stoState || { s: 0 };
+    const done = st.s >= 3;                       // 입고(101) 전기 후 납품 완료
+    const dQ = done ? QTY : 0, dV = done ? VAL : 0;
+    const cell = (icon, text) => icon ? `<span class="ic">${ICO[icon]}<span>${text}</span></span>` : '<span></span>';
+    const row = (c1, label, q, val, cur = 'KRW') =>
+      c1 + `<span>${label}</span>` + (q === null ? '<span></span><span></span>' : `<span class="n">${q}</span><span class="u">EA</span>`) +
+      `<span></span><span class="n">${n(val, true)}</span><span class="u">${cur}</span>`;
+    el.innerHTML =
+      cell('info', '활성') + `<span style="text-align:right;padding-right:8px">오더 수량:</span><span class="n">${QTY}</span><span class="u">EA</span><span></span><span class="n">${n(VAL, true)}</span><span class="u">KRW</span>` +
+      row(cell('print', '미송부'), '납품 완료', dQ, dV) +
+      row(cell('truck', done ? '납품 완료' : st.s === 2 ? '부분 납품 (운송 중)' : '미납품'), '미납품 잔량', QTY - dQ, VAL - dV) +
+      row(cell('sum', '송장 대상 아님'), '송장 처리', 0, 0) +
+      row(cell('', ''), '선급금', null, 0);
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const orig = window.stoRender;
+    if (orig) window.stoRender = function () { orig.apply(this, arguments); window.guiStatRender(); };
+    window.guiStatRender();
+  });
+})();
+</script>
 <!-- Object Page: 자재 문서 -->
 <section id="fiori-matdoc" class="page fop">
   <header class="fop-shell">
@@ -7150,105 +7175,74 @@ window.fopTree = function (tog) {
   const ico = (icon, tip) => `<Button icon="sap-icon://${icon}" type="Transparent" tooltip="${tip}"/>`;
   const emptyList = t => `<List noDataText="파일이 없습니다."><headerToolbar><OverflowToolbar style="Clear"><Title text="${t}" level="H3"/><ToolbarSpacer/><Button text="업로드" type="Transparent"/><Button text="링크 추가" type="Transparent"/></OverflowToolbar></headerToolbar></List>`;
 
-  /* ───────── 구매오더 관리 — List Report (재고 이전 오더: 문서 유형 UB) ───────── */
+  /* ───────── 구매오더 관리 — List Report (S/4HANA Cloud '구매오더 관리' 구성, 재고 이전 오더 UB) ───────── */
   const stoRows = [
-    ['4500019553', '1060 (인천 물류창고)', '1050 (부산 생산공장)', '2', demoDay(-3,'dot'), demoDay(1,'dot'), '운송 중', 'Information', 'shipping-status'],
-    ['4500019541', '1070 (수원 공장)', '1050 (부산 생산공장)', '1', demoDay(-4,'dot'), demoDay(-2,'dot'), '입고 완료', 'Success', 'sys-enter-2'],
-    ['4500019538', '1060 (인천 물류창고)', '1070 (수원 공장)', '3', demoDay(-5,'dot'), demoDay(-3,'dot'), '입고 완료', 'Success', 'sys-enter-2'],
-    ['4500019522', '1050 (부산 생산공장)', '1060 (인천 물류창고)', '1', demoDay(-6,'dot'), demoDay(-4,'dot'), '입고 완료', 'Success', 'sys-enter-2'],
-    ['4500019509', '1070 (수원 공장)', '1050 (부산 생산공장)', '2', demoDay(-7,'dot'), demoDay(-5,'dot'), '입고 완료', 'Success', 'sys-enter-2']
+    ['4500019553', '인천 물류창고 (1060)', demoDay(-3,'dot'), '9,200,000', '운송 중', 'Information', 'shipping-status'],
+    ['4500019541', '수원 공장 (1070)', demoDay(-4,'dot'), '3,450,000', '후속 문서', 'Success', 'sys-enter-2'],
+    ['4500019538', '인천 물류창고 (1060)', demoDay(-5,'dot'), '12,800,000', '후속 문서', 'Success', 'sys-enter-2'],
+    ['4500019522', '부산 생산공장 (1050)', demoDay(-6,'dot'), '2,150,000', '후속 문서', 'Success', 'sys-enter-2'],
+    ['4500019509', '수원 공장 (1070)', demoDay(-7,'dot'), '6,900,000', '후속 문서', 'Success', 'sys-enter-2']
   ];
-  const lrRow = r => `<ColumnListItem type="Navigation" press="H.toast('데모에서는 구매오더 4500019567의 상세 화면을 제공합니다')"><cells>
-      <Link text="${r[0]}"/><Text text="UB (재고 이전 오더)"/><Text text="${r[1]}"/><Text text="${r[2]}"/><Text text="${r[3]}"/>
-      <Text text="${r[4]}"/><Text text="${r[5]}"/><ObjectStatus text="${r[6]}" state="${r[7]}" icon="sap-icon://${r[8]}"/></cells></ColumnListItem>`;
+  const poCell = (no, date, val, press) => `<VBox class="sapUiTinyMarginTopBottom">
+      <Link text="재고 이전 오더" press="${press}" class="demoBold"/><Text text="${no}" class="sapUiTinyMarginBottom"/>
+      <HBox><Label text="구매오더 일자" showColon="true" class="sapUiTinyMarginEnd"/><Text text="${date}"/></HBox>
+      <HBox><Label text="순 오더 금액" showColon="true" class="sapUiTinyMarginEnd"/><Text text="${val}" class="sapUiSmallMarginEnd"/><Text text="KRW"/></HBox></VBox>`;
+  const apprCells = `<ObjectStatus text="자동 승인됨" state="Success" icon="sap-icon://sys-enter-2"/><Text text="자동 승인" wrapping="false"/>`;
+  const advBtn = `<Button icon="sap-icon://hint" type="Ghost" tooltip="고급 정보"/>`;
+  const lrRow = r => { const press = `H.toast('데모에서는 구매오더 4500019567의 상세 화면을 제공합니다')`;
+    return `<ColumnListItem type="Navigation" press="${press}"><cells>${poCell(r[0], r[2], r[3], press)}${advBtn}
+      <Text text="${r[1]}"/><Text text="BestRun Korea (1000)"/><ObjectStatus text="${r[4]}" state="${r[5]}" icon="sap-icon://${r[6]}"/>${apprCells}</cells></ColumnListItem>`; };
+  const fgi = (name, label, ctrl) => `<fb:FilterGroupItem name="${name}" label="${label}" groupName="g" visibleInFilterBar="true"><fb:control>${ctrl}</fb:control></fb:FilterGroupItem>`;
   const V_STO_LR = view(shell('구매오더 관리', 'agent7', 'agent7') + `
     <f:DynamicPage headerExpanded="true" toggleHeaderOnTitleClick="true">
       <f:layoutData><FlexItemData growFactor="1" baseSize="0" minHeight="0"/></f:layoutData>
-      <f:title><f:DynamicPageTitle><f:heading><VariantManagement selectedKey="ub" defaultKey="ub"><items><VariantItem key="std" title="표준"/><VariantItem key="ub" title="재고 이전 오더 (UB)"/></items></VariantManagement></f:heading></f:DynamicPageTitle></f:title>
+      <f:title><f:DynamicPageTitle>
+        <f:heading><VariantManagement selectedKey="std" defaultKey="std"><items><VariantItem key="std" title="표준"/><VariantItem key="ub" title="재고 이전 오더 (UB)"/></items></VariantManagement></f:heading>
+        <f:actions><SegmentedButton selectedKey="list"><items><SegmentedButtonItem key="list" icon="sap-icon://text-align-left" tooltip="필터 바"/><SegmentedButtonItem key="ai" icon="sap-icon://ai" tooltip="AI 필터"/></items></SegmentedButton></f:actions>
+        <f:navigationActions>${ico('action', '공유')}</f:navigationActions>
+      </f:DynamicPageTitle></f:title>
       <f:header><f:DynamicPageHeader pinnable="true">
         <fb:FilterBar useToolbar="false" showGoOnFB="true" showFilterConfiguration="true" search="H.toast('구매오더 6건을 조회했습니다')">
           <fb:filterGroupItems>
-            <fb:FilterGroupItem name="po" label="구매오더" groupName="g" visibleInFilterBar="true"><fb:control><MultiInput showValueHelp="true"/></fb:control></fb:FilterGroupItem>
-            <fb:FilterGroupItem name="dt" label="문서 유형" groupName="g" visibleInFilterBar="true"><fb:control><MultiInput showValueHelp="true"><tokens><Token text="UB"/></tokens></MultiInput></fb:control></fb:FilterGroupItem>
-            <fb:FilterGroupItem name="sup" label="공급 플랜트" groupName="g" visibleInFilterBar="true"><fb:control><MultiInput showValueHelp="true"><tokens><Token text="1060"/><Token text="1070"/></tokens></MultiInput></fb:control></fb:FilterGroupItem>
-            <fb:FilterGroupItem name="rcv" label="수령 플랜트" groupName="g" visibleInFilterBar="true"><fb:control><MultiInput showValueHelp="true"><tokens><Token text="1050"/></tokens></MultiInput></fb:control></fb:FilterGroupItem>
-            <fb:FilterGroupItem name="mat" label="자재" groupName="g" visibleInFilterBar="true"><fb:control><MultiInput showValueHelp="true"/></fb:control></fb:FilterGroupItem>
-            <fb:FilterGroupItem name="dd" label="납품일" groupName="g" visibleInFilterBar="true"><fb:control><DateRangeSelection id="drs" displayFormat="yyyy.MM.dd"/></fb:control></fb:FilterGroupItem>
-            <fb:FilterGroupItem name="st" label="처리 상태" groupName="g" visibleInFilterBar="true"><fb:control><MultiComboBox selectedKeys="cr,dl,tr,gr"><core:Item key="cr" text="생성됨"/><core:Item key="dl" text="납품 생성됨"/><core:Item key="tr" text="운송 중"/><core:Item key="gr" text="입고 완료"/></MultiComboBox></fb:control></fb:FilterGroupItem>
+            ${fgi('q', '', '<SearchField placeholder="검색" width="100%"/>')}
+            ${fgi('es', '편집 상태', '<Select selectedKey="all" width="100%"><core:Item key="all" text="전체"/><core:Item key="own" text="본인 초안"/><core:Item key="locked" text="다른 사용자가 잠금"/><core:Item key="none" text="변경 없음"/></Select>')}
+            ${fgi('sup', '공급업체', '<MultiInput showValueHelp="true"/>')}
+            ${fgi('po', '구매오더', '<MultiInput showValueHelp="true"/>')}
+            ${fgi('pg', '구매그룹', '<MultiInput showValueHelp="true"/>')}
+            ${fgi('cc', '회사코드', '<MultiInput showValueHelp="true"/>')}
+            ${fgi('st', '상태', '<MultiComboBox><core:Item key="ns" text="미송부"/><core:Item key="s" text="송부됨"/><core:Item key="tr" text="운송 중"/><core:Item key="fd" text="후속 문서"/></MultiComboBox>')}
+            ${fgi('mat', '자재', '<MultiInput showValueHelp="true"/>')}
+            ${fgi('pl', '플랜트', '<MultiInput showValueHelp="true"/>')}
+            ${fgi('dt', '구매오더 일자', '<DateRangeSelection displayFormat="yyyy.MM.dd"/>')}
           </fb:filterGroupItems>
         </fb:FilterBar>
       </f:DynamicPageHeader></f:header>
-      <f:content><VBox>
-        <MessageStrip text="Joule 재고 이동 최적화 추천으로 생성된 구매오더가 1건 있습니다." type="Information" showIcon="true" customIcon="sap-icon://ai" class="sapUiSmallMarginBottom">
-          <link><Link text="구매오더 4500019567 열기" press="H.go('fiori-sto-object')"/></link></MessageStrip>
-        <Table sticky="ColumnHeaders,HeaderToolbar">
-          ${tbar('구매오더 (6)', `<Button text="생성" type="Transparent" press="H.toast('구매오더 생성 - 고급 앱으로 이동합니다 (데모에서는 시연하지 않음)')"/>` + ico('sort', '정렬') + ico('action-settings', '보기 설정') + ico('excel-attachment', '스프레드시트로 내보내기'), false)}
+      <f:content>
+        <Table mode="SingleSelectLeft" sticky="ColumnHeaders,HeaderToolbar">
+          <headerToolbar><OverflowToolbar style="Clear"><Title text="구매오더 (6)" level="H3"/>
+            <VariantManagement selectedKey="std" defaultKey="std"><items><VariantItem key="std" title="표준"/></items></VariantManagement><ToolbarSpacer/>
+            <Button text="복사" type="Transparent" enabled="false"/><Button text="승인에서 철회" type="Transparent" enabled="false"/>
+            <Button text="생성" type="Transparent" press="H.toast('구매오더 생성 - 고급 앱으로 이동합니다 (데모에서는 시연하지 않음)')"/><Button text="삭제" type="Transparent" enabled="false"/>
+            ${ico('copy', '붙여넣기')}<SegmentedButton selectedKey="c"><items><SegmentedButtonItem key="e" icon="sap-icon://expand-all" tooltip="펼치기"/><SegmentedButtonItem key="c" icon="sap-icon://collapse-all" tooltip="접기"/></items></SegmentedButton>
+            ${ico('action-settings', '보기 설정')}${ico('excel-attachment', '스프레드시트로 내보내기')}${ico('overflow', '추가')}
+          </OverflowToolbar></headerToolbar>
           <columns>
-            <Column width="9rem"><Text text="구매오더"/></Column><Column><Text text="문서 유형"/></Column><Column><Text text="공급 플랜트"/></Column><Column><Text text="수령 플랜트"/></Column>
-            <Column hAlign="End" width="6rem"><Text text="품목 수"/></Column><Column minScreenWidth="Tablet" demandPopin="true"><Text text="문서일"/></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true"><Text text="납품일"/></Column><Column><Text text="처리 상태"/></Column>
+            <Column width="16rem"><Text text="구매오더"/></Column><Column width="4.5rem" hAlign="Center"><Text text="고급" wrapping="false"/></Column>
+            <Column><Text text="공급업체"/></Column><Column><Text text="회사코드"/></Column><Column><Text text="상태"/></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true"><Text text="승인 상태"/></Column><Column minScreenWidth="Tablet" demandPopin="true"><Text text="승인자"/></Column>
           </columns>
           <items>
             <ColumnListItem type="Navigation" press="H.go('fiori-sto-object')"><cells>
-              <Link text="4500019567" press="H.go('fiori-sto-object')"/><Text text="UB (재고 이전 오더)"/><Text text="1060 (인천 물류창고)"/><Text text="1050 (부산 생산공장)"/><Text text="1"/>
-              <Text text="{/times/stoDate}"/><Text text="${demoDay(1,'dot')}"/><ObjectStatus text="{/sto/statusText}" state="{/sto/statusState}" icon="{/sto/statusIcon}"/></cells></ColumnListItem>
+              ${poCell('4500019567', '{/times/stoDate}', '4,240,000', "H.go('fiori-sto-object')")}${advBtn}
+              <Text text="인천 물류창고 (1060)"/><Text text="BestRun Korea (1000)"/><ObjectStatus text="{/sto/statusText}" state="{/sto/statusState}" icon="{/sto/statusIcon}"/>${apprCells}</cells></ColumnListItem>
             ${stoRows.map(lrRow).join('')}
           </items>
-        </Table></VBox>
+        </Table>
       </f:content>
     </f:DynamicPage>`);
 
-  /* ───────── 구매오더 Object Page (구매오더 4500019567) ───────── */
-  const actBtn = (text, s, fn) => `<Button text="${text}" type="{= \${/sto/s} === ${s} ? 'Emphasized' : 'Default'}" enabled="{= \${/sto/s} === ${s}}" press="H.${fn}"/>`;
-  const sub = (title, content) => `<uxap:ObjectPageSubSection title="${title}" titleUppercase="false"><uxap:blocks>${content}</uxap:blocks></uxap:ObjectPageSubSection>`;
-  const V_STO_OP = view(shell('구매오더 관리', 'fiori-sto-display', 'agent7') + op(
-    title('구매오더 4500019567', '재고 이전 오더 (UB) · 1060 인천 물류창고 → 1050 부산 생산공장',
-      '<Button text="편집" type="Default"/>' + actBtn('아웃바운드 납품 생성', 0, 'stoDlv') + actBtn('출고', 1, 'stoGI') + actBtn('입고', 2, 'stoGR') + ico('action', '공유'),
-      `<uxap:breadcrumbs><Breadcrumbs><Link text="구매오더" press="H.go('fiori-sto-display')"/></Breadcrumbs></uxap:breadcrumbs>`),
-    sec('일반 정보', form([
-      ['기본 데이터', [['문서 유형', 'UB (재고 이전 오더)'], ['회사코드', '1000 (BestRun Korea)'], ['구매조직', '1000 (BestRun Korea 구매)'], ['구매그룹', 'MMK (김재형)']]],
-      ['공급', [['공급 플랜트', '1060 (인천 물류창고)'], ['출하지점', '1060 (인천 물류창고)']]],
-      ['일자', [['문서일', '{/times/stoDate}'], ['생성자', 'JKIM (김재형)']]]
-    ], 3)) +
-    sec('품목', `<Table>${tbar('품목 (1)', ico('sort', '정렬') + ico('action-settings', '보기 설정') + ico('excel-attachment', '내보내기'))}
-      <columns><Column width="5rem"><Text text="품목"/></Column><Column><Text text="자재"/></Column><Column hAlign="End"><Text text="수량"/></Column>
-        <Column><Text text="수령 플랜트"/></Column><Column minScreenWidth="Tablet" demandPopin="true"><Text text="저장위치"/></Column>
-        <Column minScreenWidth="Tablet" demandPopin="true"><Text text="납품일"/></Column><Column><Text text="처리 상태"/></Column></columns>
-      <items><ColumnListItem type="Navigation"><cells><Text text="10"/><ObjectIdentifier title="A-4315" text="유압실린더" titleActive="true"/><ObjectNumber number="40" unit="EA"/>
-        <Text text="1050 (부산 생산공장)"/><Text text="0001"/><Text text="${demoDay(1,'dot')}"/><ObjectStatus text="{/sto/itemStatus}" state="{/sto/statusState}"/></cells></ColumnListItem></items></Table>`) +
-    sec('납품', `<Table items="{/sto/dlvs}" noDataText="생성된 아웃바운드 납품이 없습니다. 헤더의 '아웃바운드 납품 생성'으로 생성하세요.">${tbar('{/sto/dlvTitle}', '', false)}
-      <columns><Column><Text text="납품"/></Column><Column><Text text="출하지점"/></Column><Column><Text text="납품일"/></Column><Column><Text text="피킹 상태"/></Column><Column><Text text="출고 상태"/></Column></columns>
-      <items><ColumnListItem type="Navigation"><cells><Link text="{no}"/><Text text="1060 (인천 물류창고)"/><Text text="${demoDay(1,'dot')}"/>
-        <ObjectStatus text="{pick}" state="{pickState}"/><ObjectStatus text="{gi}" state="{giState}"/></cells></ColumnListItem></items></Table>`) +
-    sec('구매오더 이력', `<Table items="{/sto/hist}">${tbar('변경 및 처리 이력', '', false)}
-      <columns><Column width="11rem"><Text text="일시"/></Column><Column><Text text="이벤트"/></Column><Column width="12rem"><Text text="수행자"/></Column><Column width="12rem"><Text text="참조 문서"/></Column></columns>
-      <items><ColumnListItem><cells><Text text="{at}"/><Text text="{what}"/><Text text="{who}"/><Text text="{ref}"/></cells></ColumnListItem></items></Table>`) +
-    sec('문서 흐름', `<pf:ProcessFlow id="stoFlow" scrollable="false" foldedCorners="true" nodePress="H.flowPress" nodes="{/sto/flow/nodes}" lanes="{/sto/flow/lanes}">
-        <pf:nodes><pf:ProcessFlowNode laneId="{lane}" nodeId="{id}" title="{title}" titleAbbreviation="{abbr}" children="{children}" state="{state}" stateText="{stateText}" texts="{texts}" focused="{focused}"/></pf:nodes>
-        <pf:lanes><pf:ProcessFlowLaneHeader laneId="{id}" iconSrc="{icon}" text="{label}" position="{position}"/></pf:lanes>
-      </pf:ProcessFlow>`) +
-    `<uxap:ObjectPageSection title="추천 세부사항" titleUppercase="false"><uxap:subSections>` +
-      sub('추천 내용', `<VBox><MessageStrip text="Joule 재고 이동 최적화 Agent의 추천 정보입니다. 구매오더의 공식 데이터·상태와 별개로 관리되는 확장 영역입니다." type="Information" showIcon="true" customIcon="sap-icon://ai" class="sapUiSmallMarginBottom"/>` +
-        form([
-          ['추천', [['추천 내용', '1060 → 1050, A-4315 40 EA 이전'], ['추천 사유', '1050 2주 수요 85 EA 대비 재고 45 EA · Delta Co. PO 4500019188 납기 지연 위험 75점']]],
-          ['예상 효과', [['예상 절감액', '4,200,000 KRW'], ['계산 기준', '긴급 외부조달 프리미엄 40 EA × 115,000 = 4,600,000 − 플랜트 간 운송비 400,000'], ['통화 / 기준일', 'KRW / {/times/stoDate}']]]
-        ], 2) + '</VBox>') +
-      sub('플랜트별 재고 예측', `<Table>
-        <columns><Column><Text text="플랜트"/></Column><Column hAlign="End"><Text text="이전 전"/></Column><Column hAlign="End"><Text text="이전"/></Column><Column hAlign="End"><Text text="이전 후"/></Column><Column hAlign="End"><Text text="2주 수요"/></Column><Column width="14rem"><Text text="수요 충족률"/></Column></columns>
-        <items>
-          <ColumnListItem><cells><Text text="1050 (부산 생산공장)"/><ObjectNumber number="45" unit="EA" state="Error"/><ObjectNumber number="+40" unit="EA" state="Success"/><ObjectNumber number="85" unit="EA" emphasized="true"/><ObjectNumber number="85" unit="EA"/><ProgressIndicator percentValue="100" displayValue="100%" state="Success" displayOnly="true"/></cells></ColumnListItem>
-          <ColumnListItem><cells><Text text="1060 (인천 물류창고)"/><ObjectNumber number="140" unit="EA"/><ObjectNumber number="−40" unit="EA"/><ObjectNumber number="100" unit="EA" emphasized="true"/><ObjectNumber number="60" unit="EA"/><ProgressIndicator percentValue="100" displayValue="167%" state="Success" displayOnly="true"/></cells></ColumnListItem>
-          <ColumnListItem><cells><Text text="1070 (수원 공장)"/><ObjectNumber number="60" unit="EA"/><ObjectNumber number="0" unit="EA"/><ObjectNumber number="60" unit="EA" emphasized="true"/><ObjectNumber number="60" unit="EA"/><ProgressIndicator percentValue="100" displayValue="100%" state="Success" displayOnly="true"/></cells></ColumnListItem>
-        </items></Table>`) +
-      sub('자동화 로그', `<Table items="{/sto/log}">
-        <columns><Column width="11rem"><Text text="일시"/></Column><Column width="14rem"><Text text="수행 주체"/></Column><Column><Text text="이벤트"/></Column><Column width="12rem"><Text text="결과"/></Column></columns>
-        <items><ColumnListItem><cells><Text text="{at}"/><Text text="{who}"/><Text text="{what}"/><ObjectStatus text="{res}" state="Success" icon="sap-icon://sys-enter-2"/></cells></ColumnListItem></items></Table>`) +
-    `</uxap:subSections></uxap:ObjectPageSection>`,
-    { id: 'stoOP', header: hc(
-      kvs([['문서 유형', 'UB (재고 이전 오더)'], ['공급 플랜트', '1060 (인천 물류창고)'], ['수령 플랜트', '1050 (부산 생산공장)']]) +
-      facet('전체 상태', '<ObjectStatus text="{/sto/statusText}" state="{/sto/statusState}" icon="{/sto/statusIcon}" class="sapMObjectStatusLarge"/>')),
-      footer: `<OverflowToolbar><Button icon="sap-icon://message-success" type="Success" text="{= \${/sto/msgs}.length}" tooltip="메시지" press="H.msgs"/><ToolbarSpacer/></OverflowToolbar>` }));
-
+  const poStat = (l, v) => `<form:FormElement><form:label><Label text="${l}" showColon="true"/></form:label><form:fields><ObjectStatus text="${v}" state="Success"/></form:fields></form:FormElement>`;
+  const poNoteTab = (t, content = '') => `<IconTabFilter text="${t}">${content || '<TextArea editable="false" width="100%" rows="6" value=""/>'}</IconTabFilter>`;
   /* ───────── 자재 문서 ───────── */
   const V_MD = view(shell('자재 문서', 'fiori-sto-object', 'agent7') + op(
     title('{/md/no} 2026', '', '<Button text="역분개" press="H.toast(\'데모에서는 역분개를 실행하지 않습니다\')"/><Button text="관련 앱"/>' + ico('action', '공유'),
@@ -7271,8 +7265,6 @@ window.fopTree = function (tog) {
       kvs([['참조', '구매오더 4500019567'], ['납품', '80012345']])) }));
 
   /* ───────── 구매오더 (PO 납기 변경) — S/4HANA Cloud '구매오더 관리' Object Page 구성 ───────── */
-  const poStat = (l, v) => `<form:FormElement><form:label><Label text="${l}" showColon="true"/></form:label><form:fields><ObjectStatus text="${v}" state="Success"/></form:fields></form:FormElement>`;
-  const poNoteTab = (t, content = '') => `<IconTabFilter text="${t}">${content || '<TextArea editable="false" width="100%" rows="6" value=""/>'}</IconTabFilter>`;
   const V_PO = view(shell('구매오더', 'agent3', 'agent3') + op(
     title('4500019234', '표준 구매오더',
       '<Button text="편집" type="Emphasized"/><Button text="복사" type="Ghost"/><Button text="약정 표시" type="Ghost"/><Button text="상태 세부사항" type="Ghost"/><Button text="변경 로그 표시" type="Ghost"/>' +
@@ -7313,7 +7305,7 @@ window.fopTree = function (tog) {
       ['담당자', [['영업 담당자', '박민수'], ['공급업체 전화', '010-2345-6789'], ['귀사 참조', '–'], ['당사 참조', 'MMK-2026-1101']]]
     ], 4)) +
     sec('제품 규정 준수', `<form:Form editable="false"><form:layout><form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" labelCellsLarge="12"/></form:layout><form:formContainers>
-      <form:FormContainer title="규정 준수 상태"><form:formElements>${poStat('공급업체 점검 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
+      <form:FormContainer><form:formElements>${poStat('공급업체 점검 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
       <form:FormContainer><form:formElements>${poStat('제품 판매 가능 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
       <form:FormContainer><form:formElements>${poStat('위험물 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
       <form:FormContainer><form:formElements>${poStat('안전 데이터 시트 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
@@ -7393,7 +7385,7 @@ window.fopTree = function (tog) {
     { id: 'fiOP' }));
 
   const VIEWS = {
-    'fiori-sto-display': V_STO_LR, 'fiori-sto-object': V_STO_OP, 'fiori-matdoc': V_MD,
+    'fiori-sto-display': V_STO_LR, 'fiori-matdoc': V_MD,
     'fiori-po-delivery': V_PO, 'fiori-pr-display': V_PR, 'fiori-accounting-doc': V_FI
   };
 
