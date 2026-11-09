@@ -1,0 +1,70 @@
+/* SAP GUI for HTML (WebGUI · Horizon) 화면 */
+/* ═══ SAP GUI for HTML (WebGUI · Horizon) — 재고 이전 오더 표시 (ME23N) ═══ */
+.gui { --g-field: #EEF0F2; --g-line: #8396A8; --g-blue: #0064D9; }
+.gui .gui-shell-title { font-size: 15px; }
+.gui-body { flex: 1; overflow-y: auto; background: var(--fop-bg); padding-bottom: 24px; }
+.gui-appbar { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 8px 12px; background: #fff; border-bottom: 1px solid var(--fop-border); }
+.gui-menu { font-weight: 700; color: var(--g-blue); background: none; border: none; font-size: 14px; padding: 4px 6px; display: inline-flex; align-items: center; gap: 4px; }
+.gui-btn { font-size: 14px; font-weight: 600; color: var(--g-blue); background: #fff; border: 1px solid #BCC3CA; border-radius: 6px; padding: 3px 6px; line-height: 18px; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
+.gui-btn:hover:not(:disabled) { background: var(--fop-hover); }
+.gui-btn:disabled { color: #9EADBB; border-color: #DDE1E5; cursor: default; }
+.gui-btn.emph { background: var(--fop-emph); border-color: var(--fop-emph); color: #fff; }
+.gui-btn.emph:hover { background: var(--fop-emph-hover); }
+.gui-appbar .gui-sep { width: 1px; height: 22px; background: var(--fop-border); margin: 0 4px; }
+.gui-exit { font-weight: 700; color: var(--g-blue); background: none; border: none; font-size: 14px; padding: 4px 8px; }
+.gui-hdr { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 48px; padding: 14px 12px 6px 8px; }
+.gui-cart { width: 30px; height: 30px; color: #1D2D3E; margin-right: -30px; }
+.gui-f { display: inline-flex; align-items: center; gap: 6px; }
+.gui-l { color: #1D2D3E; white-space: nowrap; }
+.gui-v { background: var(--g-field); border-bottom: 1px dashed var(--g-line); padding: 3px 4px; min-height: 18px; line-height: 18px; font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; color: #1D2D3E; white-space: nowrap; box-sizing: content-box; }
+.gui-v.r { text-align: right; }
+.gui-v.dd { display: inline-flex; justify-content: space-between; align-items: center; font-family: inherit; font-size: 14px; }
+.gui-v.dd svg { width: 14px; height: 14px; margin-left: 8px; }
+.gui-t { color: #1D2D3E; white-space: nowrap; }
+.gui-card { background: #fff; border-radius: 12px; margin: 0 12px 0 38px; position: relative; }
+.gui-row { display: flex; align-items: flex-start; }
+.gui-toggle { width: 28px; height: 24px; border: 1px solid #BCC3CA; border-radius: 6px; background: #fff; color: var(--g-blue); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin: 6px 2px 0 8px; }
+.gui-toggle svg { width: 16px; height: 16px; }
+.gui-tabs { display: flex; align-items: center; gap: 0; border-bottom: 1px solid #D9D9D9; padding: 0 24px; overflow-x: auto; }
+.gui-tabs button { background: none; border: none; font-size: 14px; font-weight: 700; color: #1D2D3E; padding: 8px 18px 7px; border-bottom: 3px solid transparent; white-space: nowrap; }
+.gui-tabs button.on { color: var(--g-blue); border-bottom-color: var(--g-blue); }
+.gui-tabs .gui-tabs-more:first-of-type { margin-left: auto; }
+.gui-tabs .gui-tabs-more { color: var(--g-blue); font-weight: 700; padding: 8px 6px; }
+.gui-pane { padding: 18px 24px 24px; min-height: 230px; box-sizing: border-box; }
+.gui-pane[hidden] { display: none !important; }
+.gui-grid { display: grid; grid-template-columns: max-content max-content max-content; gap: 10px 8px; align-items: center; }
+.gui-grid .gui-l { text-align: right; }
+.gui-empty { color: #556B82; padding: 6px 0; }
+.gui-sect-title { font-size: 16px; font-weight: 700; color: #1D2D3E; padding: 16px 16px 8px; display: flex; align-items: center; }
+.gui-sect-title .gui-gear { margin-left: auto; color: var(--g-blue); width: 16px; height: 16px; }
+.gui-tbl-wrap { overflow-x: auto; border-top: 1px solid #D9D9D9; }
+.gui-tbl { border-collapse: collapse; font-size: 14px; min-width: 1500px; width: 100%; }
+.gui-tbl th { text-align: left; font-weight: 700; padding: 8px 6px; border-right: 1px solid #E5E5E5; border-bottom: 1px solid #D9D9D9; white-space: nowrap; background: #fff; }
+.gui-tbl td { padding: 4px 4px; border-right: 1px solid #F0F0F0; background: #F2F3F4; height: 17px; white-space: nowrap; }
+.gui-tbl td .c { display: block; border-bottom: 1px dashed var(--g-line); min-height: 17px; font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; }
+.gui-tbl td .c.u { text-decoration: underline; }
+.gui-tbl td .c.r { text-align: right; }
+.gui-tbl td .c.t { font-family: inherit; font-size: 14px; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+.gui-tbl td.sel, .gui-tbl th.sel { background: #fff; width: 22px; text-align: center; }
+.gui-tbl td.sel span { display: inline-block; width: 14px; height: 14px; border: 1px solid #556B82; border-radius: 3px; vertical-align: middle; }
+.gui-tbl td.st { background: #fff; width: 26px; text-align: center; }
+.gui-tbl td.st span { display: inline-block; width: 18px; height: 18px; border: 1px solid #BCC3CA; border-radius: 50%; vertical-align: middle; }
+.gui-tbl tr.on td:not(.sel):not(.st) { background: #E8ECEF; }
+.gui-iconbar { display: flex; flex-wrap: wrap; gap: 4px; padding: 14px 4px 4px 0; align-items: center; }
+.gui-ib { width: 30px; height: 24px; border: 1px solid #BCC3CA; border-radius: 6px; background: #fff; color: var(--g-blue); display: inline-flex; align-items: center; justify-content: center; }
+.gui-ib.dis { color: #B8C3CD; border-color: #E5E8EB; }
+.gui-ib svg { width: 15px; height: 15px; }
+.gui-ib-gap { width: 10px; }
+.gui-itemsel { display: flex; align-items: center; gap: 8px; padding: 14px 0 6px 96px; flex-wrap: wrap; }
+.gui-itemsel .gui-v.dd { min-width: 380px; background: #fff; border: 1px solid var(--g-blue); border-radius: 4px; padding: 3px 6px; }
+.gui-qty { display: grid; grid-template-columns: max-content 180px 36px max-content 40px 1fr; gap: 10px 6px; align-items: center; }
+.gui-qty .gui-l { text-align: right; }
+.gui-qty2 { display: grid; grid-template-columns: repeat(2, max-content max-content); gap: 10px 60px; }
+.gui-status-list { display: grid; grid-template-columns: max-content max-content; gap: 10px 10px; align-items: center; margin-bottom: 18px; }
+.gui-note { background: var(--g-field); border: 1px dashed var(--g-line); padding: 10px 12px; line-height: 1.6; max-width: 980px; white-space: normal; }
+.gui-stat { display: grid; grid-template-columns: 270px 150px 120px 40px minmax(40px, 380px) 120px 40px; row-gap: 14px; align-items: center; color: #1D2D3E; }
+.gui-stat .ic { display: inline-flex; align-items: center; gap: 12px; color: #556B82; }
+.gui-stat .ic svg { width: 18px; height: 18px; color: #1D2D3E; flex-shrink: 0; }
+.gui-stat .n { font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; text-align: right; padding-right: 8px; }
+.gui-stat .u { font-family: '72Mono', Menlo, Consolas, monospace; font-size: 13.5px; }
+.gui .fop-table { font-size: 14px; }
