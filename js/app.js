@@ -873,35 +873,38 @@ demoPlayers['agent7'] = new DemoPlayer({
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
-          p.addMsg('ai', `플랜트 간 재고 불균형 분석 결과:
+          p.addMsg('ai', `14일 수요 예측 기준 플랜트 간 재고 불균형 분석 결과:
           <div class="chat-table-wrap">
             <table class="chat-table">
-              <thead><tr><th>자재</th><th>플랜트 1050</th><th>플랜트 1060</th><th>플랜트 1070</th><th>이동 추천</th></tr></thead>
+              <thead><tr><th>자재</th><th>부족 플랜트</th><th>부족 시점 · 원인</th><th>여유 플랜트</th><th>이동 추천</th></tr></thead>
               <tbody>
                 <tr>
                   <td><strong>A-4315</strong></td>
-                  <td><span class="badge badge-danger">45EA 🔴부족</span></td>
-                  <td><span class="badge badge-success">140EA 🟢과잉+80</span></td>
-                  <td>60EA ⚪적정</td>
-                  <td>1060→1050: <strong>40EA</strong></td>
+                  <td><span class="badge badge-danger">1050 −40 EA</span></td>
+                  <td><strong>${demoDay(1,'md')} 08시</strong> · MO-26-0889 착수 (Delta Co. 50 EA 지연 위험)</td>
+                  <td><span class="badge badge-success">1060 +80 EA</span></td>
+                  <td>1060→1050 <strong>40 EA</strong></td>
                 </tr>
                 <tr>
                   <td><strong>C-1107</strong></td>
-                  <td><span class="badge badge-success">80EA 🟢과잉</span></td>
-                  <td><span class="badge badge-danger">15EA 🔴부족</span></td>
-                  <td>55EA ⚪적정</td>
-                  <td>1050→1060: <strong>35EA</strong></td>
+                  <td><span class="badge badge-danger">1060 −35 EA</span></td>
+                  <td>${demoDay(5,'md')} · 출하 피크 (주간 출하 2배)</td>
+                  <td><span class="badge badge-success">1050 +45 EA</span></td>
+                  <td>1050→1060 <strong>35 EA</strong></td>
                 </tr>
                 <tr>
                   <td><strong>E-0923</strong></td>
-                  <td>200EA ⚪적정</td>
-                  <td><span class="badge badge-success">380EA 🟢과잉</span></td>
-                  <td><span class="badge badge-danger">20EA 🔴부족</span></td>
-                  <td>1060→1070: <strong>80EA</strong></td>
+                  <td><span class="badge badge-danger">1070 −80 EA</span></td>
+                  <td>${demoDay(8,'md')} · 1070 생산오더 착수</td>
+                  <td><span class="badge badge-success">1060 +180 EA</span></td>
+                  <td>1060→1070 <strong>80 EA</strong></td>
                 </tr>
               </tbody>
             </table>
           </div>
+          가장 급한 건 <strong>A-4315</strong>입니다. 결품까지 <strong>1일</strong> — 외부 발주(리드타임 18일)로는 늦고, 1060 재고를 옮기면 <strong>${demoDay(1,'md')} 15시</strong>에 들어옵니다.<br>
+          <span style="color:var(--j-warn)">⚠️ 착수(08시)보다 7시간 늦어, 그 사이 조립라인 12 작업 순서 조정이 필요합니다 → PP 결품 생산오더 대응 Agent에 알림</span><br>
+          보내는 쪽 1060은 이전 후 100 EA로, 14일 수요 60 EA와 안전재고 20 EA를 채우고도 여유가 있습니다.
           이동 가능 재고 <strong>총 5건</strong> 확인 (상위 3건 표시). 외부 조달 대비 예상 절감: <strong>12.3M원</strong>`);
           p.addResultCard(`<h4>🚚 이동 최적화 결과</h4><div class="kpi-row">
             <div class="kpi-card warning"><div class="kpi-value">5건</div><div class="kpi-label">이동 추천 건수</div></div>
@@ -927,7 +930,7 @@ demoPlayers['agent7'] = new DemoPlayer({
           발신: 플랜트 1060 · 저장위치 0001<br>
           수신: 플랜트 1050 · 저장위치 0001<br>
           자재: A-4315 &nbsp;|&nbsp; 수량: <strong>40 EA</strong><br>
-          예상 이동일: ${demoDay(1,'iso')}<br>
+          출고: 오늘 (641) · 1050 입고: <strong>${demoDay(1,'iso')} 15시</strong> (101)<br>결품 시점: ${demoDay(1,'iso')} 08시 MO-26-0889 착수 — 7시간 공백은 생산 순서 조정으로 메움<br>
           <span style="color:var(--sap-text-muted)">승인 후 출하문서(VL10B) → 출고(641) → 1050 입고(MIGO 101) 순으로 처리됩니다.</span>
           </div>
           ${jConfirm('agent7', '이 내용으로 재고 이전 오더(구매오더 4500019567, 문서 유형 UB)를 생성하시겠습니까?')}`);
@@ -949,7 +952,8 @@ demoPlayers['agent7'] = new DemoPlayer({
         p.addMsg('ai', `<span class="text-success">✅ STO 4500019567 생성 완료</span><br>
         플랜트 1060 → 1050 이동 오더 확정<br>
         물류 담당자에게 알림 발송 완료<br>
-        출하문서 생성 · 출고(641) 오늘 처리, 1050 입고(101) ${demoDay(1,'iso')} 예정
+        출하문서 생성 · 출고(641) 오늘 처리, 1050 입고(101) ${demoDay(1,'iso')} 15시 예정<br>
+        생산계획 담당자에게 MO-26-0889 착수 순서 조정 요청 전달 (PP Agent)
         <div style="margin-top:10px">
           <button class="action-btn action-btn-primary" onclick="router.go('fiori-sto-display')">📄 구매오더(STO) 조회하기</button>
         </div>`);
@@ -2073,39 +2077,32 @@ ${bar('Supplier Gamma (F-1120, G-3380)',20,'#C4B5FD','11.6M')}
 
 /* ═══ AGENT 7 — Stock Transfer ═══ */
 patch('agent7',[
-/* card 0: Stock Analysis */
+/* card 0: Stock Analysis — 14일 수요 예측 기준, 결품 시점과 입고 시점 비교 */
 `<div class="db-card">
-${hdr('🏭','창고 재고 이동 최적화 대시보드','플랜트 1050 · 1060 · 1070')}
+${hdr('🏭','창고 재고 이동 최적화 대시보드','플랜트 1050 · 1060 · 1070 · 14일 수요 예측 기준')}
 <div class="db-kpi-row">
-${kv('3개','분석 플랜트','#5aafff','')}
-${kv('5건','이동 기회','#4cde72','Gap 발견')}
-${kv('12.3M','예상 절감','#4cde72','외부 조달 대비')}
-${kv('3 → 0','결품 위험 자재','#4cde72','부족 플랜트 3곳 해소')}
+${kv('5건','이동 기회','var(--j-pos)','상위 3건 표시')}
+${kv('1일','A-4315 결품까지','var(--j-neg)',demoDay(1,'md')+' 08시 · MO-26-0889')}
+${kv('1일 vs 18일','이전 vs 외부 발주','var(--j-link)','결품 전 도착은 이전뿐')}
+${kv('12.3M','예상 절감','var(--j-pos)','외부 조달 대비')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
-<div class="db-chart-ttl">📊 플랜트별 A-4315 재고 현황 (현재 vs 수요 예측)</div>
-<div class="db-row" style="gap:12px;margin-top:6px">
-<div style="flex:1;text-align:center">
-<div style="font-size:11px;color:var(--sap-text-muted);margin-bottom:4px">플랜트 1050</div>
-${bar('현재고',45,'#BB0000','45 EA')}
-${bar('필요수량',100,'#5aafff','85 EA')}
-<div style="font-size:10.5px;color:#ff4444;margin-top:3px">🔴 부족 40EA</div>
-</div>
-<div style="flex:1;text-align:center">
-<div style="font-size:11px;color:var(--sap-text-muted);margin-bottom:4px">플랜트 1060</div>
-${bar('현재고',100,'#30914C','140 EA')}
-${bar('필요수량',43,'#5aafff','60 EA')}
-<div style="font-size:10.5px;color:#4cde72;margin-top:3px">🟢 잉여 80EA</div>
-</div>
-<div style="flex:1;text-align:center">
-<div style="font-size:11px;color:var(--sap-text-muted);margin-bottom:4px">플랜트 1070</div>
-${bar('현재고',50,'#F59E0B','60 EA')}
-${bar('필요수량',50,'#5aafff','60 EA')}
-<div style="font-size:10.5px;color:#F59E0B;margin-top:3px">🟡 균형</div>
+<div class="db-chart-ttl">⏱ A-4315 플랜트 1050 — 시점별 예상 재고</div>
+<div class="tl">
+<div class="tl-row"><span class="tl-t">오늘</span><span class="tl-dot"></span><span class="tl-e">현재고</span><span class="tl-q">45 EA</span></div>
+<div class="tl-row"><span class="tl-t">오늘</span><span class="tl-dot"></span><span class="tl-e">MO-26-0888 투입 (FG-2100 45 EA)</span><span class="tl-q">0 EA</span></div>
+<div class="tl-row warn"><span class="tl-t">${demoDay(1,'md')}</span><span class="tl-dot"></span><span class="tl-e">Delta Co. PO 4500019188 50 EA 입고 예정 — 지연 위험 75점</span><span class="tl-q">미확정</span></div>
+<div class="tl-row neg"><span class="tl-t">${demoDay(1,'md')} 08시</span><span class="tl-dot"></span><span class="tl-e"><b>MO-26-0889 착수 · 40 EA 필요 → 결품</b></span><span class="tl-q">−40 EA</span></div>
+<div class="tl-row pos"><span class="tl-t">${demoDay(1,'md')} 15시</span><span class="tl-dot"></span><span class="tl-e">재고 이전 1060→1050 입고 (+40 EA) — 7시간 공백은 PP 순서 조정</span><span class="tl-q">0 EA</span></div>
+<div class="tl-row"><span class="tl-t">${demoDay(18,'md')}</span><span class="tl-dot"></span><span class="tl-e">외부 발주 시 입고 (리드타임 18일) — 결품 후 17일</span><span class="tl-q">✗</span></div>
 </div>
 </div>
+<div class="db-chart-wrap" style="margin-top:12px">
+<div class="db-chart-ttl">🏭 보내는 플랜트 점검 — 1060 (이전 후 재고 vs 14일 수요)</div>
+${bar('이전 후 재고',100,'var(--j-pos-icon)','100 EA')}
+${bar('14일 수요 + 안전재고',80,'var(--j-link)','60 + 20 EA')}
 </div>
-<div class="db-insight" style="margin-top:10px">🚚 1060→1050 이동 40EA로 <strong style="color:#4cde72">외부 발주 없이</strong> 수요 충족 · 조달 리드타임 18일 → 1일</div></div>`,
+<div class="db-insight" style="margin-top:10px">🚚 1060→1050 이전 40 EA로 <strong>외부 발주 없이</strong> 결품 해소 · 보내는 1060도 수요를 채우고 20 EA 여유</div></div>`,
 
 /* card 1: STO Created */
 `<div class="db-card">

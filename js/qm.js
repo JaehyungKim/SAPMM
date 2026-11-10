@@ -201,7 +201,7 @@ demoPlayers['qm2'] = new DemoPlayer({
               <tr><td>010000004722</td><td>J-4410 유압 호스 어셈블리</td><td>12 EA</td><td>1일</td><td><span class="badge badge-warning">MO-26-0899 소요</span></td></tr>
               <tr><td>010000004725</td><td>F-1120 오일씰 킷 A</td><td>50 EA</td><td>1일</td><td><span class="badge badge-success">여유</span></td></tr>
             </tbody></table></div>
-          A-4315는 생산오더 MO-26-0891이 기다리는 부품인데, Delta Co. 구매오더 4500019102 입고분 <strong>20 EA가 품질 검사 재고</strong>로 묶여 있습니다.`);
+          A-4315는 생산오더 MO-26-0889이 기다리는 부품인데, Delta Co. 구매오더 4500019102 입고분 <strong>20 EA가 품질 검사 재고</strong>로 묶여 있습니다.`);
           p.addResultCard(DB.card(
             DB.hdr('📥', '검사 대기 현황', '플랜트 1050 · 사용결정 전 로트') +
             DB.kpis([['17로트', '검사 대기', 'var(--j-link)', '평균 대기 1.4일'], ['1로트', '결품 직결', 'var(--j-neg)', 'A-4315 20 EA'], ['20 EA', '묶인 결품 자재', 'var(--j-warn-icon)', '품질 검사 재고'], ['2일', '최장 대기', 'var(--j-neg)', '010000004718']])));
@@ -236,7 +236,7 @@ demoPlayers['qm2'] = new DemoPlayer({
       p.presets().innerHTML = ''; touchGuide.hideAll();
       p.addMsg('user', '어떻게 판정하면 돼?');
       setTimeout(() => {
-        p.addThinking(['판정 대안별로 가용 수량과 품질 위험을 계산하고 있어요', 'MO-26-0891 부족분과 구매요청 수량에 미치는 영향을 확인하는 중']);
+        p.addThinking(['판정 대안별로 가용 수량과 품질 위험을 계산하고 있어요', 'MO-26-0889 부족분과 구매요청 수량에 미치는 영향을 확인하는 중']);
         setTimeout(() => {
           p.removeThinking();
           p.addMsg('ai', `판정 대안입니다.
@@ -247,7 +247,7 @@ demoPlayers['qm2'] = new DemoPlayer({
               <tr><td><strong>② 전수 내압 재시험 후 합격분만 가용</strong></td><td><strong>예상 18 EA</strong></td><td><span class="text-success">낮음</span> — 누유품 전량 선별</td></tr>
               <tr><td>③ 특채 (전량 합격)</td><td>20 EA</td><td><span class="text-danger">높음</span> — 클레임 재발 가능</td></tr>
             </tbody></table></div>
-          <strong>추천: ②.</strong> 재시험은 4시간이면 끝나고, 합격분 18 EA가 가용 재고가 되면 MO-26-0891 부족분을 일부 메우고
+          <strong>추천: ②.</strong> 재시험은 4시간이면 끝나고, 합격분 18 EA가 가용 재고가 되면 MO-26-0889 부족분을 일부 메우고
           추가 구매요청 수량을 <strong>18 EA 줄일</strong> 수 있습니다.`);
           p.addPresets([{ label: '✅ 재시험 결과 반영해 사용결정', highlight: true }]);
         }, 2400);

@@ -558,3 +558,14 @@ body.story-on .page { bottom: 52px !important; }
 }
 .mod-tab:hover { color: var(--j-link); border-color: var(--j-link); }
 .mod-tab.on { background: var(--j-brand); border-color: var(--j-brand); color: #fff; }
+
+/* ─── 결과 패널 타임라인 (시점별 예상 재고 등) ─── */
+.tl { position: relative; margin-top: 8px; padding-left: 4px; }
+.tl::before { content: ''; position: absolute; left: 92px; top: 8px; bottom: 8px; width: 2px; background: var(--j-border); }
+.tl-row { position: relative; display: grid; grid-template-columns: 80px 16px 1fr auto; align-items: center; gap: 6px; padding: 5px 0; font-size: 12.5px; color: var(--j-text); }
+.tl-t { color: var(--j-text-2); font-size: 12px; white-space: nowrap; }
+.tl-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--j-border-ctl); justify-self: center; z-index: 1; border: 2px solid var(--j-surface); box-sizing: content-box; }
+.tl-q { font-weight: 700; white-space: nowrap; }
+.tl-row.warn .tl-dot { background: var(--j-warn-icon); } .tl-row.warn .tl-q { color: var(--j-warn); }
+.tl-row.neg .tl-dot { background: var(--j-neg-icon); } .tl-row.neg .tl-q, .tl-row.neg .tl-e { color: var(--j-neg); }
+.tl-row.pos .tl-dot { background: var(--j-pos-icon); } .tl-row.pos .tl-q { color: var(--j-pos); }
