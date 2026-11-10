@@ -46,7 +46,8 @@
   }
 
   /* ── Agent pages: rail | canvas(header, flow, result, arch) | chat ── */
-  document.querySelectorAll('section.page[id^="agent"]').forEach(sec => {
+  document.querySelectorAll('section.page').forEach(sec => {
+    if (!sec.querySelector(':scope > .demo-area .joule-panel')) return;
     if (sec.classList.contains('j-shell')) return;
     const header = sec.querySelector(':scope > .page-header');
     const flow   = sec.querySelector(':scope > .process-flow-bar');

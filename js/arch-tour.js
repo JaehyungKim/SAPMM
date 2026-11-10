@@ -78,6 +78,9 @@
       { t: '물류 처리 · 확인', r: ['s4proc', 'suite'], d: 'S/4HANA에서 아웃바운드 납품 → 출고(641) → 입고(101)가 이어지고, 구매오더 관리·자재 문서 앱에서 확인합니다.' }] }
   };
 
+  /* 다른 모듈은 이 스크립트보다 먼저 window.EXTRA_TOURS[agentId] = { core, steps } 를 등록한다 */
+  Object.assign(T, window.EXTRA_TOURS || {});
+
   const st = { agent: null, i: 0, on: true, timer: null };
   const $ = id => document.getElementById(id);
   const ctr = r => [r.x + r.w / 2, r.y + r.h / 2];

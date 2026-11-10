@@ -4,7 +4,8 @@
 
 | 파일 | 내용 |
 |---|---|
-| `index.html` | 화면 마크업만: 홈, 에이전트 화면 `agent1~7`, 증빙 화면 `fiori-*`, 스토리 오버레이 |
+| `index.html` | **MM 진입 파일**: 홈, 에이전트 화면 `agent1~7`, 증빙 화면 `fiori-*`, 스토리 오버레이 |
+| `pp.html` · `qm.html` | **PP·QM 진입 파일**: 홈 + 에이전트 화면(`pp1`, `qm1`, `qm2`). 아키텍처 모달·아이콘 정의는 index.html과 같은 마크업을 복사해 쓴다 |
 | `css/base.css` | 디자인 토큰, 레이아웃, 홈, 에이전트 데모 화면, 아키텍처 모달 |
 | `css/joule.css` | Joule Spaces 테마, Joule 채팅 패턴(선제 경보·KG), 스토리 모드, 아키텍처 투어 |
 | `css/fiori.css` | Fiori HTML 화면(`.fop-*`), SAPUI5 호스트(`.ui5-host`) |
@@ -13,8 +14,10 @@
 | `css/dark-tokens.css` | 다크 모드 토큰(Horizon Dark)과 손으로 다듬는 예외 규칙. 생성기가 `dark.css` 끝에 붙인다 |
 | `js/gui.js` | GUI 탭 전환 `guiTab()`, GUI 상태 탭 렌더 |
 | `js/fiori-common.js` | `demoDay()`/`applyRelDays()` 상대 날짜, Fiori 앵커 바 `fopGo()`, `fopSeg()`/`fopTree()` |
-| `js/app.js` | **엔진 + MM 콘텐츠**: router, touchGuide, `DemoPlayer`, `docTimes`/`stampDoc`, `jConfirm`, 시나리오 7개, 에이전트별 아키텍처 `CONFIGS`, `openArchModal` |
-| `js/nav-patch.js` | 페이지 목록 `ALL_PAGES`, 페이지 진입 시 Step 0 자동 실행 |
+| `js/core.js` | **공통 엔진** (모든 진입 파일): router, touchGuide, 키보드 탐색, `DemoPlayer`, `docTimes`/`stampDoc`, `jConfirm`, `openArchModal`(+`ARCH_MODAL_META` 등록부), 결과 카드 헬퍼 `DB`, 모듈 탭 `MODULES` |
+| `js/app.js` | **MM 콘텐츠**: 시나리오 7개, 아키텍처 메타, 결과 대시보드 |
+| `js/pp.js` · `js/qm.js` | **PP·QM 콘텐츠**: 시나리오 + `ARCH_MODAL_META`·`EXTRA_ARCH`·`EXTRA_TOURS` 등록 |
+| `js/nav-patch.js` | 페이지 목록(DOM의 `section.page[id]`에서 읽음), 에이전트 화면 진입 시 Step 0 자동 실행 |
 | `js/joule-theme.js` | Joule Spaces 레이아웃 재구성, 채팅 메시지 꾸밈, 색상 리맵 |
 | `js/theme.js` | 다크 모드 토글(`setDarkMode`, 레일의 해/달 버튼, localStorage 저장), 인라인 style·SVG 색상 런타임 변환, UI5 `sap_horizon_dark` 전환 |
 | `js/story-sto.js` | STO 흐름 상태(`stoState`, 납품·출고·입고), 자재 문서 화면, 기존 방식 비교, 스토리 모드 `STORY` |
@@ -76,10 +79,18 @@ SAP GUI 화면 패턴 (`css/gui.css`, 예시: `fiori-sto-object`):
 STO처럼 데모 중 상태가 진행되면(생성 → 납품 → 출고 → 입고) 상태 객체를 하나 두고 `render()` 함수에서 모든 화면을 갱신한다. 예: `window.stoState` + `stoRender()` (`js/story-sto.js`), UI5 쪽은 `stoRender`를 감싸 `syncSto()` 호출, GUI 쪽은 `guiStatRender()`.
 
 ## 에이전트 추가 체크리스트
+**MM 이외 모듈 (PP·QM·SD)** — 예시: `qm.html` + `js/qm.js`
+1. `<모듈>.html` — 홈 카드(`scenario-card`) + 에이전트 섹션. 페이지 ID = DemoPlayer ID (예: `qm2`), 요소 ID = `qm2-chat`·`qm2-flow`·`qm2-result`·`qm2-presets`·`qm2-btn`·`qm2-step-cur/tot`
+2. `js/<모듈>.js` — `demoPlayers['qm2']` (flow/tech/steps), 결과 카드는 `DB.card/hdr/kpis/bar/chart/insight/done`
+3. 같은 파일에 `ARCH_MODAL_META.qm2`, `EXTRA_ARCH.qm2 = { cfg, hl }`(cfg 형식은 `js/arch-diagram.js`의 `NC`), `EXTRA_TOURS.qm2 = { core, steps }`
+4. 새 모듈이면 `js/core.js`의 `MODULES`에 탭 추가, `<body data-module="…">`
+페이지 목록·키보드·자동 시작은 DOM에서 읽으므로 따로 등록하지 않는다.
+
+**MM (index.html)**
 1. `index.html` — 홈 카드(`scenario-card`) + 에이전트 섹션(`agentN`, `aN-*` ID)
-2. `js/app.js` — `demoPlayers['agentN']` (flow/arch/tech/steps), 아키텍처 `CONFIGS.agentN`, `openArchModal`의 `meta.agentN`
-3. `js/nav-patch.js` — `ALL_PAGES`에 `agentN`과 증빙 화면 ID
-4. `js/arch-diagram.js` — `HL.agentN`(강조 영역)과 에이전트 메타
+2. `js/app.js` — `demoPlayers['agentN']` (flow/arch/tech/steps), `ARCH_MODAL_META`에 메타 추가
+3. (자동) 페이지 목록은 DOM에서 읽는다
+4. `js/arch-diagram.js` — `HL.agentN`(강조 영역)과 `NC.agentN`
 5. `js/arch-tour.js` — `agentN: { core, steps }`
 6. `js/story-sto.js` — 기존 방식 비교(`agentN: [기존 업무, 기존 시간, Agent 시간]`), 스토리에 넣을 경우 `STORY`
 7. 증빙 화면 — UI5 뷰(`VIEWS`) 또는 GUI 섹션, `stampDoc` 키

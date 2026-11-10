@@ -364,7 +364,7 @@ html.dark .btn-autoplay{background:rgba(14,196,209,.1);border:1.5px solid rgba(4
 html.dark .btn-autoplay:hover{background:rgba(14,196,209,.2)}
 html.dark .btn-autoplay.active{background:var(--sap-teal);color:#EBEBEB}
 
-/* ── from css/joule.css (236 rules) ── */
+/* ── from css/joule.css (239 rules) ── */
 html.dark, html.dark body, html.dark body.light{--j-bg:#1F2123;--j-surface:#1C1C1C;--j-border:#2C2C2C;--j-border-ctl:#707F8E;--j-text:#90ADCB;--j-text-2:#9FAFC0;--j-text-3:#8699AA;--j-link:#5CA7FF;--j-link-hover:#5CA8FF;--j-brand:#7B5CFF;--j-brand-2:#7B5CFF;--j-brand-soft:#160F32;--j-brand-line:#1D1443;--j-user:#1F252E;--j-neg:#F86363;--j-neg-icon:#F86363;--j-neg-bg:#350F0F;--j-neg-line:#F0A8A8;--j-warn:#FFA35C;--j-warn-icon:#FFA35C;--j-warn-bg:#433B14;--j-warn-line:#EDD16E;--j-pos:#85D69C;--j-pos-icon:#84D69C;--j-pos-bg:#1E2C20;--j-pos-line:#A3D1AE;--j-info-bg:#102236;--j-info-line:#A6CDF5;--sap-blue:#5CA7FF;--sap-blue-dark:#5CA8FF;--sap-blue-glow:rgba(92,167,255,0.2);--sap-teal:#7B5CFF;--sap-teal-glow:rgba(123,92,255,0.2);--sap-dark:#1C1C1C;--sap-darker:#1F2123;--sap-card:#1C1C1C;--sap-card-hover:#1F2123;--sap-border:#2C2C2C;--sap-border-light:#707F8E;--sap-text:#90ADCB;--sap-text-muted:#9FAFC0;--sap-text-dim:#8699AA;--sap-success:#85D69C;--sap-success-bg:#1E2C20;--sap-warning:#FFA35C;--sap-warning-bg:#433B14;--sap-danger:#F86363;--sap-danger-bg:#350F0F;--sap-accent:#7B5CFF;--sap-purple:#7B5CFF;--sap-sky:#5CA7FF;--joule-1:#8575E5;--joule-2:#8975E6;--joule-3:#7B5CFF;--joule-4:#7B5CFF;--joule-5:#A08CFF;--joule-glow:rgba(123,92,255,0.25);--shadow:0 1px 3px rgba(144,173,203,0.08);--shadow-lg:0 8px 32px rgba(144,173,203,0.14);--shadow-glow:0 0 0 3px rgba(92,167,255,0.15)}
 html.dark, html.dark body, html.dark body.light{background:var(--j-bg);color:var(--j-text)}
 html.dark body.light .scrollable::-webkit-scrollbar-thumb{background:#34383D}
@@ -601,6 +601,9 @@ html.dark .at-btn.main{background:#5D36FF;border-color:#5D36FF;color:#fff}
 html.dark .at-btn.play{color:#7B5CFF;border-color:#24165A}
 html.dark .at-hl{fill:none;stroke:#875CFF}
 html.dark .at-flow{fill:none;stroke:#B57BF1}
+html.dark .mod-tab{color:var(--j-text-2);border:1px solid var(--j-border-ctl);background:var(--j-surface)}
+html.dark .mod-tab:hover{color:var(--j-link);border-color:var(--j-link)}
+html.dark .mod-tab.on{background:var(--j-brand);border-color:var(--j-brand);color:#fff}
 
 /* ── from css/fiori.css (139 rules) ── */
 html.dark .fop{--fop-bg:#1F2123;--fop-surface:#1C1C1C;--fop-border:#2C2C2C;--fop-border-ctl:#707F8E;--fop-text:#90ADCB;--fop-text-2:#9FAFC0;--fop-link:#5CA7FF;--fop-emph:#5CA7FF;--fop-emph-hover:#5CA7FF;--fop-hover:#25272A;--fop-pos:#85D69C;--fop-pos-icon:#84D69C;--fop-pos-bg:#2D3317;--fop-crit:#FFA35C;--fop-crit-icon:#FFA35C;--fop-crit-bg:#3F3712;--fop-neg:#F86363;--fop-neg-icon:#F86363;--fop-neg-bg:#350F21;--fop-info:#5CA7FF;--fop-info-icon:#5CA7FF;--fop-info-bg:#112A39;background:var(--fop-bg);color:var(--fop-text)}
@@ -855,4 +858,8 @@ html.dark body.light .btn-demo:hover { background: #1A8CFF; }
 
 /* 테마 토글 버튼 */
 html.dark .j-rail-btn.j-theme-btn { color: #FFC24D; }
+
+/* 모듈 탭 · 주요 버튼: 흰 글자를 얹는 배경은 진한 색 유지 */
+html.dark .mod-tab.on { background: #5D36FF; border-color: #5D36FF; color: #fff; }
+html.dark body.light .action-btn-primary { background: #0070F2; border-color: #0070F2; color: #fff; }
 

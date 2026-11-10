@@ -20,6 +20,9 @@ tools/render.sh fiori-po-delivery /tmp/po.png 1640x3400
 - 결과 PNG를 열어 직접 본다 (Claude는 Read 도구로 이미지를 확인).
 - 출력에 `UI5 view error`가 있으면 UI5 뷰 XML 오류다 — 이때 화면은 HTML 대체 화면으로 보이므로 스크린샷만 보면 놓치기 쉽다.
 
+- PP·QM은 진입 파일을 지정한다: `HTML=qm.html tools/render.sh qm1 out.png`. 전체 단계를 돌리는 긴 흐름은 `BUDGET=45000`(가상 시간 ms)을 함께 준다.
+- 헤드리스는 CSS transition이 진행되지 않아 다크 모드 전환 직후 일부 색이 이전 값으로 보일 수 있다 — 의심되면 `el.style.transition='none'` 후 computed style로 확인한다.
+
 ## 체크리스트
 1. **JS 문법**: `for f in js/*.js; do node --check "$f"; done`
 2. **UI5 뷰**: 바꾼 화면을 렌더링하고 `UI5 view error`가 없는지 확인

@@ -548,3 +548,13 @@ body.story-on .page { bottom: 52px !important; }
 @keyframes atDash { to { stroke-dashoffset: -15; } }
 @media (prefers-reduced-motion: reduce) { .at-hl, .at-flow { animation: none; } }
 
+
+/* ─── 모듈 탭 (MM · PP · QM) ─── */
+.mod-tabs { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+.mod-tab {
+  display: inline-flex; align-items: center; padding: 5px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600; color: var(--j-text-2); text-decoration: none;
+  border: 1px solid var(--j-border-ctl); background: var(--j-surface); transition: background .15s, color .15s;
+}
+.mod-tab:hover { color: var(--j-link); border-color: var(--j-link); }
+.mod-tab.on { background: var(--j-brand); border-color: var(--j-brand); color: #fff; }

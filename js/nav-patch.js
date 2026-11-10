@@ -1,10 +1,7 @@
 (function(){
   'use strict';
-  var ALL_PAGES = [
-    'home','agent1','agent2','agent3','agent4','agent5','agent6','agent7',
-    'risk-scoring','fiori-po-delivery','fiori-accounting-doc','fiori-pr-display','fiori-sto-display',
-    'fiori-sto-object','fiori-matdoc','story-closing'
-  ];
+  /* 페이지 목록은 DOM에서 읽는다 — 모듈(index·pp·qm.html)마다 페이지가 다르다 */
+  var ALL_PAGES = Array.prototype.map.call(document.querySelectorAll('section.page[id]'), function (s) { return s.id; });
 
   /* Ensure step counters match actual step lengths */
   if (window.demoPlayers) {
@@ -36,7 +33,7 @@
     }
 
     /* Automatically trigger Step 0 (welcome & preset buttons) when entering an agent page */
-    if (id.indexOf('agent') === 0 && window.demoPlayers && window.demoPlayers[id]) {
+    if (window.demoPlayers && window.demoPlayers[id]) {
       var player = window.demoPlayers[id];
       if (player.curStep === 0 && !player.playing) {
         setTimeout(function() {

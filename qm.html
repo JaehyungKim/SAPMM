@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAP S/4HANA QM AI Agents — Demo</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/joule.css">
+<link rel="stylesheet" href="css/fiori.css">
+<link rel="stylesheet" href="css/gui.css">
+<link rel="stylesheet" href="css/dark.css">
+<script>try{if(localStorage.getItem('sap-demo-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+</head>
+<body data-module="qm">
+<!-- 모듈 진입 파일 — 공통 엔진(js/core.js) + QM 콘텐츠(js/qm.js). MM은 index.html -->
+
+<!-- ════════════════════════════════════
+     TOUCH OVERLAY (global)
+════════════════════════════════════ -->
+<div id="touch-overlay"></div>
+
+<!-- ════════════════════════════════════
+     ARCHITECTURE MODAL (global, shared)
+════════════════════════════════════ -->
+<div id="arch-modal">
+  <div class="arch-modal-card">
+    <div class="arch-modal-header">
+      <div class="joule-avatar" style="width:34px;height:34px;font-size:14px;border-radius:8px;">📐</div>
+      <div style="flex:1">
+        <h2 id="arch-modal-title">아키텍처 다이어그램</h2>
+        <div class="arch-modal-subtitle" id="arch-modal-subtitle">SAP Business AI Platform 기반 구현 아키텍처</div>
+      </div>
+      <button class="arch-modal-close" onclick="closeArchModal()">✕</button>
+    </div>
+    <div class="arch-modal-body">
+      <div class="arch-legend">
+        <div class="arch-legend-item"><div class="arch-legend-dot" style="background:#7C3AED;"></div>SAP Business AI Platform (Global Account 포함)</div>
+        <div class="arch-legend-item"><div class="arch-legend-dot" style="background:#0070F2;"></div>Global Account · Autonomous Suite</div>
+        <div class="arch-legend-item"><div class="arch-legend-dot" style="background:#475569;"></div>SAP S/4HANA Cloud</div>
+        <div class="arch-legend-item"><div class="arch-legend-dot" style="background:#D61FD6;"></div>A2A</div>
+        <div class="arch-legend-item"><div class="arch-legend-dot" style="background:#0E8C8C;"></div>MCP</div>
+        <div class="arch-legend-item"><div class="arch-legend-dot" style="background:#556B82;"></div>ODATA / REST</div>
+        <div class="arch-legend-item"><div class="arch-legend-dot" style="background:#2E7D32;"></div>Trust · Authenticate</div>
+      </div>
+      <div id="arch-tour"></div>
+      <div class="arch-svg-wrap" id="arch-modal-svg"></div>
+    </div>
+    <div class="arch-modal-footer">
+      <span class="footer-label">기술 스택:</span>
+      <span id="arch-modal-badges"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     PAGE: HOME
+════════════════════════════════════ -->
+<section id="home" class="page active">
+
+  <header class="home-header">
+    <div class="home-logo">
+      <div class="sap-logo-mark">S</div>
+      <div class="home-logo-text">
+        <span class="logo-sap">SAP</span>
+        <span class="logo-joule">Joule Work</span>
+      </div>
+    </div>
+    <div class="home-title-center">
+      <h1>SAP S/4HANA QM <span class="title-ai">AI Agents</span></h1>
+      <p class="home-subtitle">Joule Work × MCP × SAP AI Core — 품질관리 AI Agent Demo</p>
+      <nav class="mod-tabs" id="mod-tabs"></nav>
+    </div>
+    <div class="home-header-right">
+      <div class="home-clock" id="home-clock"></div>
+    </div>
+  </header>
+
+  <div class="scenario-grid" id="scenario-grid">
+
+    <div class="scenario-card" style="--accent:#BB0000" onclick="router.go('qm1')" id="card1">
+      <div class="card-accent-bar"></div>
+      <div class="card-header-row">
+        <span class="card-icon">🧭</span>
+        <span class="card-tag">Batch Traceability</span>
+        <span class="card-num">Q1</span>
+      </div>
+      <h2 class="card-title">고객 클레임 배치 추적</h2>
+      <p class="card-desc">고객 클레임으로 Q1 품질 통보를 만들고, 출하 고객과 원자재 로트까지 배치를 추적해 승인 후 위험 재고를 보류합니다.</p>
+      <div class="card-tags-row">
+        <span class="card-chip">Quality Notification</span><span class="card-chip">Batch Where-Used</span><span class="card-chip">344 Block</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-cta">데모 시작 →</span>
+        <span class="card-steps">7 Steps</span>
+      </div>
+    </div>
+
+    <div class="scenario-card" style="--accent:#E9730C" onclick="router.go('qm2')" id="card2">
+      <div class="card-accent-bar"></div>
+      <div class="card-header-row">
+        <span class="card-icon">🔬</span>
+        <span class="card-tag">Incoming Inspection</span>
+        <span class="card-num">Q2</span>
+      </div>
+      <h2 class="card-title">입고 검사 판정 지원</h2>
+      <p class="card-desc">결품 자재의 검사 로트를 먼저 꺼내고, 측정값과 과거 로트를 비교해 판정안을 제시한 뒤 사용결정까지 처리합니다.</p>
+      <div class="card-tags-row">
+        <span class="card-chip">Inspection Lot</span><span class="card-chip">Usage Decision</span><span class="card-chip">Q2 Notification</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-cta">데모 시작 →</span>
+        <span class="card-steps">6 Steps</span>
+      </div>
+    </div>
+
+  </div><!-- /scenario-grid -->
+
+  <footer class="home-footer">
+    <span class="footer-center">SAP Korea · Business AI Platform · Powered by Joule Work &amp; MCP Server</span>
+    <span class="footer-hint">← → 화살표 탐색 &nbsp;|&nbsp; ESC 홈 &nbsp;|&nbsp; 숫자키 1~2 바로가기 &nbsp;|&nbsp; Space 다음 단계</span>
+  </footer>
+
+</section>
+
+<!-- ════════════════════════════════════
+     PAGE: QM1 — 고객 클레임 배치 추적 Agent
+════════════════════════════════════ -->
+<section id="qm1" class="page">
+  <header class="page-header">
+    <button class="btn-back" onclick="router.go('home')">← 목록</button>
+    <h1 class="agent-title"><span class="agent-num">Q1</span>고객 클레임 배치 추적 Agent</h1>
+    <div class="demo-controls">
+      <div class="step-counter">Step <span id="qm1-step-cur">0</span> / <span id="qm1-step-tot">6</span></div>
+      <button class="btn-demo" id="qm1-btn" onclick="demoPlayers['qm1'].start()">▶ 데모 시작</button>
+      <button class="btn-reset" onclick="demoPlayers['qm1'].reset()">↺ 초기화</button>
+    </div>
+  </header>
+  <div class="process-flow-bar" id="qm1-flow"></div>
+  <div class="demo-area">
+    <div class="joule-panel">
+      <div class="joule-panel-header">
+        <div class="joule-avatar">J</div>
+        <div><h3>Joule Work</h3><p>Batch Traceability Agent · S/4HANA 연결됨</p></div>
+        <div class="joule-status-dot"></div>
+      </div>
+      <div class="chat-window scrollable" id="qm1-chat"></div>
+      <div class="chat-presets" id="qm1-presets"></div>
+    </div>
+    <div class="result-panel scrollable" id="qm1-result">
+      <div class="result-title">📊 분석 결과 & 액션</div>
+    </div>
+  </div>
+  <div class="arch-section">
+    <button class="arch-toggle-btn" onclick="openArchModal('qm1')">
+      <span>📐</span> 아키텍처 보기
+      <span class="arch-chip">모달로 펼치기 ↗</span>
+    </button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════
+     PAGE: QM2 — 입고 검사 판정 Agent
+════════════════════════════════════ -->
+<section id="qm2" class="page">
+  <header class="page-header">
+    <button class="btn-back" onclick="router.go('home')">← 목록</button>
+    <h1 class="agent-title"><span class="agent-num">Q2</span>입고 검사 판정 Agent</h1>
+    <div class="demo-controls">
+      <div class="step-counter">Step <span id="qm2-step-cur">0</span> / <span id="qm2-step-tot">6</span></div>
+      <button class="btn-demo" id="qm2-btn" onclick="demoPlayers['qm2'].start()">▶ 데모 시작</button>
+      <button class="btn-reset" onclick="demoPlayers['qm2'].reset()">↺ 초기화</button>
+    </div>
+  </header>
+  <div class="process-flow-bar" id="qm2-flow"></div>
+  <div class="demo-area">
+    <div class="joule-panel">
+      <div class="joule-panel-header">
+        <div class="joule-avatar">J</div>
+        <div><h3>Joule Work</h3><p>Incoming Inspection Agent · S/4HANA 연결됨</p></div>
+        <div class="joule-status-dot"></div>
+      </div>
+      <div class="chat-window scrollable" id="qm2-chat"></div>
+      <div class="chat-presets" id="qm2-presets"></div>
+    </div>
+    <div class="result-panel scrollable" id="qm2-result">
+      <div class="result-title">📊 분석 결과 & 액션</div>
+    </div>
+  </div>
+  <div class="arch-section">
+    <button class="arch-toggle-btn" onclick="openArchModal('qm2')">
+      <span>📐</span> 아키텍처 보기
+      <span class="arch-chip">모달로 펼치기 ↗</span>
+    </button>
+  </div>
+</section>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="fi-back" viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="fi-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m10.4 10.4 3.6 3.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="fi-bell" viewBox="0 0 16 16"><path d="M4 11.5V7a4 4 0 0 1 8 0v4.5l1.2 1.3H2.8zM6.5 14h3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="fi-share" viewBox="0 0 16 16"><path d="M8 2v8M5 5l3-3 3 3M3 9v4.5h10V9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="fi-settings" viewBox="0 0 16 16"><path d="M2 4h7M12 4h2M2 12h2M7 12h7M2 8h4M9 8h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="10.5" cy="4" r="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="5.5" cy="12" r="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="7.5" cy="8" r="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <symbol id="fi-pos" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m5.2 8.2 1.9 1.9 3.7-3.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="fi-crit" viewBox="0 0 16 16"><path d="M8 2.2 14.3 13.4H1.7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.5v3.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="currentColor"/></symbol>
+    <symbol id="fi-neg" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m5.6 5.6 4.8 4.8m0-4.8-4.8 4.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="fi-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="4.9" r=".95" fill="currentColor"/></symbol>
+    <symbol id="fi-down" viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <radialGradient id="fijg" cx="0.64" cy="0.36" r="0.78"><stop offset="0" stop-color="#B57BF1"/><stop offset=".45" stop-color="#8446E6"/><stop offset="1" stop-color="#3A1BD6"/></radialGradient>
+    <symbol id="fi-joule" viewBox="0 0 53 53"><path d="M12 1H41Q44 1 46 3.5L51 13Q53 17 50.5 20.5L29 50Q26.5 53 24 50L2.5 20.5Q0 17 2 13L7 3.5Q9 1 12 1Z" fill="url(#fijg)"/><path d="M36.5 9.5C37.3 15.5 39 17.2 45 18C39 18.8 37.3 20.5 36.5 26.5C35.7 20.5 34 18.8 28 18C34 17.2 35.7 15.5 36.5 9.5Z" fill="#fff"/></symbol>
+    <symbol id="fi-full" viewBox="0 0 16 16"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="fi-close" viewBox="0 0 16 16"><path d="m3.5 3.5 9 9m0-9-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="fi-send" viewBox="0 0 16 16"><path d="M2 8 14 2l-3 12-3-5zM8 9l6-7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+    <symbol id="fi-sort" viewBox="0 0 16 16"><path d="M5 2.5v11M2.5 11 5 13.5 7.5 11M11 13.5v-11M8.5 5 11 2.5 13.5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="fi-joule-shell" viewBox="0 0 20 20"><path d="M6.2 4.5H13.8L17.3 8.6L10 16.8L2.7 8.6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10.9 7.1V10.9M9 9H12.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="fi-ai" viewBox="0 0 16 16"><path d="M7 1.5 8.3 5.7 12.5 7 8.3 8.3 7 12.5 5.7 8.3 1.5 7l4.2-1.3zM12.5 10.5l.6 1.9 1.9.6-1.9.6-.6 1.9-.6-1.9-1.9-.6 1.9-.6z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<!-- ════════════════════════════════════
+     JAVASCRIPT — 순서가 곧 실행 순서
+════════════════════════════════════ -->
+<script src="js/fiori-common.js"></script>
+<script src="js/core.js"></script>
+<script src="js/qm.js"></script>
+<script src="js/nav-patch.js"></script>
+<script src="js/joule-theme.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/arch-diagram.js"></script>
+<script src="js/arch-tour.js"></script>
+</body>
+</html>

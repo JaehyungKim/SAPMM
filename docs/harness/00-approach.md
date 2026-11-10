@@ -41,8 +41,9 @@ js/mm/ js/sd/ js/pp/  모듈별 콘텐츠 — 시나리오 steps, 아키텍처 �
 
 현재 상태와 차이:
 - CSS/JS는 이미 파일로 분리됨 (`01-engine.md` 참고).
-- **아직 엔진과 MM 콘텐츠가 섞여 있다** — `js/app.js`(엔진 + MM 시나리오 7개), `js/ui5-views.js`(UI5 헬퍼 + MM 화면), `js/story-sto.js`(스토리 엔진 + MM 스토리). SD 첫 시나리오 착수 전에 `js/core/`와 `js/mm/`으로 나누는 것이 선행 작업이다.
-- 엔진은 페이지 ID 접두사 `agent`와 요소 ID `aN-…`에 의존한다. 모듈 파일을 나누면 각 모듈 안에서 `agent1`부터 다시 번호를 매기면 된다.
+- **엔진 분리 완료 (대화 화면 기준)** — 공통 엔진은 `js/core.js`, 모듈 콘텐츠는 `js/app.js`(MM)·`js/pp.js`·`js/qm.js`, 진입 파일은 `index.html`(MM)·`pp.html`·`qm.html`. 홈 제목 아래 모듈 탭으로 오간다.
+- 아직 MM 전용으로 남은 것: `js/ui5-views.js`(UI5 헬퍼 + MM 화면), `js/story-sto.js`(스토리 엔진 + MM 스토리). PP·QM 증빙 화면(UI5)을 만들 때 UI5 헬퍼를 공통으로 떼어낸다.
+- 페이지 ID는 모듈 접두사를 쓴다: MM `agent1~7`, PP `pp1`, QM `qm1`·`qm2`.
 
 ## 작업 순서 (모든 시나리오 공통)
 1. **기획** — `02-scenario-template.md` 양식으로 `docs/modules/<모듈>.md`에 시나리오를 적고 사용자 확인을 받는다.

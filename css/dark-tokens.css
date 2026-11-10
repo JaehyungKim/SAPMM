@@ -67,3 +67,7 @@ html.dark body.light .btn-demo:hover { background: #1A8CFF; }
 
 /* 테마 토글 버튼 */
 html.dark .j-rail-btn.j-theme-btn { color: #FFC24D; }
+
+/* 모듈 탭 · 주요 버튼: 흰 글자를 얹는 배경은 진한 색 유지 */
+html.dark .mod-tab.on { background: #5D36FF; border-color: #5D36FF; color: #fff; }
+html.dark body.light .action-btn-primary { background: #0070F2; border-color: #0070F2; color: #fff; }

@@ -194,5 +194,7 @@
   };
   window.AGENT_ARCH = window.AGENT_ARCH || {};
   Object.keys(NC).forEach(k => { window.AGENT_ARCH[k] = build(NC[k], HL[k] || []); });
+  /* 다른 모듈(PP·QM …)은 이 스크립트보다 먼저 window.EXTRA_ARCH[agentId] = { cfg, hl } 를 등록한다. cfg 형식은 위 NC 와 같다. */
+  Object.entries(window.EXTRA_ARCH || {}).forEach(([k, v]) => { window.AGENT_ARCH[k] = build(v.cfg, v.hl || []); });
   window.ARCH_V5 = true;
 })();

@@ -2,8 +2,8 @@
 
 SAP S/4HANA 모듈별 AI Agent 시나리오를 시연하는 정적 웹 데모. 빌드 도구 없음 — `index.html`을 브라우저로 바로 열거나 GitHub Pages(`origin` = github.com/JaehyungKim/SAPMM)로 배포한다.
 
-- 현재: **MM** 7개 시나리오 + 스토리 모드 완성 (`index.html`)
-- 계획: **SD**, **PP** 모듈 추가 — 진행 상태는 `docs/modules/`
+- 현재: **MM** 7개 시나리오 + 스토리 모드 (`index.html`), **PP** 1개 (`pp.html`), **QM** 2개 (`qm.html`) — PP·QM은 대화 화면까지, 증빙 화면은 스크린샷 대기
+- 계획: **SD** 모듈 추가, PP·QM 증빙 화면 — 진행 상태는 `docs/modules/`
 
 ## 작업 전에 읽을 문서 (docs/harness/)
 | 문서 | 언제 |
