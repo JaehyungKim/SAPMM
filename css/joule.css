@@ -578,3 +578,6 @@ body.story-on .page { bottom: 52px !important; }
 .sc-ba .r { text-align: right; white-space: nowrap; }
 .sc-ba tr.sum td { border-bottom: none; font-weight: 600; background: var(--j-brand-soft); }
 .sc-ba td:nth-child(3) { color: var(--j-text-2); }
+
+/* ─── 홈 카드: 화면이 낮아도 카드가 잘리지 않게 내용 높이를 보장하고, 넘치면 스크롤 ─── */
+body.light .scenario-grid { grid-template-rows: none; grid-auto-rows: minmax(min-content, 1fr); overflow-y: auto; padding-bottom: 16px; }

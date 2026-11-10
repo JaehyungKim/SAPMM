@@ -52,7 +52,7 @@ demoPlayers['agent1'] = new DemoPlayer({
       touchGuide.hideAll();
       p.addMsg('user', '플랜트 1050의 장기/악성 재고 전환 예상 품목을 위험도 순으로 상위 10개 보여줘');
       setTimeout(() => {
-        const t = p.addThinking(["플랜트 1050 보유 재고의 최종 입출고일 기준 체류 기간을 계산하고 있어요", "다음 달 장기재고 전환 기준일에 도달하는 품목을 추려내는 중", "향후 소요 계획이 없는 품목에 위험 가중치를 부여하고 있어요", "설계 변경(ECN)으로 대체품이 생긴 품목도 찾고 있어요", "전환 위험과 재고금액으로 정렬해 상위 10개를 선정합니다"]);
+        const t = p.addThinking(["플랜트 1050 보유 재고의 최종 입출고일 기준 체류 기간을 계산하고 있어요", "다음 달 장기재고 전환 기준일에 도달하는 품목을 추려내는 중", "향후 소요 계획이 없는 품목에 위험 가중치를 부여하고 있어요", "설계 변경으로 대체품이 생긴 품목도 찾고 있어요", "전환 위험과 재고금액으로 정렬해 상위 10개를 선정합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
@@ -61,7 +61,7 @@ demoPlayers['agent1'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>순위</th><th>품번</th><th>품명</th><th>재고량</th><th>전환예상일</th><th>재고금액</th><th>원인 (AI)</th></tr></thead>
               <tbody>
-                <tr><td>1</td><td><strong>K-7720</strong></td><td>구형 와이어링 하네스</td><td>200 EA</td><td>${demoMD(1,5,'iso')}</td><td><strong>8.4M</strong></td><td><span class="badge badge-danger">ECN 대체 진행</span></td></tr>
+                <tr><td>1</td><td><strong>K-7720</strong></td><td>구형 와이어링 하네스</td><td>200 EA</td><td>${demoMD(1,5,'iso')}</td><td><strong>8.4M</strong></td><td><span class="badge badge-danger">신형 대체</span></td></tr>
                 <tr><td>2</td><td>432B</td><td>BC3 전용 센서</td><td>240 EA</td><td>${demoMD(1,8,'iso')}</td><td><strong>26.4M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
                 <tr><td>3</td><td>431A</td><td>특수 가스켓</td><td>150 EA</td><td>${demoMD(1,12,'iso')}</td><td><strong>18.0M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
                 <tr><td>4</td><td>431C</td><td>전용 브래킷</td><td>80 EA</td><td>${demoMD(1,15,'iso')}</td><td><strong>12.8M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
@@ -70,9 +70,7 @@ demoPlayers['agent1'] = new DemoPlayer({
               </tbody>
             </table>
           </div>
-          <strong>1위 K-7720은 단산과 무관합니다.</strong> 설계 변경 ECN-2026-118로 신형 K-7721 전환이 진행 중이라 3개월 새 소요가 70% 줄었지만,
-          최종 입출고일 기준의 기존 Aging 리포트에서는 아직 <strong>정상 재고</strong>로 분류됩니다.<br>
-          2~5위는 BC3 단산(${demoMon(1,'ykr')} 말) 전용 부품 — 단산 관리 Agent 분석 결과와 연계됩니다.`);
+          1위 K-7720은 신형 K-7721로 설계 변경되면서 최근 3개월 소요가 70% 줄었습니다. 2~5위는 BC3 단산(${demoMon(1,'ykr')} 말) 전용 부품입니다.`);
           p.addResultCard(`
             <h4>📊 요약 현황</h4>
             <div class="kpi-row">
@@ -339,6 +337,10 @@ demoPlayers['agent2'] = new DemoPlayer({
         발송 완료: 9 / 9건 (100%)<br>
         발송일시: ${new Date().toLocaleString('ko-KR')}<br><br>
         <span class="text-muted">공급업체 회신 시 Joule Work 알림으로 수신됩니다.</span>`);
+        const sec = document.getElementById('agent2');
+        sec.querySelectorAll('.a2-sent').forEach(e => { e.textContent = '9'; });
+        sec.querySelectorAll('.a2-sent-sub').forEach(e => { e.textContent = '9 / 9 · 100%'; });
+        sec.querySelectorAll('.a2-mail-ins').forEach(e => { e.innerHTML = '✅ 9개사 <strong>발송 완료</strong> · LTB 수량 회신 기한 ' + demoDay(7, 'kr') + ' · 회신은 Joule 알림으로 수신'; });
       }, 600);
     },
     (p) => {
@@ -760,7 +762,7 @@ demoPlayers['agent6'] = new DemoPlayer({
     (p) => {
       p._setFlowActive(1);
       p.presets().innerHTML = ''; touchGuide.hideAll();
-      p.addMsg('user', `다음 달(${demoMon(1,'kr')}) 수요 예측 결과를 바탕으로 발주가 필요한 자재 추천해줘`);
+      p.addMsg('user', '다음 달 수요 예측 결과를 바탕으로 발주가 필요한 자재 추천해줘');
       setTimeout(() => {
         p.addThinking(["상위 200개 자재의 과거 24개월 소비 패턴을 살펴보고 있어요", "계절성과 최근 추세를 반영해 다음 달 수요를 예측하는 중", "현재고·미입고 PO에 재고 이전과 품질 검사 합격분까지 빼서 부족 수량을 계산하고 있어요", "안전재고와 최소 발주량을 고려해 발주 대상을 선정합니다"]);
         setTimeout(() => {
@@ -1802,7 +1804,7 @@ patch('agent1',[
 `<div class="db-card">
 ${hdr('📦','Inventory Aging 대시보드','플랜트 1050 · '+demoMon(1,'ykr')+' 전환 예상 품목')}
 <div class="db-kpi-row">
-${kv('4건','🔴 High Risk','#ff4444','ECN 1건 · BC3 3건')}
+${kv('4건','🔴 High Risk','#ff4444','설계 변경 1건 · BC3 3건')}
 ${kv('112.5M','총 장기재고 금액','#ff9a3c','↑ 12.4M원')}
 ${kv('10건','전환 예상 (1M 내)','#5aafff','이달 확정')}
 ${kv('16건','Block 대상 PO','#4cde72','미입고 PO')}
@@ -1819,7 +1821,7 @@ ${bar('K-7720 구형 와이어링 하네스',32,'#E9730C','8.4M')}
 ${donut(40,'#BB0000','High Risk')}
 <div style="flex:1">
 ${seg([[4,'#BB0000','High (4건)'],[4,'#E9730C','Med (4건)'],[2,'#30914C','Low (2건)']])}
-<div class="db-insight">⚠️ AI 분석: 전체의 <strong style="color:#ff4444">40%</strong>가 High Risk — BC3 단산 3건 + <strong>기존 리포트가 놓친 ECN 대체품 K-7720</strong>. 즉각 PO Block 조치 권고</div>
+<div class="db-insight">⚠️ AI 분석: 전체의 <strong style="color:#ff4444">40%</strong>가 High Risk — BC3 단산 3건 + <strong>신형 대체로 소요가 급감한 K-7720</strong>. 즉각 PO Block 조치 권고</div>
 </div>
 </div></div>`,
 
@@ -1851,7 +1853,7 @@ ${hdr('🔩','단산 관리 대시보드','BC3 차종 · BOM 역전개 완료')}
 ${kv('28건','유니크 부품 총수','#5aafff','BC3 전용')}
 ${kv('12건','🔴 High Risk','#ff4444','즉시 대응 필요')}
 ${kv('9개사','관련 공급업체','#A78BFA','BestRun 협력사')}
-${kv('1,240EA','총 영향 재고량','#ff9a3c','28개 품목')}
+${kv('19개','총 영향 재고 개수','#ff9a3c','28개 부품 중 재고 보유')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
   <div class="db-chart-ttl">🔩 위험도별 유니크 부품 분포</div>
@@ -1872,7 +1874,7 @@ ${hdr('✉️','공급업체 메일 발송 현황','BC3 단산 안내 · 9개사
 <div class="db-kpi-row">
 ${kv('9개사','발송 대상','#5aafff','')}
 ${kv('9건','메일 초안 생성','#A78BFA','AI 작성')}
-${kv('0건','발송 완료','#30914C','승인 대기')}
+${kv('<span class="a2-sent">0</span>건','발송 완료','#30914C','<span class="a2-sent-sub">승인 대기</span>')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">📋 공급업체별 영향 부품 수</div>
@@ -1881,7 +1883,7 @@ ${bar('Supplier B (431C)',72,'#7C3AED','3건')}
 ${bar('Supplier C (431D)',56,'#7C3AED','2건')}
 ${bar('Supplier D~I',30,'#A78BFA','각 1건')}
 </div>
-<div class="db-insight" style="margin-top:10px">⚖️ 메일 초안 검토 후 <strong>일괄 승인 발송</strong> 가능 · 예상 소요시간 3분</div></div>`
+<div class="db-insight a2-mail-ins" style="margin-top:10px">⚖️ 메일 초안 검토 후 <strong>일괄 승인 발송</strong> 가능 · 예상 소요시간 3분</div></div>`
 ]);
 
 /* ═══ AGENT 3 — MRP Exception ═══ */
@@ -1980,7 +1982,7 @@ ${kv('5건','납기 지연 예상','#ff9a3c','D-7 이내')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">📉 최근 6개월 OTD 추이 — Delta Co. <span style="font-size:9px;color:#ff4444">(기준선 80%)</span></div>
-<svg viewBox="0 0 320 88" style="width:100%;height:88px;display:block">
+<svg viewBox="0 0 320 88" style="width:100%;height:auto;max-height:260px;display:block">
   <line x1="38" y1="8" x2="312" y2="8" stroke="#2E4A6A" stroke-width="0.5" opacity="0.5"/>
   <line x1="38" y1="26" x2="312" y2="26" stroke="#2E4A6A" stroke-width="0.5" opacity="0.5" stroke-dasharray="3,3"/>
   <line x1="38" y1="44" x2="312" y2="44" stroke="#2E4A6A" stroke-width="0.5" opacity="0.5"/>
