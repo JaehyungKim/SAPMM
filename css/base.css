@@ -1506,6 +1506,7 @@ body.light .preset-btn:hover { border-color: var(--joule-3); color: var(--joule-
 @keyframes modalBgIn{from{opacity:0}to{opacity:1}}
 .arch-modal-card {
   width:1520px; max-width:95vw;
+  max-height:calc(100vh - 40px); display:flex; flex-direction:column;
   background:#0d1a27;
   border:1px solid rgba(0,112,242,.35);
   border-top:3px solid var(--sap-teal);
@@ -1529,7 +1530,8 @@ body.light .preset-btn:hover { border-color: var(--joule-3); color: var(--joule-
   cursor:pointer; transition:var(--trans); flex-shrink:0;
 }
 .arch-modal-close:hover{background:rgba(187,0,0,.2);border-color:var(--sap-danger);color:#ff4444;}
-.arch-modal-body{padding:24px 28px 20px;overflow:auto;}
+.arch-modal-body{padding:24px 28px 20px;overflow-y:auto;overflow-x:auto;flex:1 1 auto;min-height:0;overscroll-behavior:contain;}
+.arch-modal-header,.arch-modal-footer{flex-shrink:0;}
 .arch-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(46,74,106,.5);}
 .arch-legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--sap-text-muted);}
 .arch-legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}

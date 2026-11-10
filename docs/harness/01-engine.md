@@ -9,11 +9,14 @@
 | `css/joule.css` | Joule Spaces 테마, Joule 채팅 패턴(선제 경보·KG), 스토리 모드, 아키텍처 투어 |
 | `css/fiori.css` | Fiori HTML 화면(`.fop-*`), SAPUI5 호스트(`.ui5-host`) |
 | `css/gui.css` | SAP GUI for HTML 화면(`.gui-*`) |
+| `css/dark.css` | **자동 생성** 다크 모드 — `python3 tools/gen-dark-css.py`가 위 4개 CSS의 색상을 바꿔 만든다. 직접 고치지 않는다 |
+| `css/dark-tokens.css` | 다크 모드 토큰(Horizon Dark)과 손으로 다듬는 예외 규칙. 생성기가 `dark.css` 끝에 붙인다 |
 | `js/gui.js` | GUI 탭 전환 `guiTab()`, GUI 상태 탭 렌더 |
 | `js/fiori-common.js` | `demoDay()`/`applyRelDays()` 상대 날짜, Fiori 앵커 바 `fopGo()`, `fopSeg()`/`fopTree()` |
 | `js/app.js` | **엔진 + MM 콘텐츠**: router, touchGuide, `DemoPlayer`, `docTimes`/`stampDoc`, `jConfirm`, 시나리오 7개, 에이전트별 아키텍처 `CONFIGS`, `openArchModal` |
 | `js/nav-patch.js` | 페이지 목록 `ALL_PAGES`, 페이지 진입 시 Step 0 자동 실행 |
 | `js/joule-theme.js` | Joule Spaces 레이아웃 재구성, 채팅 메시지 꾸밈, 색상 리맵 |
+| `js/theme.js` | 다크 모드 토글(`setDarkMode`, 레일의 해/달 버튼, localStorage 저장), 인라인 style·SVG 색상 런타임 변환, UI5 `sap_horizon_dark` 전환 |
 | `js/story-sto.js` | STO 흐름 상태(`stoState`, 납품·출고·입고), 자재 문서 화면, 기존 방식 비교, 스토리 모드 `STORY` |
 | `js/ui5-views.js` | SAPUI5 XML 뷰 헬퍼 + Fiori 화면 정의(`VIEWS`), UI5 모델 동기화 |
 | `js/arch-diagram.js` | SAP Architecture Center 스타일 아키텍처 다이어그램 (에이전트별 강조·메타) |
@@ -80,3 +83,9 @@ STO처럼 데모 중 상태가 진행되면(생성 → 납품 → 출고 → 입
 5. `js/arch-tour.js` — `agentN: { core, steps }`
 6. `js/story-sto.js` — 기존 방식 비교(`agentN: [기존 업무, 기존 시간, Agent 시간]`), 스토리에 넣을 경우 `STORY`
 7. 증빙 화면 — UI5 뷰(`VIEWS`) 또는 GUI 섹션, `stampDoc` 키
+
+## 다크 모드
+- `<html class="dark">`일 때 적용된다. 선택은 localStorage `sap-demo-theme`에 저장되고 `index.html` `<head>`의 인라인 스크립트가 첫 렌더 전에 복원한다.
+- **CSS 파일을 고친 뒤에는 `python3 tools/gen-dark-css.py`를 다시 실행**해 `css/dark.css`를 갱신한다. 자동 변환이 어색한 곳은 `css/dark-tokens.css`에 `html.dark …` 규칙으로 덧붙인다.
+- 새 색상은 가능하면 `var(--j-*)` 토큰을 쓴다 — 토큰은 다크 값이 따로 정의돼 있어 변환 없이 맞는다.
+- 인라인 `style="…"`의 색은 `js/theme.js`가 런타임에 바꾼다(UI5 컨트롤 내부 제외). UI5 화면은 테마 전환으로 처리된다.

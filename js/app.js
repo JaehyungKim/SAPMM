@@ -468,7 +468,7 @@ demoPlayers['agent1'] = new DemoPlayer({
     {arrow:true, label:'MCP Protocol'},
     {icon:'⚙️', name:'ERP MCP Server', sub:'BTP Cloud Foundry', type:'mcp'},
     {arrow:true, label:'OData API'},
-    {icon:'🏢', name:'S/4HANA', sub:'On-Premise ERP', type:'erp'},
+    {icon:'🏢', name:'S/4HANA', sub:'Cloud ERP', type:'erp'},
     {arrow:true, label:'CDS View'},
     {icon:'🗄️', name:'표준 재고 CDS + PAL', sub:'Aging Data + ML', type:'db'},
     {arrow:true, label:'예측결과'},
@@ -969,7 +969,7 @@ demoPlayers['agent4'] = new DemoPlayer({
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
-          p.addMsg('ai', `847건 중 <strong>불일치 23건</strong> 탐지. 금액 차이 상위 5건:
+          p.addMsg('ai', `847건 중 <strong>불일치 23건</strong> 탐지. 금액 차이 상위 3건:
           <div class="chat-table-wrap">
             <table class="chat-table">
               <thead><tr><th>#</th><th>송장번호</th><th>공급업체</th><th>PO금액</th><th>송장금액</th><th>차이</th><th>원인 분류</th></tr></thead>
@@ -1454,7 +1454,7 @@ function _commonTier1(extraNodes=''){
   ${_a(750,66,800,66,'HTTP','')}
   ${_n(800,40,150,52,'mcp','⚡','ERP MCP Server','BTP Cloud Foundry')}
   ${_a(950,66,1000,66,'OData','')}
-  ${_n(1000,40,155,52,'erp','🏭','S/4HANA On-Premise','ERP Backend System')}
+  ${_n(1000,40,155,52,'erp','🏭','S/4HANA Cloud','ERP Backend System')}
   ${_a(1155,66,1200,66,'CDS','')}
   ${_n(1200,40,200,52,'erp','📊','CDS Views / OData API','Standard + Custom')}
   ${extraNodes}`;
@@ -1505,7 +1505,7 @@ ARCH_SVG['agent3'] = `<svg xmlns="http://www.w3.org/2000/svg" width="1430" heigh
   ${_a(750,76,800,76,'HTTP','')}
   ${_n(800,50,150,52,'mcp','⚡','ERP MCP Server','BTP Cloud Foundry')}
   ${_a(950,76,1000,76,'OData','')}
-  ${_n(1000,50,155,52,'erp','🏭','S/4HANA On-Premise','ERP Backend')}
+  ${_n(1000,50,155,52,'erp','🏭','S/4HANA Cloud','ERP Backend')}
   ${_a(1155,76,1210,76,'Read/Write','')}
   ${_n(1210,50,200,52,'erp','⚙️','MRP CDS Views','I_ManufacturingOrder I_ManufacturingOrder I_MRPController')}
 </svg>`;
@@ -1523,7 +1523,7 @@ ARCH_SVG['agent4'] = `<svg xmlns="http://www.w3.org/2000/svg" width="1430" heigh
   ${_a(750,66,800,66,'HTTP','')}
   ${_n(800,40,150,52,'mcp','⚡','ERP MCP Server','BTP Cloud Foundry')}
   ${_a(950,66,1000,66,'OData','')}
-  ${_n(1000,40,155,52,'erp','🏭','S/4HANA On-Premise','ERP Backend')}
+  ${_n(1000,40,155,52,'erp','🏭','S/4HANA Cloud','ERP Backend')}
   ${_va(1060,92,170,'','')}
   ${_n(870,170,160,52,'erp','📄','Purchase Order','I_PurchaseOrderItemAPI01')}
   ${_n(1060,170,160,52,'erp','📦','Goods Receipt','I_MaterialDocumentItem')}
@@ -1716,7 +1716,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
 
       <!-- ═══ TOP TITLE BAR ═══ -->
       <text x="28" y="34" font-size="18" font-weight="800" fill="#0F172A" ${F}>${cfg.headerTitle}</text>
-      <text x="1058" y="52" text-anchor="middle" font-size="11.5" font-weight="700" fill="#475569" ${F}>Cloud Connector / Network</text>
+      <text x="1058" y="52" text-anchor="middle" font-size="11.5" font-weight="700" fill="#475569" ${F}>Network</text>
 
       <!-- ═══ VERTICAL NETWORK DIVIDER LINE ═══ -->
       <line x1="1058" y1="62" x2="1058" y2="590" stroke="#334155" stroke-width="3.2" stroke-linecap="round"/>
@@ -1843,13 +1843,13 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       ${pillNode(704, 324, 260, 22, cfg.mcpGateway1, '', '#0070F2', '#FFFFFF', '#0F172A')}
       ${pillNode(704, 351, 260, 22, cfg.mcpGateway2, '', '#0070F2', '#FFFFFF', '#0F172A')}
 
-      <!-- ── 5. RIGHT SIDE: S/4HANA On-Premise & HANA Cloud (Across Network Line) ── -->
+      <!-- ── 5. RIGHT SIDE: S/4HANA Cloud & HANA Cloud (Across Network Line) ── -->
       <rect x="1084" y="146" width="334" height="444" rx="14" fill="#F8FAFC" stroke="#64748B" stroke-width="1.8"/>
       <text x="1251" y="170" text-anchor="middle" font-size="14" font-weight="800" fill="#0F172A" ${F}>${cfg.rightTitle || 'S/4HANA & HANA Cloud'}</text>
 
-      <!-- S/4HANA On-Premise OData / CDS Box -->
+      <!-- S/4HANA Cloud OData / CDS Box -->
       <rect x="1100" y="182" width="302" height="168" rx="10" fill="#FFFFFF" stroke="#475569" stroke-width="1.5"/>
-      <text x="1251" y="201" text-anchor="middle" font-size="11.5" font-weight="800" fill="#0F172A" ${F}>${cfg.s4BoxTitle || 'S/4HANA On-Premise (OData / CDS)'}</text>
+      <text x="1251" y="201" text-anchor="middle" font-size="11.5" font-weight="800" fill="#0F172A" ${F}>${cfg.s4BoxTitle || 'S/4HANA Cloud (OData / CDS)'}</text>
       ${pillNode(1114, 210, 274, 28, cfg.cds1[0], cfg.cds1[1], '#475569', '#F8FAFC')}
       ${pillNode(1114, 244, 274, 28, cfg.cds2[0], cfg.cds2[1], '#475569', '#F8FAFC')}
       ${pillNode(1114, 278, 274, 28, cfg.cds3[0], cfg.cds3[1], '#475569', '#F8FAFC')}
@@ -1914,7 +1914,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       <path d="M980,350 L1100,350" fill="none" stroke="#0D9488" stroke-width="1.5" marker-start="url(#arr-teal-start)"/>
       ${pillBadge(1042, 350, 'MCP', 'mcp')}
 
-      <!-- Gray ODATA / REST line: Subaccount -> Autonomous Suite & S/4HANA On-Premise -->
+      <!-- Gray ODATA / REST line: Subaccount -> Autonomous Suite & S/4HANA Cloud -->
       <line x1="760" y1="380" x2="760" y2="468" stroke="#5B738B" stroke-width="1.5" marker-end="url(#arr-gray)"/>
       ${pillBadge(760, 412, 'ODATA / REST', 'odata')}
 
@@ -1961,8 +1961,8 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       btpInner2: 'Monthly Aging Batch + HANA PAL Demand Forecast',
       mcpGateway1: 'ERP MCP Server (Stock & PO Control)',
       mcpGateway2: 'A2A & SMTP Alert Connectivity',
-      rightTitle: 'S/4HANA On-Premise & HANA Cloud',
-      s4BoxTitle: 'S/4HANA On-Premise (OData / CDS Views)',
+      rightTitle: 'S/4HANA Cloud & HANA Cloud',
+      s4BoxTitle: 'S/4HANA Cloud (OData / CDS Views)',
       cds1: ['I_MaterialStock_2', '플랜트 1050/1060/1070 실시간 재고 현황'],
       cds2: ['I_MaterialDocumentItem_2', '최근 6개월 자재 입출고 및 소요량 추이'],
       cds3: ['I_StockQuantityCurrentValue_2 (Aging)', '장기/악성 재고 전환 예정일 및 금액 산정'],
@@ -1996,7 +1996,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       mcpGateway1: 'KG MCP Server (HANA Cloud Graph)',
       mcpGateway2: 'ERP MCP Server (Stock & PO Cancel)',
       rightTitle: 'S/4HANA & HANA Cloud Knowledge Graph',
-      s4BoxTitle: 'S/4HANA On-Premise (BOM & PO OData)',
+      s4BoxTitle: 'S/4HANA Cloud (BOM & PO OData)',
       cds1: ['I_BillOfMaterialStatus / CS15', '차종-완제품-하위부품 BOM 역전개 API'],
       cds2: ['I_MaterialStock_2', '단산 대상 유니크 부품 현재고 조회'],
       cds3: ['I_PurOrdScheduleLineAPI01', '431A 미입고 PO 4500018721·4500019105 취소 가능성'],
@@ -2029,8 +2029,8 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       btpInner2: '234 MRP Exceptions Triage (SAP 예외 06/10/15/20/96)',
       mcpGateway1: 'ERP MCP Server (MRP & PO Schedule)',
       mcpGateway2: 'A2A Corrective Action Recommender',
-      rightTitle: 'S/4HANA On-Premise & AI Triage Services',
-      s4BoxTitle: 'S/4HANA On-Premise (MRP & Mfg CDS)',
+      rightTitle: 'S/4HANA Cloud & AI Triage Services',
+      s4BoxTitle: 'S/4HANA Cloud (MRP & Mfg CDS)',
       cds1: ['I_MRPController', '플랜트 1050 MRP 예외 메시지 실시간 수집'],
       cds2: ['I_ManufacturingOrder', '제조오더(MO-26-0891) 일정 충돌 및 부족 분석'],
       cds3: ['I_PurOrdScheduleLineAPI01', '구매오더 납기 스케줄 라인 조회 및 변경'],
@@ -2097,8 +2097,8 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       btpInner2: 'F1(OTD 40%) + F2(Trend 25%) + F3(Urgency 20%) + F4(Confirm 15%)',
       mcpGateway1: 'ERP MCP Server (Schedule Line & Supplier)',
       mcpGateway2: 'Automated Expediting Email Gateway',
-      rightTitle: 'S/4HANA On-Premise & HANA Cloud OTD DB',
-      s4BoxTitle: 'S/4HANA On-Premise (Purchasing OData)',
+      rightTitle: 'S/4HANA Cloud & HANA Cloud OTD DB',
+      s4BoxTitle: 'S/4HANA Cloud (Purchasing OData)',
       cds1: ['I_PurOrdScheduleLineAPI01', '납기 예정일(D-Day) 및 미입고 수량 실시간 추적'],
       cds2: ['I_PurchaseOrder (Confirmation AB)', '공급업체 납기 확인(Order Ack) 여부 점검'],
       cds3: ['I_Supplier / I_SupplierPurchasingOrg', '47개 활성 공급업체 마스터 및 담당자 연락처'],
@@ -2131,8 +2131,8 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       btpInner2: '24 months of consumption history → aggregated input',
       mcpGateway1: 'RDB MCP Server (HANA Cloud Forecast DB)',
       mcpGateway2: 'ERP MCP Server (Stock GAP & Purchase Requisition API)',
-      rightTitle: 'S/4HANA On-Premise & HANA Cloud / AI Core',
-      s4BoxTitle: 'S/4HANA On-Premise (Inventory & PR OData)',
+      rightTitle: 'S/4HANA Cloud & HANA Cloud / AI Core',
+      s4BoxTitle: 'S/4HANA Cloud (Inventory & PR OData)',
       cds1: ['I_MaterialDocumentItem_2 (24개월 이력)', '상위 200개 자재 과거 24개월 소비 패턴 추출'],
       cds2: ['I_MaterialStock_2 & Open PO / STO', '현재고 + 미입고 PO 95 EA + STO 입고 예정 40 EA 대조'],
       cds3: ['I_ProductPlant (Safety Stock & Lot)', '자재별 안전재고 기준 및 최소 발주량(MOQ) 반영'],
@@ -2166,7 +2166,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       mcpGateway1: 'ERP MCP Server (Multi-Plant Stock Query)',
       mcpGateway2: 'PO (UB) · Outbound Delivery · GI 641 / GR 101',
       rightTitle: 'S/4HANA Multi-Plant Logistics & Execution',
-      s4BoxTitle: 'S/4HANA On-Premise (Multi-Plant Stock CDS)',
+      s4BoxTitle: 'S/4HANA Cloud (Multi-Plant Stock CDS)',
       cds1: ['I_MaterialStock_2 (Plant 1050 부산)', '부족 재고 탐지 (A-4315 현재 45EA / 필요 85EA)'],
       cds2: ['I_MaterialStock_2 (Plant 1060 인천)', '과잉 잉여재고 탐지 (현재 140EA / 잉여 +80EA)'],
       cds3: ['I_MaterialStock_2 (Plant 1070 수원)', '권역별 적정 재고 균형 및 안전재고 모니터링'],

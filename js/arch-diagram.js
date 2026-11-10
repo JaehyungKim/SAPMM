@@ -2,7 +2,7 @@
    아키텍처 다이어그램 v5 — SAP Architecture Center 표준 배치
    ("A2A and MCP for AI Agent Interoperability at SAP" / "Building AI Agents with SAP Joule Studio on SAP BTP")
    SAP Business AI Platform ⊃ BTM · Joule Work · Tools · Managed Runtimes · Agent Gateway · Global Account → Subaccount
-   + Application Clients · Autonomous Suite · SAP Cloud Identity Services · Network · Customer On-Premise (S/4HANA)
+   + Application Clients · Autonomous Suite · SAP Cloud Identity Services · SAP S/4HANA Cloud
 ═══════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -29,7 +29,7 @@
     return `<svg viewBox="0 0 1440 860" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:#FFFFFF;border-radius:10px;display:block;border:1px solid #E2E8F0;">
       <defs>${MK('od', C.od)}${MK('a2a', C.a2a)}${MK('mcp', C.mcp)}${MK('tr', C.trust)}${MK('cc', C.cc)}${MK('bap', C.bap)}</defs>
       ${T(20, 34, c.title + ' — A2A · MCP on SAP Business AI Platform', { b: true, fs: 17 })}
-      ${T(20, 52, 'SAP Architecture Center 표준 배치 기준 · 업무 실행은 SAP S/4HANA (Customer On-Premise)', { fs: 10, c: C.t2 })}
+      ${T(20, 52, 'SAP Architecture Center 표준 배치 기준 · 업무 실행은 SAP S/4HANA Cloud', { fs: 10, c: C.t2 })}
 
       <!-- User & Application Clients -->
       <g transform="translate(110, 92)"><circle r="20" fill="#fff" stroke="${C.text}" stroke-width="2.6"/><circle cy="-5" r="6.5" fill="none" stroke="${C.text}" stroke-width="2.2"/><path d="M-12,13 C-12,4 12,4 12,13" fill="none" stroke="${C.text}" stroke-width="2.2" stroke-linecap="round"/></g>
@@ -84,7 +84,7 @@
       ${R(772, 414, 288, 96, C.btp, '#F5FAFF', { rx: 8, sw: 1.5 })}${T(786, 432, 'SAP Integration Suite', { b: true, fs: 11.5 })}
       ${pill(786, 440, 260, 28, 'MCP Gateway', c.integ[1], C.btp, '#fff', { fs: 10.4 })}
       ${pill(786, 474, 260, 28, 'A2A Connectivity', '', C.btp, '#fff')}
-      ${R(772, 518, 288, 42, C.btp, '#F5FAFF', { rx: 8, sw: 1.4 })}${T(786, 536, 'Destination & Connectivity', { b: true, fs: 11 })}${T(786, 551, 'Cloud Connector 경유 온프레미스 연결', { fs: 9, c: C.t2 })}
+      ${R(772, 518, 288, 42, C.btp, '#F5FAFF', { rx: 8, sw: 1.4 })}${T(786, 536, 'Destination & Connectivity', { b: true, fs: 11 })}${T(786, 551, 'S/4HANA Cloud 통신 약정 · OAuth', { fs: 9, c: C.t2 })}
 
       <!-- ═══ Autonomous Suite ═══ -->
       ${R(232, 640, 640, 196, C.suite, '#EAF4FF', { rx: 14, sw: 1.8 })}${sap(248, 652)}${T(302, 668, 'Autonomous Suite', { b: true, fs: 15, c: '#0A2A66' })}
@@ -97,23 +97,17 @@
       <g transform="translate(948,690)"><circle cx="9" cy="7" r="6" fill="none" stroke="${C.btp}" stroke-width="2"/><path d="M0,22 C0,14 18,14 18,22" fill="none" stroke="${C.btp}" stroke-width="2"/></g>
       ${T(960, 744, 'SAP Cloud', { a: 'middle', b: true, fs: 11 })}${T(960, 758, 'Identity Services', { a: 'middle', b: true, fs: 11 })}
 
-      <!-- Network -->
-      ${T(1124, 72, 'Network', { a: 'middle', b: true, fs: 11, c: C.t2 })}
-      <line x1="1124" y1="80" x2="1124" y2="846" stroke="#3B4B5F" stroke-width="5"/>
-
-      <!-- ═══ Customer On-Premise Network ═══ -->
-      ${R(1146, 112, 280, 724, C.onp, '#F5F6F7', { rx: 14, sw: 1.6, dash: '8 6' })}${T(1286, 138, 'Customer On-Premise Network', { a: 'middle', b: true, fs: 13, c: '#0A2A66' })}
-      ${R(1160, 156, 252, 66, C.cc, '#FFF7ED', { rx: 10, sw: 1.6 })}${T(1286, 180, 'SAP Cloud Connector', { a: 'middle', b: true, fs: 12 })}${T(1286, 198, '보안 통로 · HTTPS', { a: 'middle', fs: 9.5, c: C.t2 })}${T(1286, 212, 'OData/REST · RFC', { a: 'middle', fs: 9.5, c: C.t2 })}
-      ${R(1160, 250, 252, 470, C.onp, '#FFFFFF', { rx: 10, sw: 1.6 })}${T(1286, 272, 'SAP S/4HANA (On-Premise)', { a: 'middle', b: true, fs: 12 })}
-      ${T(1172, 294, '업무 데이터 · 표준 CDS View', { fs: 9.6, b: 800, c: '#0057D2' })}
-      ${c.data.map((d, k) => pill(1172, 300 + k * 34, 228, 30, d[0], d[1], C.onp, '#F8FAFC', { fs: 10 })).join('')}
-      ${T(1172, 420, '업무 실행 · 표준 API', { fs: 9.6, b: 800, c: '#0057D2' })}
-      ${pill(1172, 426, 228, 30, c.exec[0][0], c.exec[0][1], '#0057D2', '#EAF2FF', { fs: 10 })}${pill(1172, 460, 228, 30, c.exec[1][0], c.exec[1][1], C.onp, '#F8FAFC', { fs: 10 })}
-      ${T(1172, 512, '업무 프로세스 · 승인', { fs: 9.6, b: 800, c: '#0057D2' })}
-      ${c.proc.map((d, k) => pill(1172, 518 + k * 34, 228, 30, d[0], d[1] || '', k === 0 ? '#0057D2' : C.onp, k === 0 ? '#EAF2FF' : '#F8FAFC', { fs: 10 })).join('')}
-      ${T(1172, 638, 'SAP Fiori 앱', { fs: 9.6, b: 800, c: '#0057D2' })}
-      ${pill(1172, 644, 228, 30, c.fiori[0][0] + ' · ' + c.fiori[1][0], '', C.onp, '#F8FAFC', { fs: 10 })}
-      ${pill(1172, 678, 228, 30, 'Embedded AI in SAP S/4HANA', '', C.onp, '#F8FAFC', { fs: 10 })}
+      <!-- ═══ SAP S/4HANA Cloud ═══ -->
+      ${R(1150, 112, 272, 512, C.onp, '#FFFFFF', { rx: 14, sw: 1.8 })}${sap(1166, 124)}${T(1218, 139, 'SAP S/4HANA Cloud', { b: true, fs: 14, c: '#0A2A66' })}
+      ${T(1172, 184, '업무 데이터 · 표준 CDS View', { fs: 9.6, b: 800, c: '#0057D2' })}
+      ${c.data.map((d, k) => pill(1172, 190 + k * 34, 228, 30, d[0], d[1], C.onp, '#F8FAFC', { fs: 10 })).join('')}
+      ${T(1172, 310, '업무 실행 · 표준 API', { fs: 9.6, b: 800, c: '#0057D2' })}
+      ${pill(1172, 316, 228, 30, c.exec[0][0], c.exec[0][1], '#0057D2', '#EAF2FF', { fs: 10 })}${pill(1172, 350, 228, 30, c.exec[1][0], c.exec[1][1], C.onp, '#F8FAFC', { fs: 10 })}
+      ${T(1172, 402, '업무 프로세스 · 승인', { fs: 9.6, b: 800, c: '#0057D2' })}
+      ${c.proc.map((d, k) => pill(1172, 408 + k * 34, 228, 30, d[0], d[1] || '', k === 0 ? '#0057D2' : C.onp, k === 0 ? '#EAF2FF' : '#F8FAFC', { fs: 10 })).join('')}
+      ${T(1172, 528, 'SAP Fiori 앱', { fs: 9.6, b: 800, c: '#0057D2' })}
+      ${pill(1172, 534, 228, 30, c.fiori[0][0] + ' · ' + c.fiori[1][0], '', C.onp, '#F8FAFC', { fs: 10 })}
+      ${pill(1172, 568, 228, 30, 'Embedded AI in SAP S/4HANA', '', C.onp, '#F8FAFC', { fs: 10 })}
 
       <!-- ═══ 연결선 ═══ -->
       ${L('M200,196 C224,196 224,300 248,300', C.od)}
@@ -132,16 +126,15 @@
       ${L('M1060,236 L1067,236 L1067,379 L1062,379', '#0D9488', { m: 'mcp' })}${tag(1067, 316, 'SQL', '#0D9488')}
       ${L('M772,244 L765,244 L765,454 L784,454', C.mcp, { m: 'mcp' })}${tag(765, 400, 'MCP', C.mcp)}
       ${L('M916,510 L916,516', C.btp, { m: 'od' })}
-      ${L('M1060,539 C1100,539 1106,189 1158,189', C.cc, { m: 'cc', w: 2.2 })}${tag(1100, 420, 'HTTPS', C.cc)}
-      ${L('M1286,222 L1286,248', C.cc, { m: 'cc', w: 2 })}${tag(1340, 236, 'OData/REST · RFC', C.cc)}
+      ${L('M1060,539 C1104,539 1104,330 1148,330', C.od, { w: 2 })}${tag(1106, 440, 'OData/REST', C.od)}
       ${L('M350,476 L350,638', C.od)}${T(258, 560, 'provision Assistants,', { fs: 8.5, c: C.t2 })}${T(258, 572, 'Agents & MCP Servers', { fs: 8.5, c: C.t2 })}
       ${L('M830,570 L830,638', C.od)}${tag(830, 590, 'ODATA / REST', C.od)}
       ${L('M560,598 L560,616', C.trust, { m: false })}${tag(560, 600, 'Trust', C.trust)}
       ${L('M1000,584 L1000,616 L976,676', C.trust, { m: 'tr' })}${tag(1010, 600, 'Trust', C.trust)}
       ${L('M872,702 L934,702', C.trust, { m: 'tr' })}${tag(903, 702, 'Trust', C.trust)}
-      ${L('M872,790 L1100,790 C1140,790 1140,690 1158,690', C.onp, { m: 'od', dash: '5 4' })}${tag(1000, 790, 'realized by · SAP S/4HANA', C.onp)}
+      ${L('M872,790 L1100,790 C1150,790 1150,640 1200,626', C.onp, { m: 'od', dash: '5 4' })}${tag(1000, 790, 'realized by · SAP S/4HANA', C.onp)}
 
-      ${T(20, 852, c.doc + ' · 범례: 분홍 = A2A · 청록 = MCP · 회색 = ODATA/REST · 초록 = Trust/Authenticate · 주황 = Cloud Connector', { fs: 9, c: '#94A3B8' })}
+      ${T(20, 852, c.doc + ' · 범례: 분홍 = A2A · 청록 = MCP · 회색 = ODATA/REST · 초록 = Trust/Authenticate', { fs: 9, c: '#94A3B8' })}
     </svg>`;
   }
 

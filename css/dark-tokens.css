@@ -1,0 +1,69 @@
+/* 다크 모드 — 손으로 다듬은 토큰과 예외 규칙 (SAP Horizon Dark 기준)
+   tools/gen-dark-css.py 가 css/dark.css 끝에 이 파일을 붙인다. 고친 뒤 스크립트를 다시 실행할 것. */
+html.dark, html.dark body, html.dark body.light {
+  color-scheme: dark;
+  --j-bg:          #12171C;
+  --j-surface:     #1D232A;
+  --j-border:      #333D47;
+  --j-border-ctl:  #5B6876;
+  --j-text:        #EAECEE;
+  --j-text-2:      #A9B4BE;
+  --j-text-3:      #8396A8;
+  --j-link:        #4DB1FF;
+  --j-link-hover:  #7BC6FF;
+  --j-brand:       #A08CFF;
+  --j-brand-2:     #B6A6FF;
+  --j-brand-soft:  #27224A;
+  --j-brand-line:  #4A3F8F;
+  --j-user:        #2A3440;
+  --j-neg:         #FF8A8A;
+  --j-neg-icon:    #FF5C5C;
+  --j-neg-bg:      #3A1D21;
+  --j-neg-line:    #7A3038;
+  --j-warn:        #FFC24D;
+  --j-warn-icon:   #FF9E3D;
+  --j-warn-bg:     #382C12;
+  --j-warn-line:   #7A5E1E;
+  --j-pos:         #6FD38E;
+  --j-pos-icon:    #4DC26F;
+  --j-pos-bg:      #15301F;
+  --j-pos-line:    #2F6B40;
+  --j-info-bg:     #132A44;
+  --j-info-line:   #2D5A8C;
+
+  --sap-blue:        #1A8CFF;
+  --sap-blue-dark:   #4DB1FF;
+  --sap-blue-glow:   rgba(77,177,255,0.25);
+  --sap-teal:        #A08CFF;
+  --sap-teal-glow:   rgba(160,140,255,0.25);
+  --sap-dark:        #1D232A;
+  --sap-darker:      #12171C;
+  --sap-card:        #1D232A;
+  --sap-card-hover:  #252D36;
+  --sap-border:      #333D47;
+  --sap-border-light:#5B6876;
+  --sap-text:        #EAECEE;
+  --sap-text-muted:  #A9B4BE;
+  --sap-text-dim:    #8396A8;
+  --sap-success:     #6FD38E;
+  --sap-success-bg:  #15301F;
+  --sap-warning:     #FF9E3D;
+  --sap-warning-bg:  #382C12;
+  --sap-danger:      #FF8A8A;
+  --sap-danger-bg:   #3A1D21;
+  --sap-accent:      #A08CFF;
+  --sap-purple:      #A08CFF;
+  --sap-sky:         #4DB1FF;
+  --joule-glow: rgba(160,140,255,0.3);
+  --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 0 3px rgba(77,177,255,0.25);
+}
+
+/* 흰 글자를 얹는 강조 버튼은 진한 파랑 유지 */
+html.dark body.light .btn-demo,
+html.dark body.light .btn-demo.playing { background: #0070F2; border-color: #0070F2; color: #fff; }
+html.dark body.light .btn-demo:hover { background: #1A8CFF; }
+
+/* 테마 토글 버튼 */
+html.dark .j-rail-btn.j-theme-btn { color: #FFC24D; }
