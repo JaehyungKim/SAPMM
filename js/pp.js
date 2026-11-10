@@ -94,11 +94,11 @@ demoPlayers['pp1'] = new DemoPlayer({
             <thead><tr><th>대안</th><th>라인 유휴</th><th>추가 비용</th><th>고객 납기</th></tr></thead>
             <tbody>
               <tr><td><strong>① 순서 교체</strong> — MO-26-0894(FG-2200, A-4315 불필요)를 내일로 당기고 MO-26-0889은 모레 착수</td><td><span class="text-success">0시간</span></td><td>0원</td><td><span class="badge badge-success">영향 없음</span></td></tr>
-              <tr><td>② 긴급 항공 조달 — A-4315 40 EA 내일 오전 입고</td><td>0시간</td><td>3.8M원</td><td>영향 없음</td></tr>
-              <tr><td>③ 대기 — 내일 라인 정지</td><td><span class="text-danger">16시간</span></td><td>2.4M원 (유휴 인건비)</td><td>영향 없음</td></tr>
+              <tr><td>② 긴급 조달 — A-4315 40 EA 내일 오전 입고 (항공·특송)</td><td>0시간</td><td>4.2M원</td><td>영향 없음</td></tr>
+              <tr><td>③ 대기 — 내일 라인 정지</td><td><span class="text-danger">16시간</span></td><td>유휴 인건비 2.4M원</td><td>하루 늦게 완료 (납기 내)</td></tr>
             </tbody></table></div>
           <strong>추천: ① 순서 교체.</strong> MO-26-0894는 모든 자재가 이미 있고, 납기(${demoDay(9, 'md')})가 여유 있어 하루 당겨도 문제없습니다.`);
-          p.addPresets([{ label: '✅ 추천안으로 일정 변경', highlight: true }, { label: '② 항공 조달 견적 보기' }]);
+          p.addPresets([{ label: '✅ 추천안으로 일정 변경', highlight: true }, { label: '② 긴급 조달 견적 보기' }]);
         }, 2900);
       }, 400);
     },
@@ -130,7 +130,7 @@ demoPlayers['pp1'] = new DemoPlayer({
           A-4315 입고(${demoDay(1, 'md')} 15시) 후 MO-26-0889 자재 준비 상태를 다시 확인해 알려드릴게요.`);
         p.addResultCard(DB.card(
           DB.hdr('✅', '일정 변경 완료', '생산오더 2건 · 조립라인 12') +
-          DB.kpis([['16 → 0시간', '라인 유휴', 'var(--j-pos)', '내일 2교대 가동'], ['0건', '고객 납기 지연', 'var(--j-pos)', `1000612 납기 ${demoDay(7, 'md')}`], ['0원', '추가 비용', 'var(--j-pos)', '항공 조달 3.8M 회피'], ['3시간 → 3분', '검토 시간', 'var(--j-brand)', 'MD04·CO02 수작업 대비']]) +
+          DB.kpis([['16 → 0시간', '라인 유휴', 'var(--j-pos)', '내일 2교대 가동'], ['0건', '고객 납기 지연', 'var(--j-pos)', `1000612 납기 ${demoDay(7, 'md')}`], ['0원', '추가 비용', 'var(--j-pos)', '긴급 조달 4.2M 회피'], ['3시간 → 3분', '검토 시간', 'var(--j-brand)', 'MD04·CO02 수작업 대비']]) +
           DB.chart('📅 조립라인 12 작업 순서 (변경 후)',
             DB.bar(`${demoDay(1, 'md')} · MO-26-0894 FG-2200`, 100, 'var(--j-link)', '16시간') +
             DB.bar(`${demoDay(2, 'md')} · MO-26-0889 FG-2100`, 100, 'var(--j-pos-icon)', '16시간') +

@@ -569,3 +569,12 @@ body.story-on .page { bottom: 52px !important; }
 .tl-row.warn .tl-dot { background: var(--j-warn-icon); } .tl-row.warn .tl-q { color: var(--j-warn); }
 .tl-row.neg .tl-dot { background: var(--j-neg-icon); } .tl-row.neg .tl-q, .tl-row.neg .tl-e { color: var(--j-neg); }
 .tl-row.pos .tl-dot { background: var(--j-pos-icon); } .tl-row.pos .tl-q { color: var(--j-pos); }
+
+/* ─── 스토리 마무리: 기존 방식 vs Joule 표 ─── */
+.sc-ba { overflow-x: auto; margin-bottom: 24px; }
+.sc-ba table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--j-surface); border: 1px solid var(--j-border); border-radius: 12px; overflow: hidden; }
+.sc-ba th, .sc-ba td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--j-border); color: var(--j-text); }
+.sc-ba th { font-size: 12px; color: var(--j-text-2); font-weight: 600; }
+.sc-ba .r { text-align: right; white-space: nowrap; }
+.sc-ba tr.sum td { border-bottom: none; font-weight: 600; background: var(--j-brand-soft); }
+.sc-ba td:nth-child(3) { color: var(--j-text-2); }

@@ -21,7 +21,7 @@ SAP S/4HANA 모듈별 AI Agent 시나리오를 시연하는 정적 웹 데모. �
 - 화면 라벨·대화는 **한국어**. SAP 고유 용어(T-code, 문서 유형 코드)는 원문 유지.
 - 데이터는 `world.md`의 마스터만 쓴다. 새 마스터가 필요하면 `world.md`에 먼저 추가한다.
 - 실존 고객사·공급사 이름 금지 — 가상 이름만.
-- 날짜는 하드코딩하지 말고 `demoDay(n)` / `data-rel-day` / `stampDoc()`로 '오늘' 기준 상대 날짜를 쓴다.
+- 날짜는 하드코딩하지 말고 `demoDay(n)` · `demoMD(m, day)` · `demoMon(m)` / `data-rel-day` · `data-rel-mon` / `stampDoc()`로 '오늘' 기준 상대 날짜를 쓴다 (`world.md` 날짜 절).
 - 표준 앱 화면은 사용자가 준 **스크린샷을 기준**으로 재현한다. 스크린샷이 없으면 만들기 전에 요청한다.
 - `<script type="module">`·`fetch`로 HTML 조각 불러오기 금지 — `file://`로 열 때 깨진다. 일반 `<script src>`만 쓴다.
 - 스크립트 순서가 곧 실행 순서다. `index.html`의 `<script src>` 위치를 함부로 옮기지 않는다.

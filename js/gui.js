@@ -12,7 +12,7 @@ function guiTab(btn, group, key) {
     truck: '<svg viewBox="0 0 18 18"><path d="M1.5 4.5h9v8h-9zM10.5 7.5h3.5l2.5 2.8v2.2h-6z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="4.5" cy="13.5" r="1.5" fill="#fff" stroke="currentColor" stroke-width="1.3"/><circle cx="13" cy="13.5" r="1.5" fill="#fff" stroke="currentColor" stroke-width="1.3"/></svg>',
     sum: '<svg viewBox="0 0 18 18"><path d="M13 3.5H5l4.5 5.5L5 14.5h8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>'
   };
-  const QTY = 40, VAL = 4240000;
+  const QTY = 40, VAL = 9440000; // A-4315 236,000원/EA (world.md)
   const n = (x, dec) => dec ? x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : String(x);
   window.guiStatRender = function () {
     const el = document.getElementById('gui-stat'); if (!el) return;

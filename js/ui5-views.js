@@ -107,7 +107,7 @@
           </columns>
           <items>
             <ColumnListItem type="Navigation" press="H.go('fiori-sto-object')"><cells>
-              ${poCell('4500019567', '{/times/stoDate}', '4,240,000', "H.go('fiori-sto-object')")}${advBtn}
+              ${poCell('4500019567', '{/times/stoDate}', '9,440,000', "H.go('fiori-sto-object')")}${advBtn}
               <Text text="인천 물류창고 (1060)"/><Text text="BestRun Korea (1000)"/><ObjectStatus text="{/sto/statusText}" state="{/sto/statusState}" icon="{/sto/statusIcon}"/>${apprCells}</cells></ColumnListItem>
             ${stoRows.map(lrRow).join('')}
           </items>
@@ -141,13 +141,13 @@
   /* ───────── 구매오더 (PO 납기 변경) — S/4HANA Cloud '구매오더 관리' Object Page 구성 ───────── */
   const V_PO = view(shell('구매오더', 'agent3', 'agent3') + op(
     title('4500019234', '표준 구매오더',
-      '<Button text="편집" type="Emphasized"/><Button text="복사" type="Ghost"/><Button text="약정 표시" type="Ghost"/><Button text="상태 세부사항" type="Ghost"/><Button text="변경 로그 표시" type="Ghost"/>' +
+      '<Button text="편집" type="Emphasized"/><Button text="복사" type="Ghost"/><Button text="약정 표시" type="Ghost"/><Button text="상태 세부사항" type="Ghost"/><Button text="변경 로그 표시" type="Ghost" press="H.toast(\'변경 로그: 항목 10 납품일 변경 요청 — JKIM (Joule MRP Exception Agent 대행)\')"/>' +
       '<Button text="Easy Fill" icon="sap-icon://ai" type="Ghost" press="H.toast(\'Joule Easy Fill — 데모에서는 시연하지 않습니다\')"/>' +
-      '<Button text="요약" icon="sap-icon://ai" type="Ghost" press="H.toast(\'Joule: 항목 10 납기가 3일 앞당겨져 공급업체 확약을 기다리고 있습니다\')"/>' + ico('action', '공유')),
+      '<Button text="요약" icon="sap-icon://ai" type="Ghost" press="H.toast(\'Joule: 항목 10 납기 3일 단축을 요청했고 공급업체 확약을 기다리고 있습니다\')"/>' + ico('action', '공유')),
     sec('일반 정보', form([
       ['기본 데이터', [['구매 문서 유형', '표준 구매오더 (NB)'], ['공급업체', 'ACME Components Korea (1001234)', true], ['통화', '대한민국 원 (KRW)'], ['언어 키', '한국어 (KO)']]],
       ['조직', [['구매그룹', '김재형 (MMK)'], ['구매조직', 'BestRun Korea 구매 (1000)'], ['회사코드', 'BestRun Korea (1000)']]],
-      ['추가 정보', [['생성자', 'JKIM (김재형)'], ['구매오더 일자', '2026.11.01'], ['승인 상태', '–'], ['승인자 이름', '–']]]
+      ['추가 정보', [['생성자', 'JKIM (김재형)'], ['구매오더 일자', demoDay(-9)], ['승인 상태', '–'], ['승인자 이름', '–']]]
     ], 3)) +
     sec('항목', `<Table sticky="ColumnHeaders,HeaderToolbar"><headerToolbar><OverflowToolbar style="Clear"><Title text="항목 (2)" level="H3"/>
         <VariantManagement selectedKey="std" defaultKey="std"><items><VariantItem key="std" title="표준"/></items></VariantManagement><ToolbarSpacer/>
@@ -157,9 +157,9 @@
         <Column><Text text="납품일"/></Column><Column><Text text="확인 상태"/></Column></columns>
       <items>
         <ColumnListItem type="Navigation" highlight="Information"><cells><Text text="10"/><Text text="표준"/><Link text="A-4315 (A-4315)"/><Text text="유압실린더"/><Text text="유압 부품 (HYD01)"/><Text text="부산 생산공장 (1050)"/><ObjectNumber number="45" unit="EA"/>
-          <VBox><ObjectStatus text="2026.12.12" state="Information"/><Text text="변경 전 2026.12.15 (-3일)" class="sapUiTinyMarginTop"/></VBox><ObjectStatus text="확약 대기" state="Warning" icon="sap-icon://pending"/></cells></ColumnListItem>
+          <VBox><Text text="${demoMD(1,15)}"/><ObjectStatus text="변경 요청 ${demoMD(1,12)} (-3일)" state="Information" class="sapUiTinyMarginTop"/></VBox><ObjectStatus text="확약 대기" state="Warning" icon="sap-icon://pending"/></cells></ColumnListItem>
         <ColumnListItem type="Navigation"><cells><Text text="20"/><Text text="표준"/><Link text="B-2290 (B-2290)"/><Text text="베어링 어셈블리"/><Text text="구동 부품 (DRV02)"/><Text text="부산 생산공장 (1050)"/><ObjectNumber number="100" unit="EA"/>
-          <Text text="2026.12.10"/><ObjectStatus text="확약됨" state="Success" icon="sap-icon://sys-enter-2"/></cells></ColumnListItem>
+          <Text text="${demoMD(1,10)}"/><ObjectStatus text="확약됨" state="Success" icon="sap-icon://sys-enter-2"/></cells></ColumnListItem>
       </items></Table>`) +
     sec('한도 항목', `<Table noDataText="아직 항목이 없습니다. 항목이 생기면 여기에 표시됩니다."><headerToolbar><OverflowToolbar style="Clear"><Title text="한도 항목" level="H3"/>
         <VariantManagement selectedKey="std" defaultKey="std"><items><VariantItem key="std" title="표준"/></items></VariantManagement><ToolbarSpacer/>
@@ -185,7 +185,7 @@
       <form:FormContainer><form:formElements>${poStat('안전 데이터 시트 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
     </form:formContainers></form:Form>`) +
     sec('메모', `<IconTabBar expandable="false" headerMode="Inline" class="sapUiNoContentPadding"><items>` +
-      poNoteTab('헤더 텍스트', `<TextArea editable="false" width="100%" rows="6" growing="true" value="[Joule MRP Exception Agent] MRP 예외 10 (일정 앞당김) — 제조오더 MO-26-0891 대응으로 항목 10(A-4315)의 납기를 2026.12.15 → 2026.12.12로 변경하고 ACME Components Korea에 확약을 요청했습니다. (ERP MCP · {/times/po})"/>`) +
+      poNoteTab('헤더 텍스트', `<TextArea editable="false" width="100%" rows="6" growing="true" value="[Joule MRP Exception Agent] MRP 예외 10 (일정 앞당김) — 제조오더 MO-26-0891 대응으로 항목 10(A-4315)의 납기를 ${demoMD(1,15)} → ${demoMD(1,12)}로 앞당기는 변경을 요청하고 ACME Components Korea에 확약을 요청했습니다. 확약 전까지 기존 납기 유지 · 48시간 내 미회신 시 1060 재고 이전으로 전환. 변경자: JKIM (Joule MRP Exception Agent 대행) · {/times/po}"/>`) +
       ['헤더 메모', '가격 유형', '기한', '납품 조건', '선적 지시', '지급 조건', '보증', '계약 위반 위약금', '보증서'].map(t => poNoteTab(t)).join('') +
       `</items></IconTabBar>`) +
     sec('출력 관리', `<Table>${tbar('출력 항목 (1)', ico('action-settings', '보기 설정'), false)}
@@ -194,13 +194,13 @@
     sec('첨부', emptyList('첨부 (0)')),
     { header: hc(
       facet('상태', '<Text text="확약 대기" class="demoHeaderValue"/>') +
-      facet('구매오더 일자', '<Text text="2026.11.01" class="demoHeaderValue"/>') +
+      facet('구매오더 일자', `<Text text="${demoDay(-9)}" class="demoHeaderValue"/>`) +
       facet('순 금액', '<Text text="28,720,000   대한민국 원 (KRW)" class="demoHeaderValue"/>')) }));
 
   /* ───────── 구매요청 (Purchase Requisition) ───────── */
   const V_PR = view(shell('구매요청', 'agent6', 'agent6') + op(
     title('10008976', '', '<Button text="편집" type="Emphasized"/><Button text="복사"/><Button text="총 금액 통화"/>' + ico('action', '공유')),
-    sec('일반 정보', form([['', [['구매요청 내역', '12월 수요예측 부족 자재 보충 (Joule 자동 생성)'], ['생성일', '{/times/prDate}']]], ['', [['문서유형', '구매요청 (NB)'], ['요청자', 'JOULE-AI (승인자: 김재형 구매팀장)']]]], 2)) +
+    sec('일반 정보', form([['', [['구매요청 내역', `${demoMon(1,'kr')} 수요예측 부족 자재 보충 (Joule 자동 생성)`], ['생성일', '{/times/prDate}']]], ['', [['문서유형', '구매요청 (NB)'], ['요청자', 'JKIM 김재형 (Joule 대행) · 승인자: 이도윤 상무']]]], 2)) +
     sec('메모', `<IconTabBar expandable="false" headerMode="Inline" class="sapUiNoContentPadding"><items><IconTabFilter text="헤더 메모"><TextArea editable="false" width="100%" rows="4" growing="true" value="{/pr/note}"/></IconTabFilter></items></IconTabBar>`) +
     sec('항목', `<Table items="{/pr/items}" sticky="ColumnHeaders,HeaderToolbar">${tbar('항목 (8)', '<Button text="가격 업데이트" type="Transparent" enabled="false"/><Button text="삭제" type="Transparent" enabled="false"/><Button text="거부된 항목 편집" type="Transparent" enabled="false"/>' + ico('action-settings', '보기 설정') + ico('excel-attachment', '내보내기'))}
       <columns>
@@ -214,7 +214,7 @@
     sec('첨부', emptyList('첨부 (0)')),
     { header: hc(`<Avatar src="sap-icon://cart" displayShape="Square" displaySize="L" backgroundColor="Accent6" class="sapUiMediumMarginEnd sapUiSmallMarginBottom"/>` +
       facet('상태', '<Text text="승인 대기 중" class="demoHeaderValue"/>') +
-      facet('총 금액', '<ObjectNumber number="132,500,000" unit="KRW" class="sapMObjectNumberLarge"/>')) }));
+      facet('총 금액', '<ObjectNumber number="127,700,000" unit="KRW" class="sapMObjectNumberLarge"/>')) }));
 
   /* ───────── 회계전표 (분개 관리) ───────── */
   const jeLine = (n, g, d, c) => `<ColumnListItem type="Navigation"><cells><Text text="${n}"/><Link text="${g}"/><ObjectNumber number="${d}" unit="KRW"/><ObjectNumber number="${c}" unit="KRW"/></cells></ColumnListItem>`;
@@ -254,7 +254,7 @@
         </table:columns></table:TreeTable>`, 'fiRel') +
     sec('메모', `<VBox><FeedInput placeholder="여기에 게시하세요" showIcon="false"/>
       <List showSeparators="Inner"><FeedListItem sender="Joule · 3-Way Matching Agent" icon="${JOULE}" iconDensityAware="false" timestamp="{/times/fi}" showIcon="true"
-        text="가격차이(+14,000원/EA)로 지급보류된 송장 INV-2946을 구매계약 PA-2026-112(2026-10-01 갱신) 근거로 해제하고 전기했습니다. 같은 원인의 미입고 PO 3건(4500019201 · 4500019233 · 4500019260)도 단가 갱신 대상으로 식별했습니다."/></List></VBox>`) +
+        text="가격차이(+14,000원/EA)로 지급보류된 송장 INV-2946을 구매계약 PA-2026-112(${demoMD(-1,1,'iso')} 갱신) 근거로 해제하고 전기했습니다. 같은 원인의 미입고 PO 3건(4500019201 · 4500019233 · 4500019260)도 단가 갱신 대상으로 식별했습니다."/></List></VBox>`) +
     sec('첨부', emptyList('첨부 (0)')),
     { id: 'fiOP' }));
 
@@ -265,14 +265,14 @@
 
   /* ───────── 모델 데이터 ───────── */
   const PR_ITEMS = [
-    ['10', '유압실린더', 'A-4315', '유압 부품 (HYD01)', 120, '236,667', '28,400,000', '2026.12.05', 'Supplier Alpha'],
-    ['20', '베어링 어셈블리', 'B-2290', '구동 부품 (DRV02)', 100, '181,000', '18,100,000', '2026.12.08', 'Supplier Alpha'],
-    ['30', '클러치 디스크', 'D-5501', '구동 부품 (DRV02)', 100, '165,000', '16,500,000', '2026.12.15', 'Supplier Beta'],
-    ['40', '오일씰 킷 A', 'F-1120', '씰·가스켓 (SEL03)', 60, '89,167', '5,350,000', '2026.12.10', 'Supplier Gamma'],
-    ['50', '구동축 베어링', 'G-3380', '구동 부품 (DRV02)', 40, '155,000', '6,200,000', '2026.12.12', 'Supplier Gamma'],
-    ['60', '브레이크 패드 세트', 'H-2210', '브레이크 부품 (BRK04)', 200, '98,750', '19,750,000', '2026.12.10', 'Supplier Epsilon'],
-    ['70', '유압 호스 어셈블리', 'J-4410', '유압 부품 (HYD01)', 150, '128,000', '19,200,000', '2026.12.12', 'Supplier Epsilon'],
-    ['80', '실린더 피스톤', 'K-5520', '유압 부품 (HYD01)', 100, '190,000', '19,000,000', '2026.12.15', 'Supplier Zeta']
+    ['10', '유압실린더', 'A-4315', '유압 부품 (HYD01)', 100, '236,000', '23,600,000', demoMD(1, 5), 'Supplier Alpha'],
+    ['20', '베어링 어셈블리', 'B-2290', '구동 부품 (DRV02)', 100, '181,000', '18,100,000', demoMD(1, 8), 'Supplier Alpha'],
+    ['30', '클러치 디스크', 'D-5501', '구동 부품 (DRV02)', 100, '165,000', '16,500,000', demoMD(1, 15), 'Supplier Beta'],
+    ['40', '오일씰 킷 A', 'F-1120', '씰·가스켓 (SEL03)', 60, '89,167', '5,350,000', demoMD(1, 10), 'Supplier Gamma'],
+    ['50', '구동축 베어링', 'G-3380', '구동 부품 (DRV02)', 40, '155,000', '6,200,000', demoMD(1, 12), 'Supplier Gamma'],
+    ['60', '브레이크 패드 세트', 'H-2210', '브레이크 부품 (BRK04)', 200, '98,750', '19,750,000', demoMD(1, 10), 'Supplier Epsilon'],
+    ['70', '유압 호스 어셈블리', 'J-4410', '유압 부품 (HYD01)', 150, '128,000', '19,200,000', demoMD(1, 12), 'Supplier Epsilon'],
+    ['80', '실린더 피스톤', 'K-5520', '유압 부품 (HYD01)', 100, '190,000', '19,000,000', demoMD(1, 15), 'Supplier Zeta']
   ].map(([no, name, mat, grp, qty, price, total, dd, sup]) => ({ no, name, mat, grp, qty, price, total, dd, sup }));
 
   const pad = n => String(n).padStart(2, '0');
@@ -295,14 +295,14 @@
       { type: '송장 문서 (INV-2946)', doc: '5105623000', cc: '1000', je: '' },
       { type: '구매오더', doc: '4500019156', cc: '1000', je: '' },
       { type: '자재 문서 (입고 101)', doc: '5000538488', cc: '1000', je: 'WE' },
-      { type: '구매계약 (갱신 2026-10-01)', doc: 'PA-2026-112', cc: '1000', je: '' }] }]);
+      { type: `구매계약 (갱신 ${demoMD(-1, 1, 'iso')})`, doc: 'PA-2026-112', cc: '1000', je: '' }] }]);
 
     function syncTimes() {
       model.setProperty('/times', {
         po: fmt(docT('po')), fi: fmt(docT('fi')), fiDate: fmt(docT('fi'), 'date'),
         prDate: fmt(docT('pr'), 'date'), stoDate: fmt(docT('sto'), 'date')
       });
-      model.setProperty('/pr/note', `[Joule 수요예측 Agent] SAP AI Core의 SAP-RPT 1.6 Large 예측 모델로 12월 수요를 예측해 부족 자재 8개를 선정했습니다. 평균 신뢰도 85% · 오차 ±8%.\nA-4315는 입고 예정 PO 95 EA와 구매오더 4500019567(40 EA)을 차감한 순부족 85 EA 기준이며, 발주 단위에 맞춰 120 EA로 요청합니다.\n승인 요청: 김재형 구매팀장 · ${fmt(docT('pr'), 'minute')}`);
+      model.setProperty('/pr/note', `[Joule 수요예측 Agent] SAP AI Core의 SAP-RPT 1.6 Large 예측 모델로 ${demoMon(1,'kr')} 수요를 예측해 부족 자재 8개를 선정했습니다. 평균 신뢰도 85% · 오차 ±8%.\nA-4315는 입고 예정 PO 95 EA, 재고 이전 4500019567(40 EA), 품질 검사 합격 18 EA를 차감한 순부족 67 EA에 안전재고 20 EA를 더해 최소발주량(50) 단위로 100 EA 요청합니다.\n요청: 김재형 (Joule 대행) · 승인 요청: 이도윤 상무 (구매본부장) · ${fmt(docT('pr'), 'minute')}`);
     }
 
     const ST = [['생성됨', 'None', ''], ['납품 생성됨', 'Information', 'sap-icon://information'], ['운송 중', 'Information', 'sap-icon://shipping-status'], ['입고 완료', 'Success', 'sap-icon://sys-enter-2']];

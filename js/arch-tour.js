@@ -34,7 +34,7 @@
       { t: '승인 후 실행', r: ['user', 's4exec', 's4proc'], d: '담당자 승인 → S/4HANA API로 미입고 PO 15건 Block, PR 2건 보류를 실행합니다.' },
       { t: '알림 생성', r: ['aicore', 'cagent', 'integ'], d: 'Generative AI Hub(SAP AI Core 위 LLM)가 조치 설명과 알림 문구를 만들고, 담당자에게 메일로 알립니다.' }] },
     agent2: { core: '단산 차종에만 쓰이는 부품을 Knowledge Graph로 골라내, 재고·발주·공급업체 통보까지 한 번에 처리합니다.', steps: [
-      { t: '질문', r: ['user', 'orch'], d: '"BC3 차종이 12월에 단산된다. 영향받는 전용 부품을 알려줘"라고 묻습니다.' },
+      { t: '질문', r: ['user', 'orch'], d: '"BC3 차종이 다음 달 말에 단산된다. 영향받는 전용 부품을 알려줘"라고 묻습니다.' },
       { t: 'Agent 호출', r: ['gateway', 'cagent'], d: 'Joule이 BOM Discontinuation Agent를 호출하고(A2A), Cloud Foundry Agent가 SPARQL 질의를 만듭니다.' },
       { t: '그래프 탐색', r: ['hana'], d: 'SAP HANA Cloud Knowledge Graph를 탐색해, 다른 차종과 공유하지 않는 BC3 전용 부품 28개를 찾습니다.' },
       { t: 'S/4HANA 조회', r: ['integ', 's4', 's4data'], d: 'ERP MCP로 S/4HANA Cloud에서 전용 부품의 재고와 미입고 PO(431A 2건 등)를 조회합니다.' },
@@ -45,7 +45,7 @@
       { t: 'Agent 호출', r: ['gateway', 'cagent'], d: 'Joule이 MRP Exception Triage Agent를 호출합니다 (A2A → Cloud Foundry Agent).' },
       { t: 'S/4HANA 조회', r: ['integ', 's4', 's4data'], d: 'S/4HANA Cloud API로 MRP 예외 234건, 제조오더 MO-26-0891, PO 납기 일정을 조회합니다.' },
       { t: 'AI 판단', r: ['aicore', 'hana'], d: 'SAP AI Core의 분류 모델이 긴급 12건을 고르고, HANA Cloud의 리드타임·OTD 이력으로 대응 옵션 3개를 비교합니다.' },
-      { t: '승인 후 실행', r: ['user', 's4exec', 's4proc'], d: '승인 → Purchase Order API로 PO 4500019234 납기를 12-15에서 12-12로 바꾸고 확약(AB)을 요청합니다.' },
+      { t: '승인 후 실행', r: ['user', 's4exec', 's4proc'], d: '승인 → Purchase Order API로 PO 4500019234 납기 3일 단축을 요청하고, 확약(AB) 회신 시 확정합니다. 거절 대비 1060 재고 40 EA를 예약합니다.' },
       { t: 'Agent 연계', r: ['integ', 'gateway', 'cagent'], d: '확약이 오지 않으면 A2A로 재고 이동 최적화 Agent에 넘겨 1060 재고 이전으로 전환합니다.' }] },
     agent4: { core: '송장 847건을 자동 대사하고, 막힌 송장의 원인을 찾아 해결한 뒤 같은 원인의 다음 문제까지 미리 막습니다.', steps: [
       { t: '질문', r: ['user', 'orch'], d: 'AP 담당자가 "이번 달 PO-입고-송장 불일치를 금액 순으로"를 묻습니다.' },
@@ -62,12 +62,12 @@
       { t: '독촉 메일', r: ['cagent', 'integ'], d: '승인 후 Generative AI Hub가 독촉 메일 초안을 만들고, Delta Co.에 보내며 회신 기한을 겁니다.' },
       { t: 'Agent 연계', r: ['gateway', 'cagent', 's4exec'], d: '회신이 없으면 A2A로 MRP 예외 · 재고 이동 Agent에 넘겨 대체 조달을 진행합니다.' }] },
     agent6: { core: '24개월 소비 이력으로 다음 달 수요를 예측하고, 이미 들어올 물량을 빼서 꼭 필요한 만큼만 구매요청을 만듭니다.', steps: [
-      { t: '요청', r: ['user', 'orch'], d: 'Joule(또는 Fiori)에서 "12월 수요 예측으로 발주가 필요한 자재를 추천해줘"라고 요청합니다.' },
+      { t: '요청', r: ['user', 'orch'], d: 'Joule(또는 Fiori)에서 "다음 달 수요 예측으로 발주가 필요한 자재를 추천해줘"라고 요청합니다.' },
       { t: 'Agent 호출', r: ['gateway', 'cagent'], d: 'Joule Agent가 고객 Subaccount의 Demand Forecast & Auto-PR Agent(Python/CAP)를 호출합니다.' },
       { t: 'S/4HANA 조회', r: ['integ', 'dest', 's4', 's4data'], d: 'Integration Suite·Destination/Connectivity를 거쳐 S/4HANA Cloud의 재고 · 24개월 소비 이력 · 미결 PO/STO를 조회해 집계합니다.' },
-      { t: 'AI 예측', r: ['aicore'], d: '집계 데이터를 SAP AI Core의 SAP-RPT 1.6 Large 예측 배포에 넘겨 12월 수요를 예측합니다 (표 데이터 예측 모델).' },
+      { t: 'AI 예측', r: ['aicore'], d: '집계 데이터를 SAP AI Core의 SAP-RPT 1.6 Large 예측 배포에 넘겨 다음 달 수요를 예측합니다 (표 데이터 예측 모델).' },
       { t: '결과 저장 · 순부족', r: ['hana', 'cagent'], d: '예측 결과를 SAP HANA Cloud에 저장하고, Agent가 순부족 = 예측 − (현재고 + PO 95 + STO 40)으로 주문수량을 최적화합니다.' },
-      { t: '구매요청 생성', r: ['user', 's4exec'], d: '사용자 검토 후 Purchase Requisition API로 구매요청 10008976(8개 품목 · 132.5M)을 만듭니다.' },
+      { t: '구매요청 생성', r: ['user', 's4exec'], d: '사용자 검토 후 Purchase Requisition API로 구매요청 10008976(8개 품목 · 127.7M)을 만듭니다.' },
       { t: '최종 승인', r: ['s4proc', 'suite'], d: '최종 승인은 S/4HANA Flexible Workflow에서 처리합니다 (구매팀장 · My Inbox).' }] },
     agent7: { core: '외부에서 급히 사지 않고 다른 플랜트의 남는 재고를 찾아, 재고 이전 오더부터 출고·입고까지 실행합니다.', steps: [
       { t: '질문', r: ['user', 'orch'], d: '"플랜트 1050·1060·1070 중 이동 가능한 과잉 재고를 찾아줘"라고 묻습니다.' },

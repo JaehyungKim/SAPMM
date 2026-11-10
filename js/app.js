@@ -50,27 +50,29 @@ demoPlayers['agent1'] = new DemoPlayer({
       p._setFlowActive(1);
       p.presets().innerHTML = '';
       touchGuide.hideAll();
-      p.addMsg('user', '플랜트 1050의 장기/악성 재고 전환 예상 품목 중 금액 기준 상위 10개를 보여줘');
+      p.addMsg('user', '플랜트 1050의 장기/악성 재고 전환 예상 품목을 위험도 순으로 상위 10개 보여줘');
       setTimeout(() => {
-        const t = p.addThinking(["플랜트 1050 보유 재고의 최종 입출고일 기준 체류 기간을 계산하고 있어요", "다음 달 장기재고 전환 기준일에 도달하는 품목을 추려내는 중", "향후 소요 계획이 없는 품목에 위험 가중치를 부여하고 있어요", "재고금액 기준으로 정렬해 상위 10개를 선정합니다"]);
+        const t = p.addThinking(["플랜트 1050 보유 재고의 최종 입출고일 기준 체류 기간을 계산하고 있어요", "다음 달 장기재고 전환 기준일에 도달하는 품목을 추려내는 중", "향후 소요 계획이 없는 품목에 위험 가중치를 부여하고 있어요", "설계 변경(ECN)으로 대체품이 생긴 품목도 찾고 있어요", "전환 위험과 재고금액으로 정렬해 상위 10개를 선정합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
-          p.addMsg('ai', `플랜트 1050의 Aging 데이터를 분석했습니다. 다음 달(12월) 장기재고 전환 예상 <strong>상위 10개 품목</strong>입니다:
+          p.addMsg('ai', `플랜트 1050의 Aging 데이터를 분석했습니다. 다음 달(${demoMon(1,'kr')}) 장기재고 전환 예상 <strong>상위 10개 품목</strong> (전환 위험 순)입니다:
           <div class="chat-table-wrap">
             <table class="chat-table">
-              <thead><tr><th>순위</th><th>품번</th><th>품명</th><th>재고량</th><th>전환예상일</th><th>재고금액</th><th>위험도</th></tr></thead>
+              <thead><tr><th>순위</th><th>품번</th><th>품명</th><th>재고량</th><th>전환예상일</th><th>재고금액</th><th>원인 (AI)</th></tr></thead>
               <tbody>
-                <tr><td>1</td><td>432B</td><td>BC3 전용 센서</td><td>240 EA</td><td>2026-12-05</td><td><strong>26.4M</strong></td><td><span class="badge badge-danger">🔴 High</span></td></tr>
-                <tr><td>2</td><td>431A</td><td>특수 가스켓</td><td>150 EA</td><td>2026-12-08</td><td><strong>18.0M</strong></td><td><span class="badge badge-danger">🔴 High</span></td></tr>
-                <tr><td>3</td><td>431C</td><td>전용 브래킷</td><td>80 EA</td><td>2026-12-12</td><td><strong>12.8M</strong></td><td><span class="badge badge-danger">🔴 High</span></td></tr>
-                <tr><td>4</td><td>435D</td><td>전용 마운팅 킷</td><td>60 EA</td><td>2026-12-15</td><td><strong>9.6M</strong></td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
-                <tr><td>5</td><td>K-7720</td><td>구형 와이어링 하네스</td><td>200 EA</td><td>2026-12-20</td><td><strong>8.4M</strong></td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
+                <tr><td>1</td><td><strong>K-7720</strong></td><td>구형 와이어링 하네스</td><td>200 EA</td><td>${demoMD(1,5,'iso')}</td><td><strong>8.4M</strong></td><td><span class="badge badge-danger">ECN 대체 진행</span></td></tr>
+                <tr><td>2</td><td>432B</td><td>BC3 전용 센서</td><td>240 EA</td><td>${demoMD(1,8,'iso')}</td><td><strong>26.4M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
+                <tr><td>3</td><td>431A</td><td>특수 가스켓</td><td>150 EA</td><td>${demoMD(1,12,'iso')}</td><td><strong>18.0M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
+                <tr><td>4</td><td>431C</td><td>전용 브래킷</td><td>80 EA</td><td>${demoMD(1,15,'iso')}</td><td><strong>12.8M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
+                <tr><td>5</td><td>435D</td><td>전용 마운팅 킷</td><td>60 EA</td><td>${demoMD(1,20,'iso')}</td><td><strong>9.6M</strong></td><td><span class="badge badge-warning">BC3 단산</span></td></tr>
                 <tr><td colspan="7" style="text-align:center;color:var(--sap-text-muted);font-size:12px">... 외 5개 품목 (총 재고금액 112.5M원)</td></tr>
-                <tr><td colspan="7" style="font-size:12px">※ 상위 4개는 <strong>BC3 단산(2026-12) 전용 부품</strong> — 단산 관리 Agent 분석 결과와 연계</td></tr>
               </tbody>
             </table>
-          </div>`);
+          </div>
+          <strong>1위 K-7720은 단산과 무관합니다.</strong> 설계 변경 ECN-2026-118로 신형 K-7721 전환이 진행 중이라 3개월 새 소요가 70% 줄었지만,
+          최종 입출고일 기준의 기존 Aging 리포트에서는 아직 <strong>정상 재고</strong>로 분류됩니다.<br>
+          2~5위는 BC3 단산(${demoMon(1,'ykr')} 말) 전용 부품 — 단산 관리 Agent 분석 결과와 연계됩니다.`);
           p.addResultCard(`
             <h4>📊 요약 현황</h4>
             <div class="kpi-row">
@@ -101,17 +103,17 @@ demoPlayers['agent1'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>월</th><th>소요량(EA)</th><th>전월대비</th><th>재고잔량</th></tr></thead>
               <tbody>
-                <tr><td>2026-06</td><td>38</td><td>—</td><td>320 EA</td></tr>
-                <tr><td>2026-07</td><td>30</td><td><span class="text-danger">▼ -21%</span></td><td>290 EA</td></tr>
-                <tr><td>2026-08</td><td>22</td><td><span class="text-danger">▼ -27%</span></td><td>268 EA</td></tr>
-                <tr><td>2026-09</td><td>14</td><td><span class="text-danger">▼ -36%</span></td><td>254 EA</td></tr>
-                <tr><td>2026-10</td><td>9</td><td><span class="text-danger">▼ -36%</span></td><td>245 EA</td></tr>
-                <tr><td>2026-11</td><td>5</td><td><span class="text-danger">▼ -44%</span></td><td>240 EA</td></tr>
+                <tr><td>${demoMon(-5,'ym')}</td><td>38</td><td>—</td><td>320 EA</td></tr>
+                <tr><td>${demoMon(-4,'ym')}</td><td>30</td><td><span class="text-danger">▼ -21%</span></td><td>290 EA</td></tr>
+                <tr><td>${demoMon(-3,'ym')}</td><td>22</td><td><span class="text-danger">▼ -27%</span></td><td>268 EA</td></tr>
+                <tr><td>${demoMon(-2,'ym')}</td><td>14</td><td><span class="text-danger">▼ -36%</span></td><td>254 EA</td></tr>
+                <tr><td>${demoMon(-1,'ym')}</td><td>9</td><td><span class="text-danger">▼ -36%</span></td><td>245 EA</td></tr>
+                <tr><td>${demoMon(0,'ym')}</td><td>5</td><td><span class="text-danger">▼ -44%</span></td><td>240 EA</td></tr>
               </tbody>
             </table>
           </div>
           <div style="margin-top:10px;padding:10px 12px;background:var(--sap-danger-bg);border-radius:8px;font-size:13px;border:1px solid var(--sap-danger)">
-          ⚠️ <strong>AI 분석:</strong> BC3 단산 일정에 따라 소요량이 6개월간 지속 감소 (-87%). 단산 후 소요 0 — 12월 5일 장기재고 전환 확정 예상.</div>`);
+          ⚠️ <strong>AI 분석:</strong> BC3 단산 일정에 따라 소요량이 6개월간 지속 감소 (-87%). 단산 후 소요 0 — ${demoMD(1,8,'kr')} 장기재고 전환 확정 예상.</div>`);
           p.addPresets([
             {label:'🚫 PO Block 실행', highlight:true},
             {label:'🔗 대체 생산오더 확인'}
@@ -141,6 +143,8 @@ demoPlayers['agent1'] = new DemoPlayer({
               </tbody>
             </table>
           </div>
+          · BC3 부품 PO는 단산 안내 메일(단산 관리 Agent)을 받은 공급업체 9개사 건입니다.<br>
+          · 이미 생산에 들어간 2건은 공급업체 취소 수수료 <strong>약 1.2M원</strong>이 예상됩니다 → <strong>순 회피 41.1M원</strong>
           ${jConfirm('agent1', 'PR 보류 2건 및 승인 필요 1건에 대해 담당자(김재형 팀장)에게 알림을 발송하시겠습니까?')}`);
           p.addResultCard(`
             <h4>🚫 PO Block 처리 결과</h4>
@@ -232,7 +236,7 @@ demoPlayers['agent2'] = new DemoPlayer({
       p._setFlowActive(1);
       p.presets().innerHTML = '';
       touchGuide.hideAll();
-      p.addMsg('user', 'BC3 차종이 2026년 12월에 단산 예정이야. 영향받는 유니크 부품 리스트 알려줘.');
+      p.addMsg('user', `BC3 차종이 ${demoMon(1,'ykr')} 말에 단산 예정이야. 영향받는 유니크 부품 리스트 알려줘.`);
       setTimeout(() => {
         p.addThinking(["BC3 차종의 완제품부터 하위 부품까지 BOM을 역전개하고 있어요", "각 부품이 다른 차종에도 쓰이는지 교차 확인하는 중", "BC3에만 쓰이는 유니크 부품만 남기고 있어요", "현재고와 영향 금액을 붙여 리스트로 정리합니다"]);
         setTimeout(() => {
@@ -280,12 +284,12 @@ demoPlayers['agent2'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>입고예정일</th><th>수량</th><th>PO번호</th><th>공급업체</th><th>취소 가능 여부</th></tr></thead>
               <tbody>
-                <tr><td>2026-12-15</td><td>100 EA</td><td>4500018721</td><td>Supplier A</td><td><span class="badge badge-success">✅ 가능</span></td></tr>
-                <tr><td>2027-01-20</td><td>100 EA</td><td>4500019105</td><td>Supplier A</td><td><span class="badge badge-warning">⚠️ 부분 가능</span></td></tr>
+                <tr><td>${demoMD(1,15,'iso')}</td><td>100 EA</td><td>4500018721</td><td>Supplier A</td><td><span class="badge badge-success">✅ 가능</span></td></tr>
+                <tr><td>${demoMD(2,20,'iso')}</td><td>100 EA</td><td>4500019105</td><td>Supplier A</td><td><span class="badge badge-warning">⚠️ 부분 가능</span></td></tr>
               </tbody>
             </table>
           </div>
-          BC3 단산(2026-12)을 고려하면 두 PO 모두 불필요합니다. <strong>취소를 추천합니다.</strong>`);
+          BC3 단산(${demoMon(1,'ykr')} 말)을 고려하면 두 PO 모두 불필요합니다. 단, 최종 발주(LTB) 수량을 먼저 확정해야 합니다. <strong>취소를 추천합니다.</strong>`);
           p.addPresets([
             {label:'✉ 공급업체에 단산 안내 메일 발송', highlight:true},
             {label:'🚫 PO 4500018721 취소 요청'}
@@ -309,7 +313,10 @@ demoPlayers['agent2'] = new DemoPlayer({
           <span style="color:var(--sap-text-muted)">제목:</span> <strong>[긴급] BC3 차종 단산에 따른 발주 조정 안내</strong><br>
           <div class="divider"></div>
           안녕하세요. BestRun 구매팀입니다.<br><br>
-          당사 BC3 차종이 <strong>2026년 12월부로 단산</strong> 예정으로, 귀사에 발주된 하기 부품에 대한 발주 조정이 필요합니다.<br><br>
+          당사 BC3 차종이 <strong>${demoMon(1,'ykr')} 말부로 단산</strong> 예정으로, 귀사에 발주된 하기 부품에 대한 발주 조정이 필요합니다.<br><br>
+          1. <strong>최종 발주(LTB) 수량</strong>: 단산 전 잔여 소요 기준으로 첨부 품목별 수량을 ${demoDay(7,'kr')}까지 확정 요청드립니다.<br>
+          2. <strong>미입고 PO</strong>: LTB 초과분은 취소·수량 조정을 협의하고자 합니다 (생산 착수분은 비용 정산).<br>
+          3. <strong>잔여 재고·전용 금형</strong>: 계약 제12조에 따른 보상 조건을 회신 부탁드립니다.<br><br>
           <span style="color:var(--sap-warning)">※ 해당 부품은 BC3 전용 유니크 부품으로, 이후 추가 발주가 없을 예정입니다.</span>
           </div>
           ${jConfirm('agent2', '공급업체 9개사에 이 단산 안내 메일을 발송하시겠습니까?')}`);
@@ -397,10 +404,10 @@ demoPlayers['agent3'] = new DemoPlayer({
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
-          p.addMsg('ai', `234건 중 <strong>긴급 처리 필요 12건</strong>을 선별했습니다:
+          p.addMsg('ai', `이번 주 A-4315 결품(MO-26-0889)은 재고 이전·라인 순서 교체로 처리 중입니다. MRP를 다시 돌린 결과 남은 예외 234건 중 <strong>긴급 처리 필요 12건</strong>을 선별했습니다:
           <div class="chat-table-wrap">
             <table class="chat-table">
-              <thead><tr><th>순위</th><th>예외유형</th><th>자재</th><th>지연위험</th><th>금액영향</th><th>AI 추천</th></tr></thead>
+              <thead><tr><th>순위</th><th>예외유형</th><th>자재</th><th>지연위험</th><th>생산 차질 금액</th><th>AI 추천</th></tr></thead>
               <tbody>
                 <tr><td>1</td><td><span class="badge badge-danger">일정 앞당김 (10)</span></td><td>A-4315</td><td>D-3일</td><td>45.6M원</td><td>납기 단축 요청</td></tr>
                 <tr><td>2</td><td><span class="badge badge-warning">취소 제안 (20)</span></td><td>435D</td><td>—</td><td>8.0M원</td><td>PO 취소 (BC3 단산)</td></tr>
@@ -429,14 +436,14 @@ demoPlayers['agent3'] = new DemoPlayer({
           p._setFlowActive(3);
           p.addMsg('ai', `A-4315 (유압실린더) 일정 재조정 분석:
           <div style="padding:12px;background:var(--sap-darker);border-radius:8px;font-size:13px;margin-top:8px;border:1px solid var(--sap-border)">
-          • 현재 납기예정: <strong>2026-12-15</strong> → 필요일자: <strong>2026-12-12</strong> (3일 차이)<br>
-          • 영향 제조오더: <strong>MO-26-0891</strong> (12-12 투입 예정)<br>
-          • 공급업체 ACME Components Korea 최근 6개월 평균 리드타임: <strong>18일</strong> (안정적, OTD 88%)<br>
-          • 권장 조치: 공급업체에 납기 12-12 단축 요청 (3일 차이 — 대응 가능 범위)<br>
-          • 백업: 플랜트 1060 여유 재고 <strong>80 EA</strong> (확약 실패 시 즉시 이동)
+          • 현재 납기예정: <strong>${demoMD(1,15,'iso')}</strong> → 필요일자: <strong>${demoMD(1,12,'iso')}</strong> (3일 차이)<br>
+          • 영향 제조오더: <strong>MO-26-0891</strong> (${demoMD(1,12,'md')} 투입 예정 · 다음 달분)<br>
+          • 공급업체 ACME Components Korea 최근 6개월 평균 리드타임: <strong>18일</strong> (OTD 88%)<br>
+          • <strong>AI 판단:</strong> ACME는 최근 납기 단축 요청 9건 중 8건을 수락(89%) — 3일 단축은 수락 가능성이 높습니다<br>
+          • 거절 대비: 1060 여유 재고 80 EA 중 이번 주 결품에 쓰고 <strong>남은 40 EA를 백업으로 예약</strong>합니다
           </div>
           ${optCompare()}
-          ${jConfirm('agent3', '공급업체에 납기 단축을 요청하고 PO 4500019234 납기를 2026-12-12로 변경하시겠습니까?')}`);
+          ${jConfirm('agent3', `ACME에 납기 단축을 요청할까요? PO 4500019234 항목 10은 확약(AB) 회신 시 ${demoMD(1,12,'iso')}로 확정됩니다.`)}`);
           p.addResultCard(`<h4>💡 권장 조치</h4>
             <div class="action-btn-group">
               <button class="action-btn action-btn-primary" onclick="demoPlayers['agent3'].next()">📅 납기 앞당기기</button>
@@ -449,17 +456,18 @@ demoPlayers['agent3'] = new DemoPlayer({
     },
     (p) => {
       touchGuide.hideAll(); p.presets().innerHTML = '';
-      p.addMsg('user', 'PO 납기를 12월 12일로 앞당겨줘');
+      p.addMsg('user', '납기 단축 요청 보내줘');
       setTimeout(() => {
-        p.addThinking(["변경할 PO의 납기 일정을 확인하고 있어요", "12월 12일로 앞당기면 생산 일정 충돌이 해소되는지 검증하는 중", "납기를 변경하고 공급업체 확인 요청을 준비합니다"]);
+        p.addThinking(["변경할 PO의 납기 일정을 확인하고 있어요", "3일 앞당기면 생산 일정 충돌이 해소되는지 검증하는 중", "납기 변경 요청을 등록하고 공급업체 확약 요청을 준비합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(4);
           stampDoc('po');
-          p.addMsg('ai', `<span class="text-success">✅ 일정 재조정 완료</span><br>
-          PO 4500019234 (항목 10) 납기: 2026-12-15 → <strong>2026-12-12</strong>로 변경<br>
-          ACME Components Korea에 납기 단축 요청 발송 · 확약(AB) 회신 시 자동 확정<br>
-          확약 시 제조오더 MO-26-0891 일정 충돌 해소 (미회신 시 1060 재고 이동으로 전환)
+          p.addMsg('ai', `<span class="text-success">✅ 납기 단축 요청 발송</span><br>
+          PO 4500019234 항목 10: 납기 변경 요청 등록 (${demoMD(1,15,'iso')} → <strong>${demoMD(1,12,'iso')}</strong>, <strong>확약 대기</strong>)<br>
+          확약 전까지 MRP는 기존 납기 기준으로 계획 · 확약(AB) 회신 시 자동 확정<br>
+          48시간 내 거절·미회신 시 1060 남은 재고 40 EA 재고 이전으로 자동 전환 (예약 완료)<br>
+          <span style="color:var(--j-text-2)">변경 이력: JKIM (Joule MRP Exception Agent 대행)</span>
           <div style="margin-top:10px"><button class="action-btn action-btn-primary" onclick="router.go('fiori-po-delivery')">📄 구매오더 조회하기</button></div>`);
         }, 2550);
       }, 400);
@@ -521,7 +529,7 @@ demoPlayers['agent4'] = new DemoPlayer({
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
-          p.addMsg('ai', `847건 중 <strong>불일치 23건</strong> 탐지. 금액 차이 상위 3건:
+          p.addMsg('ai', `회사코드 1000 이번 달 송장 847건 중 <strong>불일치 23건</strong> 탐지. 금액 차이 상위 3건:
           <div class="chat-table-wrap">
             <table class="chat-table">
               <thead><tr><th>#</th><th>송장번호</th><th>공급업체</th><th>PO금액</th><th>송장금액</th><th>차이</th><th>원인 분류</th></tr></thead>
@@ -547,15 +555,16 @@ demoPlayers['agent4'] = new DemoPlayer({
       p.presets().innerHTML = ''; touchGuide.hideAll();
       p.addMsg('user', 'INV-2946 단가 불일치 원인 분석해줘');
       setTimeout(() => {
-        p.addThinking(["INV-2946의 PO 단가와 청구 단가를 비교하고 있어요", "EA당 14,000원 차이 — 계약 단가가 바뀌었는지 확인해 볼게요", "구매계약 PA-2026-112가 10월 1일부로 갱신된 것을 확인했어요", "PO에 갱신 단가가 반영되지 않았으므로 정당한 청구로 판단합니다"]);
+        p.addThinking(["INV-2946의 PO 단가와 청구 단가를 비교하고 있어요", "EA당 14,000원 차이 — 계약 단가가 바뀌었는지 확인해 볼게요", "구매계약 PA-2026-112가 지난달 1일부로 갱신된 것을 확인했어요", "계약서의 가격 기준일 조항과 입고일을 대조하는 중", "PO에 갱신 단가가 반영되지 않았으므로 정당한 청구로 판단합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p.addMsg('ai', `INV-2946 분석 결과:
           <div style="padding:12px;background:var(--sap-darker);border-radius:8px;font-size:13px;margin-top:8px;border:1px solid var(--sap-border);line-height:1.8">
           • PO 계약 단가: <strong>124,000원/EA × 100EA = 12,400,000원</strong><br>
           • 청구 단가: <strong>138,000원/EA × 100EA = 13,800,000원</strong><br>
-          • 차이 원인: 구매계약 PA-2026-112가 <span class="text-warning">2026-10-01부로 갱신</span> (단가 +14,000원) — PO에 미반영<br>
-          • AI 판단: <span class="text-success">정당한 청구</span>. 가격차이로 지급보류된 송장을 계약 근거로 해제하고, 미입고분 PO 단가 갱신 권장
+          • 차이 원인: 구매계약 PA-2026-112가 <span class="text-warning">${demoMD(-1,1,'iso')}부로 갱신</span> (단가 +14,000원) — PO에 미반영<br>
+          • 계약 근거: PA-2026-112 제5조 "단가는 <strong>납품일</strong>에 유효한 계약 단가를 적용한다" — 입고일 ${demoDay(-5,'iso')}은 갱신일 이후<br>
+          • AI 판단: <span class="text-success">계약 조항상 정당한 청구</span> (확신도 96%). 지급보류를 계약 근거로 해제하고, 미입고분 PO 단가 갱신 권장
           </div>
           ${jConfirm('agent4', '계약 갱신가(138,000원) 기준으로 INV-2946 지급보류를 해제하고, 미입고분 PO 단가도 갱신하시겠습니까?')}`);
           p.addResultCard(`<h4>💡 처리 권장</h4>
@@ -582,6 +591,8 @@ demoPlayers['agent4'] = new DemoPlayer({
         </div>`);
       }, 600);
       setTimeout(() => p.addMsg('ai', rootCause()), 1800);
+      setTimeout(() => p.addMsg('ai', `⚠️ <strong>자동 처리하지 않은 건</strong> — INV-3012 (Beta Inc., 수량 부족 −0.5M)는 입고 수량과 송장 수량 차이의 원인을 확정하지 못했습니다 (확신도 54%).
+        부분 입고인지 공급업체 오청구인지 판단 근거가 부족해 <strong>AP 담당자 검토 대기</strong>로 넘겼습니다.`), 3400);
     },
     (p) => { p._setFlowActive(5); p.addMsg('sys','✅ &nbsp;<strong>3-Way Matching</strong> 시나리오 완료.');
       const b=document.createElement('div'); b.className='completion-banner';
@@ -749,9 +760,9 @@ demoPlayers['agent6'] = new DemoPlayer({
     (p) => {
       p._setFlowActive(1);
       p.presets().innerHTML = ''; touchGuide.hideAll();
-      p.addMsg('user', '다음 달(12월) 수요 예측 결과를 바탕으로 발주가 필요한 자재 추천해줘');
+      p.addMsg('user', `다음 달(${demoMon(1,'kr')}) 수요 예측 결과를 바탕으로 발주가 필요한 자재 추천해줘`);
       setTimeout(() => {
-        p.addThinking(["상위 200개 자재의 과거 24개월 소비 패턴을 살펴보고 있어요", "계절성과 최근 추세를 반영해 12월 수요를 예측하는 중", "현재고와 미입고 잔량을 빼서 부족 수량을 계산하고 있어요", "안전재고와 최소 발주량을 고려해 발주 대상을 선정합니다"]);
+        p.addThinking(["상위 200개 자재의 과거 24개월 소비 패턴을 살펴보고 있어요", "계절성과 최근 추세를 반영해 다음 달 수요를 예측하는 중", "현재고·미입고 PO에 재고 이전과 품질 검사 합격분까지 빼서 부족 수량을 계산하고 있어요", "안전재고와 최소 발주량을 고려해 발주 대상을 선정합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
@@ -760,17 +771,19 @@ demoPlayers['agent6'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>자재</th><th>예측수요</th><th>현재고</th><th>입고예정<br>(PO·STO)</th><th>순부족량</th><th>권장발주량</th><th>AI 신뢰도</th></tr></thead>
               <tbody>
-                <tr><td><strong>A-4315</strong></td><td>265 EA</td><td>45 EA</td><td>135 EA</td><td style="color:var(--sap-danger)"><strong>85 EA</strong></td><td>120 EA</td><td><span class="badge badge-success">87%</span></td></tr>
+                <tr><td><strong>A-4315</strong></td><td>265 EA</td><td>45 EA<br><small>+ 검사 합격 18</small></td><td>135 EA<br><small>PO 95 · 이전 40</small></td><td style="color:var(--sap-danger)"><strong>67 EA</strong></td><td>100 EA</td><td><span class="badge badge-success">87%</span></td></tr>
                 <tr><td><strong>B-2290</strong></td><td>250 EA</td><td>80 EA</td><td>100 EA</td><td style="color:var(--sap-danger)"><strong>70 EA</strong></td><td>100 EA</td><td><span class="badge badge-success">91%</span></td></tr>
                 <tr><td><strong>D-5501</strong></td><td>90 EA</td><td>10 EA</td><td>0 EA</td><td style="color:var(--sap-danger)"><strong>80 EA</strong></td><td>100 EA</td><td><span class="badge badge-warning">79%</span></td></tr>
                 <tr><td>F-1120</td><td>90 EA</td><td>15 EA</td><td>30 EA</td><td style="color:var(--sap-warning)"><strong>45 EA</strong></td><td>60 EA</td><td><span class="badge badge-warning">82%</span></td></tr>
                 <tr><td colspan="7" style="text-align:center;font-size:12px;color:var(--sap-text-muted)">... 외 4개 품목</td></tr>
               </tbody>
             </table>
-          </div>`);
+          </div>
+          <span style="font-size:12.5px;color:var(--j-text-2)">권장발주량 = 순부족량 + 안전재고, 최소발주량(MOQ) 단위로 올림 — A-4315: 67 + 20 → MOQ 50 단위 100 EA</span><br>
+          💡 일반 MRP는 PO 입고분 95 EA만 차감합니다. Agent는 <strong>재고 이전 40 EA와 품질 검사 합격 18 EA</strong>까지 반영해 <strong>58 EA(13.7M원) 이중 발주</strong>를 막았습니다.`);
           p.addResultCard(`<h4>📊 예측 요약</h4><div class="kpi-row">
             <div class="kpi-card danger"><div class="kpi-value">8</div><div class="kpi-label">발주 필요 자재</div></div>
-            <div class="kpi-card warning"><div class="kpi-value">132.5M</div><div class="kpi-label">예상 발주금액(원)</div></div>
+            <div class="kpi-card warning"><div class="kpi-value">127.7M</div><div class="kpi-label">예상 발주금액(원)</div></div>
             <div class="kpi-card success"><div class="kpi-value">85%</div><div class="kpi-label">평균 예측 신뢰도</div></div>
           </div>`);
           p.addPresets([{label:'📝 구매 요청서 초안 생성', highlight:true},{label:'📈 A-4315 예측 상세 보기'}]);
@@ -788,12 +801,12 @@ demoPlayers['agent6'] = new DemoPlayer({
           p.addMsg('ai', `구매 요청서(PR) 초안 생성 완료:
           <div style="padding:12px;background:var(--sap-darker);border-radius:8px;font-size:13px;margin-top:8px;border:1px solid var(--sap-border);line-height:1.9">
           PR번호: <strong>10008976</strong><br>
-          요청일: ${new Date().toLocaleDateString('ko-KR')} &nbsp;|&nbsp; 요청자: 시스템(AI) — Joule Work<br>
-          총 <strong>8개 품목</strong> &nbsp;|&nbsp; 총금액: <strong>약 132.5백만원</strong><br>
-          납기요청일: 2026-12-05 ~ 12-15 (품목별, 생산계획 기준)<br>
-          ※ A-4315는 입고예정 PO 95EA + STO 40EA를 차감한 순부족 기준
+          요청일: ${new Date().toLocaleDateString('ko-KR')} &nbsp;|&nbsp; 요청자: 김재형 (JKIM) — Joule 수요예측 Agent 대행<br>
+          총 <strong>8개 품목</strong> &nbsp;|&nbsp; 총금액: <strong>약 127.7백만원</strong><br>
+          납기요청일: ${demoMD(1,5,'iso')} ~ ${demoMD(1,15,'md')} (품목별, 생산계획 기준)<br>
+          ※ A-4315는 입고예정 PO 95 EA + 재고 이전 40 EA + 검사 합격 18 EA를 차감한 순부족 기준 (236,000원/EA)
           </div>
-          ${jConfirm('agent6', '담당자(김재형 구매팀장)에게 승인 요청을 발송하시겠습니까?')}`);
+          ${jConfirm('agent6', '승인자(이도윤 상무, 구매본부장)에게 승인 요청을 발송하시겠습니까?')}`);
           p.addResultCard(`<h4>📝 PR 생성 완료</h4>
             <div class="action-btn-group">
               <button class="action-btn action-btn-primary" onclick="demoPlayers['agent6'].next()">✅ 승인 요청 발송</button>
@@ -810,7 +823,7 @@ demoPlayers['agent6'] = new DemoPlayer({
         stampDoc('pr');
         p.addMsg('ai', `<span class="text-success">✅ PR 생성 및 승인 요청 발송 완료</span><br>
         PR 10008976 생성됨<br>
-        승인 요청: 김재형 구매팀장 (jaehyung.kim@bestrun.com)<br>
+        승인 요청: 이도윤 상무 (구매본부장) — Flexible Workflow · 요청자와 승인자 분리<br>
         예상 승인 처리: 1 영업일 이내
         <div style="margin-top:10px">
           <button class="action-btn action-btn-primary" onclick="router.go('fiori-pr-display')">📄 구매요청 조회하기</button>
@@ -1570,7 +1583,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       cds1: ['I_MRPController', '플랜트 1050 MRP 예외 메시지 실시간 수집'],
       cds2: ['I_ManufacturingOrder', '제조오더(MO-26-0891) 일정 충돌 및 부족 분석'],
       cds3: ['I_PurOrdScheduleLineAPI01', '구매오더 납기 스케줄 라인 조회 및 변경'],
-      cds4: ['Purchase Order API (A_PurchaseOrder)', 'PO 4500019234 납기 12-15 → 12-12 변경 · 확약(AB) 요청'],
+      cds4: ['Purchase Order API (A_PurchaseOrder)', 'PO 4500019234 납기 3일 단축 요청 · 확약(AB) 후 확정'],
       cloudBoxTitle: 'SAP AI Core & Multi-Option Analyzer',
       cloud1: ['AI Exception Triage & Option Analyzer', 'Top 12 선별 · 대응 옵션 3개 비용·시간·성공확률 비교'],
       cloud2: ['Supplier Lead-Time & OTD Analyzer', 'ACME 리드타임 18일 · OTD 88% 기반 단축 가능성 검증'],
@@ -1672,7 +1685,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       cds1: ['I_MaterialDocumentItem_2 (24개월 이력)', '상위 200개 자재 과거 24개월 소비 패턴 추출'],
       cds2: ['I_MaterialStock_2 & Open PO / STO', '현재고 + 미입고 PO 95 EA + STO 입고 예정 40 EA 대조'],
       cds3: ['I_ProductPlant (Safety Stock & Lot)', '자재별 안전재고 기준 및 최소 발주량(MOQ) 반영'],
-      cds4: ['Purchase Requisition API', '구매요청 10008976 · 8개 품목 · 132.5M 자동 생성'],
+      cds4: ['Purchase Requisition API', '구매요청 10008976 · 8개 품목 · 127.7M 자동 생성'],
       cloudBoxTitle: 'SAP AI Core (SAP-RPT 1.6) & HANA Cloud DB',
       cloud1: ['SAP SAP-RPT 1.6 Large Tabular AI', '별도 모델 재학습 없이 Tabular 수요 예측 수행'],
       cloud2: ['HANA Cloud Prediction Results DB', '자재별 익월 예측 소요량 및 평균 신뢰도(85%) 저장'],
@@ -1787,9 +1800,9 @@ const seg=(items)=>`<div class="db-seg-wrap">${items.map(([w,c,t])=>`<div class=
 patch('agent1',[
 /* card 0: Aging Analysis */
 `<div class="db-card">
-${hdr('📦','Inventory Aging 대시보드','플랜트 1050 · 2026.12월 전환 예상 품목')}
+${hdr('📦','Inventory Aging 대시보드','플랜트 1050 · '+demoMon(1,'ykr')+' 전환 예상 품목')}
 <div class="db-kpi-row">
-${kv('4건','🔴 High Risk','#ff4444','BC3 전용 3건 포함')}
+${kv('4건','🔴 High Risk','#ff4444','ECN 1건 · BC3 3건')}
 ${kv('112.5M','총 장기재고 금액','#ff9a3c','↑ 12.4M원')}
 ${kv('10건','전환 예상 (1M 내)','#5aafff','이달 확정')}
 ${kv('16건','Block 대상 PO','#4cde72','미입고 PO')}
@@ -1806,7 +1819,7 @@ ${bar('K-7720 구형 와이어링 하네스',32,'#E9730C','8.4M')}
 ${donut(40,'#BB0000','High Risk')}
 <div style="flex:1">
 ${seg([[4,'#BB0000','High (4건)'],[4,'#E9730C','Med (4건)'],[2,'#30914C','Low (2건)']])}
-<div class="db-insight">⚠️ AI 분석: 전체의 <strong style="color:#ff4444">40%</strong>가 High Risk (BC3 단산 부품 집중). 즉각 PO Block 조치 권고</div>
+<div class="db-insight">⚠️ AI 분석: 전체의 <strong style="color:#ff4444">40%</strong>가 High Risk — BC3 단산 3건 + <strong>기존 리포트가 놓친 ECN 대체품 K-7720</strong>. 즉각 PO Block 조치 권고</div>
 </div>
 </div></div>`,
 
@@ -1814,7 +1827,7 @@ ${seg([[4,'#BB0000','High (4건)'],[4,'#E9730C','Med (4건)'],[2,'#30914C','Low 
 `<div class="db-card">
 ${hdr('🚫','PO Block 처리 결과','플랜트 1050 · 18건 처리')}
 <div class="db-kpi-row">
-${kv('15건','✅ Block 완료','#4cde72','42.3M원 보호')}
+${kv('15건','✅ Block 완료','#4cde72','42.3M · 수수료 1.2M')}
 ${kv('2건','📝 PR 보류','#ff9a3c','PO 미전환 PR')}
 ${kv('1건','⏳ 승인 필요','#ff9a3c','8.1M원 대기')}
 </div>
@@ -1824,7 +1837,7 @@ ${donut(83,'#30914C','완료율')}
 <div class="db-chart-ttl" style="margin-bottom:8px">금액 보호 현황</div>
 ${bar('Block 완료 (42.3M)',84,'#30914C','84%')}
 ${bar('승인 대기 (8.1M)',16,'#E9730C','16%')}
-<div class="db-insight" style="margin-top:8px">✅ 총 <strong>50.4M원</strong> 중 <strong style="color:#4cde72">42.3M원(84%)</strong> 즉시 보호 완료</div>
+<div class="db-insight" style="margin-top:8px">✅ 총 <strong>50.4M원</strong> 중 <strong style="color:#4cde72">42.3M원(84%)</strong> 즉시 보호 · 취소 수수료 1.2M 차감 시 <strong>순 41.1M원</strong></div>
 </div>
 </div></div>`
 ]);
@@ -1851,7 +1864,7 @@ ${kv('1,240EA','총 영향 재고량','#ff9a3c','28개 품목')}
   </div>
   </div>
 </div>
-<div class="db-insight" style="margin-top:10px">📌 단산일(2026-12-31) 기준 <strong>입고 예정 물량 전체</strong>에 대한 PO 검토 필요</div></div>`,
+<div class="db-insight" style="margin-top:10px">📌 단산일(${demoMD(2,0,'iso')}) 기준 <strong>입고 예정 물량 전체</strong>에 대한 PO 검토 필요</div></div>`,
 
 /* card 1: Mail status */
 `<div class="db-card">
@@ -1879,7 +1892,7 @@ ${hdr('⚡','MRP 예외 관리 대시보드','플랜트 1050 · AI 자동 트리
 <div class="db-kpi-row">
 ${kv('234건','총 예외 메시지','#5aafff','금주 MRP Run')}
 ${kv('12건','🔴 긴급 처리','#ff4444','D-3일 이내')}
-${kv('84M','영향 금액','#ff9a3c','원')}
+${kv('84M','생산 차질 금액','#ff9a3c','12건 합계')}
 ${kv('8건','자동 해결 가능','#4cde72','AI 추천')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
@@ -1901,9 +1914,9 @@ ${donut(75,'#30914C','자동해결')}
 `<div class="db-card">
 ${hdr('💡','조치 방안 & 영향 분석','A-4315 일정 재조정')}
 <div class="db-kpi-row">
-${kv('D-3일','납기 단축 필요','#ff9a3c','12-15 → 12-12')}
-${kv('80EA','여유 재고 (백업)','#4cde72','플랜트 1060')}
-${kv('45.6M','조치 시 보호금액','#5aafff','원')}
+${kv('D-3일','납기 단축 요청','#ff9a3c',demoMD(1,15,'md')+' → '+demoMD(1,12,'md'))}
+${kv('40EA','1060 백업 예약','#4cde72','80 EA 중 남은 분')}
+${kv('45.6M','생산 차질 방지','#5aafff','MO-26-0891')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">⏱ 조치 방법별 리드타임 비교</div>
@@ -1911,7 +1924,7 @@ ${bar('① 1060 여유재고 이동 (백업)',30,'#30914C','즉시')}
 ${bar('② 공급업체 납기 조정 요청',65,'#0070F2','1~2일')}
 ${bar('③ 긴급 발주 생성',100,'#E9730C','3~5일')}
 </div>
-<div class="db-insight" style="margin-top:10px">🎯 권장: <strong style="color:#4cde72">②번 납기 단축 요청</strong> — 3일 차이, ACME OTD 88%로 대응 가능 · 확약 실패 시 ①번 1060 여유재고(80EA) 이동으로 전환</div></div>`
+<div class="db-insight" style="margin-top:10px">🎯 권장: <strong style="color:#4cde72">②번 납기 단축 요청</strong> — 3일 차이, ACME OTD 88%로 대응 가능 · 확약 실패 시 ①번 1060 남은 재고(40EA, 예약됨) 이동으로 자동 전환</div></div>`
 ]);
 
 /* ═══ AGENT 4 — 3-Way Matching ═══ */
@@ -1951,7 +1964,7 @@ ${bar('✅ 처리 완료',78,'#30914C','18건')}
 ${bar('🔄 PO 수정 대기',13,'#0070F2','3건')}
 ${bar('⏳ 담당자 검토',9,'#E9730C','2건')}
 </div>
-<div class="db-insight" style="margin-top:10px">📈 예외 처리율 <strong style="color:#4cde72">78%</strong> — 나머지 5건 오늘 내 처리 예정</div></div>`
+<div class="db-insight" style="margin-top:10px">📈 예외 처리율 <strong style="color:#4cde72">78%</strong> · 확신도 낮은 2건(INV-3012 등)은 자동 처리하지 않고 담당자 검토로</div></div>`
 ]);
 
 /* ═══ AGENT 5 — Supplier Risk ═══ */
@@ -1997,11 +2010,11 @@ ${kv('5건','납기 지연 예상','#ff9a3c','D-7 이내')}
   <circle cx="209" cy="48" r="3" fill="#BB0000"/>
   <circle cx="247" cy="49" r="4" fill="#BB0000" stroke="#ff6666" stroke-width="1.5"/>
   <text x="57" y="80" text-anchor="middle" font-size="8" fill="#8090A0">6월</text>
-  <text x="95" y="80" text-anchor="middle" font-size="8" fill="#8090A0">7월</text>
-  <text x="133" y="80" text-anchor="middle" font-size="8" fill="#8090A0">8월</text>
-  <text x="171" y="80" text-anchor="middle" font-size="8" fill="#8090A0">9월</text>
-  <text x="209" y="80" text-anchor="middle" font-size="8" fill="#8090A0">10월</text>
-  <text x="247" y="80" text-anchor="middle" font-size="8" fill="#ff4444" font-weight="600">11월</text>
+  <text x="95" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-4,'kr')}</text>
+  <text x="133" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-3,'kr')}</text>
+  <text x="171" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-2,'kr')}</text>
+  <text x="209" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-1,'kr')}</text>
+  <text x="247" y="80" text-anchor="middle" font-size="8" fill="#ff4444" font-weight="600">${demoMon(0,'kr')}</text>
   <text x="280" y="80" text-anchor="start" font-size="7.5" fill="#ff4444">↓추세</text>
 </svg>
 </div>
@@ -2041,14 +2054,14 @@ ${hdr('📊','수요 예측 발주 대시보드','SAP-RPT 1.6 Large · 200개 �
 <div class="db-kpi-row">
 ${kv('200개','분석 자재','#5aafff','상위 소비액')}
 ${kv('8개','발주 필요','#ff4444','재고 부족')}
-${kv('132.5M','총 발주 예상','#ff9a3c','원')}
+${kv('127.7M','총 발주 예상','#ff9a3c','원')}
 ${kv('85%','AI 신뢰도 (평균)','#A78BFA','SAP-RPT 1.6')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">📈 수요 예측 vs 현재 재고 Gap 분석</div>
-${bar('A-4315 (부족 85EA)',100,'#BB0000','120EA 발주')}
+${bar('A-4315 (부족 67EA)',84,'#BB0000','100EA 발주')}
 ${bar('B-2290 (부족 70EA)',82,'#E9730C','100EA 발주')}
-${bar('D-5501 (부족 80EA)',94,'#BB0000','100EA 발주')}
+${bar('D-5501 (부족 80EA)',100,'#BB0000','100EA 발주')}
 ${bar('F-1120 (부족 45EA)',53,'#F59E0B','60EA 발주')}
 ${bar('G-3380 (부족 30EA)',35,'#30914C','40EA 발주')}
 </div>
@@ -2062,17 +2075,17 @@ ${donut(85,'#A78BFA','신뢰도')}
 ${hdr('📝','구매 요청서 자동 생성','PR 10008976')}
 <div class="db-kpi-row">
 ${kv('8개','발주 품목','#5aafff','')}
-${kv('132.5M','총 금액','#ff9a3c','원')}
+${kv('127.7M','총 금액','#ff9a3c','원')}
 ${kv('PR 생성','시스템 상태','#4cde72','승인 대기')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">🏭 공급업체별 발주 금액 분포</div>
 ${bar('기타 공급업체 (3건)',100,'#7C3AED','58.0M')}
-${bar('Supplier Alpha (A-4315, B-2290)',80,'#7C3AED','46.5M')}
+${bar('Supplier Alpha (A-4315, B-2290)',72,'#7C3AED','41.7M')}
 ${bar('Supplier Beta (D-5501)',28,'#A78BFA','16.5M')}
 ${bar('Supplier Gamma (F-1120, G-3380)',20,'#C4B5FD','11.6M')}
 </div>
-<div class="db-insight" style="margin-top:10px">✅ 담당자(김재형 팀장) 승인 시 <strong>자동 발주 확정</strong> · 공급업체 자동 통보</div></div>`
+<div class="db-insight" style="margin-top:10px">✅ 승인자(이도윤 상무) 승인 시 <strong>자동 발주 확정</strong> · 요청자(김재형)와 분리 · 공급업체 자동 통보</div></div>`
 ]);
 
 /* ═══ AGENT 7 — Stock Transfer ═══ */

@@ -81,8 +81,9 @@ document.addEventListener('click', e => {
 /* ─── KEYBOARD NAV ─────────────────────────
    ←/→·Space: 홈에서는 에이전트 이동, 에이전트 화면에서는 다음 단계. 숫자 1~9: n번째 에이전트. ESC: 홈 */
 function agentPageIds() {
+  /* 홈 카드가 있는 에이전트만 (MM 페이지에 스토리용으로 실린 PP·QM 화면은 제외) */
   return Array.from(document.querySelectorAll('section.page[id]'))
-    .map(s => s.id).filter(id => demoPlayers[id]);
+    .map(s => s.id).filter(id => demoPlayers[id] && document.querySelector(`#home [onclick*="'${id}'"]`));
 }
 document.addEventListener('keydown', e => {
   const agents = ['home', ...agentPageIds()];

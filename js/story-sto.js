@@ -222,7 +222,7 @@
       <li>Delta Co. PO 4500019188 (50 EA) 납기 <b>내일 ${demoDay(1,'md')}</b> · 납기 확인 미회신</li>
       <li>최근 3개월 4건 중 3건 지연 · 리스크 점수 <b>75점 (High)</b></li>
       <li>1050 재고 45 EA vs 2주 필요량 85 EA → 지연 시 <b>40 EA 부족</b></li>
-      <li>영향: 부산 조립라인 12 · 생산오더 MO-26-0889 <b>${demoDay(1,'md')} 08시 착수분</b> · 일 생산 손실 약 3.2억원</li>
+      <li>영향: 부산 조립라인 12 · 생산오더 MO-26-0889 <b>${demoDay(1,'md')} 08시 착수분</b> · 라인 정지 시 FG-2100 출하 차질 약 3.2억원/일</li>
     </ul>
     <div class="j-alert-foot">아무도 묻기 전에 Joule이 먼저 찾았습니다. 위험 PO 전체를 확인해 보세요.</div>
   </div>`;
@@ -231,16 +231,16 @@
     <table class="chat-table">
       <thead><tr><th>대응 옵션</th><th>소요</th><th>추가 비용</th><th>성공 가능성</th><th>판단</th></tr></thead>
       <tbody>
-        <tr><td>① 1060 여유재고 이동 (80 EA)</td><td>즉시</td><td>운송비 0.4M</td><td>98%</td><td><span class="badge badge-warning">백업</span></td></tr>
-        <tr><td><strong>② 납기 단축 요청 (ACME)</strong></td><td>1~2일</td><td><strong>0원</strong></td><td>88% (OTD)</td><td><span class="badge badge-success">✅ 권장</span></td></tr>
+        <tr><td>① 1060 남은 여유재고 이동 (40 EA)</td><td>즉시</td><td>운송비 0.4M</td><td>98%</td><td><span class="badge badge-warning">백업 (예약)</span></td></tr>
+        <tr><td><strong>② 납기 단축 요청 (ACME)</strong></td><td>1~2일</td><td><strong>0원</strong></td><td>89% (단축 수락 이력)</td><td><span class="badge badge-success">✅ 권장</span></td></tr>
         <tr><td>③ 긴급 외부 발주</td><td>3~5일</td><td>+4.6M</td><td>70%</td><td><span class="badge badge-danger">비권장</span></td></tr>
       </tbody>
     </table>
   </div>
-  <div style="margin-top:8px;font-size:13px">💡 1060 여유 재고는 이번 주 Delta Co. 지연 대응에 먼저 쓰고, 12월분은 비용이 들지 않는 ②로 해결합니다.</div>`;
+  <div style="margin-top:8px;font-size:13px">💡 1060 여유 재고 80 EA 중 40 EA는 이번 주 결품에 썼고, 남은 40 EA는 ② 거절 시 백업으로 예약합니다. 다음 달(${demoMon(1,'kr')})분은 비용이 들지 않는 ②로 해결합니다.</div>`;
 
   window.rootCause = () => `🔎 <strong>추가 발견 — 같은 원인이 더 있습니다</strong><br>
-    계약 PA-2026-112 갱신(10-01)이 아래 미입고 PO 3건에도 반영되지 않았습니다. 그대로 두면 <strong>다음 달 송장 3건도 지급보류</strong>됩니다.
+    계약 PA-2026-112 갱신(${demoMD(-1,1,'md')})이 아래 미입고 PO 3건에도 반영되지 않았습니다. 그대로 두면 <strong>다음 달 송장 3건도 지급보류</strong>됩니다.
     <div class="chat-table-wrap" style="margin-top:10px"><table class="chat-table">
       <thead><tr><th>PO</th><th>자재</th><th>미입고 수량</th><th>예상 차이</th></tr></thead>
       <tbody>
@@ -274,7 +274,10 @@
     agent4: ['송장 847건 대사 · 불일치 23건 원인 조사(계약서 확인)', '약 3일', '10분'],
     agent5: ['공급업체 47곳 납기 확인 전화·메일', '매일 약 2시간', '1분'],
     agent6: ['200개 자재 엑셀 수요 예측 · PR 작성', '약 1.5일', '5분'],
-    agent7: ['3개 플랜트 재고 비교 · STO 작성', '약 3시간', '2분']
+    agent7: ['3개 플랜트 재고 비교 · STO 작성', '약 3시간', '2분'],
+    pp1: ['MD04·CO02로 오더별 부족·라인 영향 계산, 순서 협의', '약 3시간', '3분'],
+    qm1: ['배치 정보 Cockpit 추적 · 출하 고객 엑셀 정리 · 보류 전기', '약 1.5일', '5분'],
+    qm2: ['측정값·과거 로트 대조 후 판정 · 재고 전기 · 통보 작성', '약 3시간', '5분']
   };
   new MutationObserver(muts => muts.forEach(m => m.addedNodes.forEach(n => {
     if (!(n instanceof HTMLElement) || !n.classList.contains('completion-banner')) return;
@@ -290,15 +293,30 @@
 
   /* ── 스토리 모드 ── */
   const STORY = [
-    { page: 'agent5', t: '선제 경보', s: 'Joule이 먼저 위기를 알려줍니다' },
-    { page: 'agent3', t: '생산 영향과 대응 옵션', s: '옵션 3개를 비용·시간·확률로 비교합니다' },
-    { page: 'agent7', t: '외부 조달 대신 내부 재고', s: '인천 여유 재고 40 EA를 부산으로 — 자재 문서까지 확인' },
-    { page: 'agent6', t: '남은 부족분만 발주', s: '입고 예정(PO+STO)을 차감해 이중 발주를 막습니다' },
+    { page: 'agent5', t: '선제 경보', s: 'Joule이 먼저 위기를 알려줍니다 — 내일 08시 결품 위험' },
+    { page: 'agent7', t: '외부 조달 대신 내부 재고', s: '인천 여유 재고 40 EA를 부산으로 — 내일 15시 입고' },
+    { page: 'pp1', t: '7시간 공백 메우기 (PP)', s: '라인 순서를 바꿔 입고 전까지 라인이 멈추지 않게 합니다' },
+    { page: 'qm2', t: '검사 대기 재고 꺼내기 (QM)', s: '검사에 묶인 20 EA를 판정해 18 EA를 가용으로' },
+    { page: 'agent3', t: '다음 달까지 내다보기', s: 'MRP 재실행 — 다음 달분은 납기 단축 요청, 거절 대비 백업 예약' },
+    { page: 'agent6', t: '남은 부족분만 발주', s: '재고 이전·검사 합격분까지 차감해 이중 발주를 막습니다' },
     { page: 'agent4', t: '막힌 송장과 숨은 원인', s: '같은 원인의 다음 달 송장 3건까지 선제 해결' },
     { page: 'agent2', t: '반대편 리스크: BC3 단산', s: 'Knowledge Graph로 전용 부품만 골라냅니다' },
     { page: 'agent1', t: '악성재고 선제 차단', s: '단산 부품 PO를 Block해 악성재고 확대를 막습니다' },
     { page: 'story-closing', t: '오늘 아침의 결과', s: '누적 임팩트를 정리합니다' }
   ];
+  /* 마무리 화면: 장면별 기존 방식 vs Joule 표 (숫자 근거) */
+  (function renderBA() {
+    const box = $('sc-ba'); if (!box) return;
+    const toMin = t => { const n = parseFloat(t.replace(/[^0-9.]/g, '')); return /일/.test(t) ? n * 8 * 60 : /시간/.test(t) ? n * 60 : n; };
+    let oldSum = 0, newSum = 0;
+    const rows = STORY.filter(sc => BA[sc.page]).map((sc, k) => {
+      const [how, old, neu] = BA[sc.page]; oldSum += toMin(old); newSum += toMin(neu);
+      return `<tr><td>${k + 1}</td><td><b>${sc.t}</b></td><td>${how}</td><td class="r">${old}</td><td class="r"><b>${neu}</b></td></tr>`;
+    }).join('');
+    box.innerHTML = `<table><thead><tr><th>#</th><th>장면</th><th>기존 방식</th><th class="r">기존</th><th class="r">Joule</th></tr></thead><tbody>${rows}
+      <tr class="sum"><td></td><td colspan="2">합계 (1일 = 8시간 기준)</td><td class="r">${Math.round(oldSum / 60)}시간</td><td class="r"><b>${Math.round(newSum)}분</b></td></tr></tbody></table>`;
+  })();
+
   const story = { on: false, i: 0 };
   window.storyState = story;
 
