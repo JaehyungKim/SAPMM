@@ -304,6 +304,78 @@
     { page: 'agent1', t: '악성재고 선제 차단', s: '단산 부품 PO를 Block해 악성재고 확대를 막습니다' },
     { page: 'story-closing', t: '오늘 아침의 결과', s: '누적 임팩트를 정리합니다' }
   ];
+
+  /* 장면별 브리핑 — 장면이 시작될 때 '무슨 일이 있었고, 그래서 왜 이 질문을 하는지'를 보여준다. 닫으면 Agent 시작 */
+  const BRIEF = {
+    agent5: { time: '08:00', who: '구매팀장 김재형',
+      sit: ['출근해서 Joule을 열자, 묻기도 전에 <b>선제 경보</b>가 먼저 떠 있습니다.',
+            'A-4315 유압실린더 — 오늘 16시 도착 예정인 Delta Co. 50 EA가 늦으면 <b>내일 08시 조립라인이 멈춥니다.</b>',
+            'Delta 한 곳만의 문제일까요? 이번 달 납기가 걸린 다른 PO에도 같은 위험이 있는지 먼저 봐야 합니다.'],
+      ask: '이번 달 납기 지연 위험이 높은 PO 목록 보여줘' },
+    agent7: { time: '08:15', who: '구매팀장 김재형',
+      sit: ['Delta Co.에 독촉 메일을 보냈지만 회신 기한은 13시 — <b>그때까지 손 놓고 기다릴 수는 없습니다.</b>',
+            '외부에서 새로 사면 리드타임이 18일. 내일 08시에는 절대 못 맞춥니다.',
+            '남은 길은 하나 — <b>회사 안 다른 공장에 남는 재고</b>가 있는지 찾는 것입니다.'],
+      ask: '플랜트 1050, 1060, 1070 중 이동 가능한 과잉 재고 찾아줘' },
+    pp1: { time: '08:40', who: '부산 공장 생산계획 담당자',
+      sit: ['구매팀에서 연락이 왔습니다 — 인천 재고 40 EA를 옮기지만 <b>도착은 내일 15시</b>.',
+            '그런데 MO-26-0889는 <b>내일 08시</b>에 착수해야 합니다. 7시간이 비어요.',
+            '라인을 세울지, 다른 오더를 먼저 돌릴지 — 이번 주 생산오더 전체를 다시 봐야 합니다.'],
+      ask: '부산 공장 이번 주 생산오더 중 자재 부족으로 멈출 오더 알려줘' },
+    qm2: { time: '09:00', who: '부산 공장 품질 담당자',
+      sit: ['재고 이전과 순서 교체로 이번 주는 넘겼지만 <b>A-4315 여유는 0</b>입니다.',
+            '오전 품질 점검 시간. 입고됐는데 검사를 기다리느라 <b>창고에 묶여 있는 재고</b>는 없을까요?',
+            '평소엔 대기 로트를 들어온 순서대로 처리하지만, 오늘은 급한 것부터 꺼내야 합니다.'],
+      ask: '부산 공장 검사 대기 재고 중 급한 거 있어?' },
+    agent3: { time: '09:30', who: '구매팀장 김재형',
+      sit: ['이번 주 불은 껐습니다. 하지만 <b>다음 달에도 같은 일이 생기지 않을까요?</b>',
+            '오늘 아침 바뀐 재고·일정을 반영해 MRP를 다시 돌렸더니 예외 메시지가 <b>234건</b>.',
+            '하나씩 열어보면 반나절 — 생산에 영향이 큰 것부터 골라야 합니다.'],
+      ask: '이번 주 플랜트 1050 MRP 예외 메시지 중 긴급도 높은 것부터 보여줘' },
+    agent6: { time: '10:30', who: '구매팀장 김재형',
+      sit: ['오늘 오후 <b>월간 발주 계획 회의</b>가 있습니다. 다음 달 발주량을 확정해야 합니다.',
+            '이번 주 A-4315는 다른 공장 재고와 검사 대기분까지 끌어다 막았습니다 — <b>다음 달을 시작할 재고가 거의 없습니다.</b>',
+            '평소처럼 엑셀로 현재고를 빼서 계산하면, 이번 주에 쓸 물량까지 남은 재고로 셀 위험이 있습니다.'],
+      ask: '다음 달 수요 예측 결과를 바탕으로 발주가 필요한 자재 추천해줘' },
+    agent4: { time: '11:00', who: '구매팀장 김재형',
+      sit: ['AP팀에서 메시지가 왔습니다 — <b>Alpha Co. 송장이 가격 차이로 지급보류</b> 중인데, 공급업체가 결제를 독촉하고 있답니다.',
+            '이번 달 송장은 847건. 불일치가 이 건뿐일 리 없습니다.',
+            '어디서부터 봐야 할지, 금액이 큰 것부터 추려야 합니다.'],
+      ask: '이번 달 PO-GR-Invoice 불일치 건 목록 보여줘. 금액 차이 큰 순서로' },
+    agent2: { time: '11:30', who: '구매팀장 김재형',
+      sit: ['상품기획팀 공문 — <b>BC3 차종이 다음 달 말에 단산</b>됩니다.',
+            '오늘 아침 내내 "부족"과 싸웠다면, 이번엔 반대입니다. <b>BC3에만 쓰는 부품</b>은 단산 후 그대로 악성재고가 됩니다.',
+            '어떤 부품이 BC3 전용인지 BOM을 하나씩 역전개하면 이틀이 걸립니다.'],
+      ask: () => `BC3 차종이 ${demoMon(1, 'ykr')} 말에 단산 예정이야. 영향받는 유니크 부품 리스트 알려줘.` },
+    agent1: { time: '12:00', who: '구매팀장 김재형',
+      sit: ['단산 부품 공급업체 9곳에 안내 메일을 보냈습니다.',
+            '재무팀이 다음 주 재고 회의 전에 <b>장기재고로 넘어갈 금액</b>을 보고해 달라고 합니다.',
+            'BC3 부품 말고도 소요가 줄어 쌓이고 있는 품목이 있을지 모릅니다. 들어오고 있는 PO까지 막아야 할 수도 있습니다.'],
+      ask: '플랜트 1050의 장기/악성 재고 전환 예상 품목을 위험도 순으로 상위 10개 보여줘' }
+  };
+  const brief = document.createElement('div');
+  brief.id = 'scene-brief'; brief.hidden = true;
+  document.body.appendChild(brief);
+  function showBrief(pg, onClose) {
+    const b = BRIEF[pg];
+    if (!b) { onClose(); return; }
+    const n = STORY.findIndex(sc => sc.page === pg) + 1;
+    const total = STORY.filter(sc => BRIEF[sc.page]).length;
+    const ask = typeof b.ask === 'function' ? b.ask() : b.ask;
+    brief.innerHTML = `<div class="si-card sb-card" role="dialog">
+      <button class="si-x" title="닫고 시작">✕</button>
+      <div class="sc-eyebrow">장면 ${n} / ${total} · ${b.time} · ${b.who}</div>
+      <h1 class="sc-h1">${STORY[n - 1].t}</h1>
+      <ul class="sb-sit">${b.sit.map(t => `<li>${t}</li>`).join('')}</ul>
+      <div class="sb-ask"><div class="sb-ask-h">그래서 Joule에게 이렇게 묻습니다</div><div class="sb-ask-q">“${ask}”</div></div>
+      <div class="sc-actions"><button class="sc-btn sb-go">Joule에게 묻기 →</button></div>
+    </div>`;
+    brief.hidden = false;
+    const close = () => { brief.hidden = true; onClose(); };
+    brief.querySelector('.si-x').onclick = close;
+    brief.querySelector('.sb-go').onclick = close;
+  }
+
   /* 마무리 화면: 장면별 기존 방식 vs Joule 표 (숫자 근거) */
   (function renderBA() {
     const box = $('sc-ba'); if (!box) return;
@@ -334,7 +406,8 @@
     const pg = STORY[story.i].page;
     router.go(pg); renderBar();
     const pl = (window.demoPlayers || {})[pg];
-    if (pl && pl.curStep === 0 && !pl.playing) setTimeout(() => pl.start(), 350);
+    const start = () => { if (pl && pl.curStep === 0 && !pl.playing) setTimeout(() => pl.start(), 350); };
+    if (pl && pl.curStep === 0) showBrief(pg, start); else start();
   }
   window.storyStart = function () {
     Object.values(window.demoPlayers || {}).forEach(p => { try { p.reset(); } catch (e) {} });
@@ -357,7 +430,7 @@
     story.i--; goScene();
   };
   window.storyEnd = function () {
-    story.on = false;
+    story.on = false; brief.hidden = true;
     $('story-bar').hidden = true; $('story-intro').hidden = true;
     document.body.classList.remove('story-on');
   };

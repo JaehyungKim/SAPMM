@@ -581,3 +581,38 @@ body.story-on .page { bottom: 52px !important; }
 
 /* ─── 홈 카드: 화면이 낮아도 카드가 잘리지 않게 내용 높이를 보장하고, 넘치면 스크롤 ─── */
 body.light .scenario-grid { grid-template-rows: none; grid-auto-rows: minmax(min-content, 1fr); overflow-y: auto; padding-bottom: 16px; }
+
+/* ─── 스토리 시작: 비즈니스 상황 브리핑 ─── */
+.si-card { position: relative; width: 760px; }
+.si-x { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--j-border-ctl); background: var(--j-surface); color: var(--j-text-2); font-size: 15px; cursor: pointer; }
+.si-x:hover { color: var(--j-brand); border-color: var(--j-brand); }
+.si-role { font-size: 14.5px; line-height: 1.6; color: var(--j-text-2); margin: 0 0 16px; }
+.si-role b { color: var(--j-text); }
+.si-alert { border: 1px solid var(--j-neg-line); border-left: 4px solid var(--j-neg-icon); background: var(--j-neg-bg); border-radius: 12px; padding: 14px 18px; margin-bottom: 18px; }
+.si-alert-h { font-size: 14px; font-weight: 700; color: var(--j-neg); margin-bottom: 6px; }
+.si-alert ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.75; color: var(--j-text); }
+.si-sub { font-size: 12.5px; font-weight: 700; color: var(--j-text-2); margin: 0 0 8px; }
+.si-tl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 18px; position: relative; }
+.si-tl::before { content: ''; position: absolute; left: 6px; right: 6px; top: 6px; height: 2px; background: var(--j-border); }
+.si-tl div { position: relative; padding-top: 18px; display: flex; flex-direction: column; gap: 2px; }
+.si-tl div::before { content: ''; position: absolute; top: 1px; left: 1px; width: 10px; height: 10px; border-radius: 50%; background: var(--j-border-ctl); border: 2px solid var(--j-surface); }
+.si-tl div.on::before { background: var(--j-brand); }
+.si-tl div.neg::before { background: var(--j-neg-icon); }
+.si-tl b { font-size: 14px; color: var(--j-text); }
+.si-tl div.neg b { color: var(--j-neg); }
+.si-tl span { font-size: 12px; color: var(--j-text-2); }
+.si-kpis { margin-top: 0; }
+.si-more { margin: 0 0 18px; font-size: 13.5px; }
+.si-more summary { cursor: pointer; color: var(--j-link); font-weight: 600; }
+.si-more .si-scenes { margin: 10px 0 0; }
+@media (max-width: 640px) { .si-tl { grid-template-columns: repeat(2, 1fr); row-gap: 12px; } .si-tl::before { display: none; } }
+
+/* ─── 스토리 장면별 브리핑 ─── */
+#scene-brief { position: fixed; inset: 0; z-index: 9500; background: rgba(29,45,62,.5); display: flex; align-items: center; justify-content: center; padding: 16px; }
+#scene-brief[hidden] { display: none; }
+.sb-card { width: 640px; }
+.sb-sit { margin: 4px 0 18px; padding-left: 18px; font-size: 15px; line-height: 1.75; color: var(--j-text); }
+.sb-sit li { margin-bottom: 4px; }
+.sb-ask { border: 1px solid var(--j-brand-line); background: var(--j-brand-soft); border-radius: 12px; padding: 12px 16px; margin-bottom: 18px; }
+.sb-ask-h { font-size: 12.5px; font-weight: 700; color: var(--j-brand); margin-bottom: 4px; }
+.sb-ask-q { font-size: 16px; font-weight: 600; color: var(--j-text); line-height: 1.5; }
