@@ -447,7 +447,7 @@ demoPlayers['agent3'] = new DemoPlayer({
           • 거절 대비: 1060 여유 재고(안전재고 제외 60 EA) 중 이번 주에 40 EA를 썼으므로 <strong>남은 20 EA를 백업으로 예약</strong>하고, 부족분 25 EA는 긴급 발주로 대비합니다
           </div>
           ${optCompare()}
-          ${jConfirm('agent3', `ACME에 납기 단축을 요청할까요? PO 4500019234 항목 10은 확약(AB) 회신 시 ${demoMD(1,12,'iso')}로 확정됩니다.`)}`);
+          ${jConfirm('agent3', `ACME에 납기 단축을 요청할까요? PO 4500019234 항목 10은 확약 회신 시 ${demoMD(1,12,'iso')}로 확정됩니다.`)}`);
           p.addResultCard(`<h4>💡 권장 조치</h4>
             <div class="action-btn-group">
               <button class="action-btn action-btn-primary" onclick="demoPlayers['agent3'].next()">📅 납기 앞당기기</button>
@@ -469,7 +469,7 @@ demoPlayers['agent3'] = new DemoPlayer({
           stampDoc('po');
           p.addMsg('ai', `<span class="text-success">✅ 납기 단축 요청 발송</span><br>
           PO 4500019234 항목 10: 납기 변경 요청 등록 (${demoMD(1,15,'iso')} → <strong>${demoMD(1,12,'iso')}</strong>, <strong>확약 대기</strong>)<br>
-          확약 전까지 MRP는 기존 납기 기준으로 계획 · 확약(AB) 회신 시 자동 확정<br>
+          확약 전까지 MRP는 기존 납기 기준으로 계획 · 확약 회신 시 자동 확정<br>
           48시간 내 거절·미회신 시 1060 여유 20 EA 재고 이전 + 긴급 발주 25 EA로 자동 전환 (20 EA 예약 완료)<br>
           <span style="color:var(--j-text-2)">변경 이력: JKIM (Joule MRP Exception Agent 대행)</span>
           <div style="margin-top:10px"><button class="action-btn action-btn-primary" onclick="router.go('fiori-po-delivery')">📄 구매오더 조회하기</button></div>`);
