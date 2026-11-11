@@ -21,6 +21,7 @@
 | `js/joule-theme.js` | Joule Spaces 레이아웃 재구성, 채팅 메시지 꾸밈, 색상 리맵 |
 | `js/theme.js` | 다크 모드 토글(`setDarkMode`, 레일의 해/달 버튼, localStorage 저장), 인라인 style·SVG 색상 런타임 변환, UI5 `sap_horizon_dark` 전환 |
 | `js/story-sto.js` | STO 흐름 상태(`stoState`, 납품·출고·입고), 자재 문서 화면, 기존 방식 비교, 스토리 모드 `STORY` |
+| `js/story-art.js` | 스토리 장면 브리핑 일러스트 (`STORY_ART[pageId]`, 인라인 SVG · 테마 토큰 색) — `story-sto.js`보다 먼저 로드 |
 | `js/ui5-views.js` | SAPUI5 XML 뷰 헬퍼 + Fiori 화면 정의(`VIEWS`), UI5 모델 동기화 |
 | `js/arch-diagram.js` | SAP Architecture Center 스타일 아키텍처 다이어그램 (에이전트별 강조·메타) |
 | `js/arch-tour.js` | 아키텍처 가이드 투어 (에이전트별 핵심 흐름 단계) |

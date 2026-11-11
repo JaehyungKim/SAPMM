@@ -366,6 +366,7 @@
       <button class="si-x" title="닫고 시작">✕</button>
       <div class="sc-eyebrow">장면 ${n} / ${total} · ${b.time} · ${b.who}</div>
       <h1 class="sc-h1">${STORY[n - 1].t}</h1>
+      ${(window.STORY_ART || {})[pg] ? `<div class="sb-ill">${window.STORY_ART[pg]}</div>` : ''}
       <ul class="sb-sit">${b.sit.map(t => `<li>${t}</li>`).join('')}</ul>
       <div class="sb-ask"><div class="sb-ask-h">그래서 Joule에게 이렇게 묻습니다</div><div class="sb-ask-q">“${ask}”</div></div>
       <div class="sc-actions"><button class="sc-btn sb-go">Joule에게 묻기 →</button></div>
