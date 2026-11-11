@@ -112,7 +112,7 @@ demoPlayers['agent1'] = new DemoPlayer({
             </table>
           </div>
           <div style="margin-top:10px;padding:10px 12px;background:var(--sap-danger-bg);border-radius:8px;font-size:13px;border:1px solid var(--sap-danger)">
-          ⚠️ <strong>AI 분석:</strong> BC3 단산 일정에 따라 소요량이 6개월간 지속 감소 (-87%). 단산 후 소요 0 — ${demoMD(1,8,'kr')} 장기재고 전환 확정 예상.</div>`);
+          ⚠️ <strong>AI 분석:</strong> BC3 BOM 유효 종료일(${demoMD(2,0,'kr')})이 다가오며 소요량이 6개월간 지속 감소 (-87%). 유효 종료 후 소요 0 — ${demoMD(1,8,'kr')} 장기재고 전환 예상.</div>`);
           p.addPresets([
             {label:'🚫 PO Block 실행', highlight:true},
             {label:'🔗 대체 생산오더 확인'}
@@ -143,7 +143,7 @@ demoPlayers['agent1'] = new DemoPlayer({
               </tbody>
             </table>
           </div>
-          · BC3 부품은 단산 전 남은 생산에 필요한 수량(3건)은 Block하지 않고, LTB 확정 후 다시 검토합니다.<br>
+          · BC3 부품 중 BOM 유효 종료 전 남은 생산 소요분(3건)은 Block하지 않고, LTB 확정 후 다시 검토합니다.<br>
           · 이미 생산에 들어간 2건은 공급업체 취소 수수료 <strong>약 1.2M원</strong>이 예상됩니다 → <strong>순 회피 31.5M원</strong>
           ${jConfirm('agent1', 'PR 보류 2건 및 승인 필요 1건에 대해 담당자(김재형 팀장)에게 알림을 발송하시겠습니까?')}`);
           p.addResultCard(`
@@ -238,21 +238,22 @@ demoPlayers['agent2'] = new DemoPlayer({
       touchGuide.hideAll();
       p.addMsg('user', `BC3 차종이 ${demoMon(1,'ykr')} 말에 단산 예정이야. 영향받는 유니크 부품 리스트 알려줘.`);
       setTimeout(() => {
-        p.addThinking(["BC3 차종의 완제품부터 하위 부품까지 BOM을 역전개하고 있어요", "각 부품이 다른 차종에도 쓰이는지 교차 확인하는 중", "BC3에만 쓰이는 유니크 부품만 남기고 있어요", "현재고와 영향 금액을 붙여 리스트로 정리합니다"]);
+        p.addThinking(["BC3 차종의 완제품부터 하위 부품까지 BOM을 역전개하고 있어요", "각 부품이 다른 차종에도 쓰이는지 교차 확인하는 중", "BC3에만 쓰이는 유니크 부품만 남기고 있어요", "BC3 BOM 유효 종료일까지 남은 생산계획 소요를 부품별로 확인하는 중", "재고·잔여 소요·발주잔량을 비교해 부품별 조치를 정리합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
-          p.addMsg('ai', `BC3 차종 BOM을 역전개하여 유니크 부품을 식별했습니다.<br><strong>총 28개 유니크 부품</strong> 확인 (다른 차종에서 사용하지 않는 전용 부품):
+          p.addMsg('ai', `BC3 차종 BOM을 역전개하여 유니크 부품을 식별했습니다.<br><strong>총 28개 유니크 부품</strong> 확인 (다른 차종에서 사용하지 않는 전용 부품).<br>단산 전 잔여 소요는 BC3 BOM 유효 종료일까지의 생산계획(MRP 소요) 기준입니다. 재고로 충분한 부품만 PO를 취소하고, <strong>433E처럼 재고가 모자라는 부품은 부족분만큼 PO를 유지</strong>합니다:
           ${kgSvg()}
           <div class="chat-table-wrap">
             <table class="chat-table">
-              <thead><tr><th>품번</th><th>품명</th><th>공급업체</th><th>현재 재고</th><th>발주잔량</th><th>위험등급</th></tr></thead>
+              <thead><tr><th>품번</th><th>품명</th><th>공급업체</th><th>현재 재고</th><th>단산 전<br>잔여 소요</th><th>발주잔량</th><th>조치</th></tr></thead>
               <tbody>
-                <tr><td><strong>431A</strong></td><td>특수 가스켓</td><td>Alpha Co.</td><td>150 EA</td><td>200 EA</td><td><span class="badge badge-danger">🔴 High</span></td></tr>
-                <tr><td><strong>431C</strong></td><td>전용 브래킷</td><td>Beta Inc.</td><td>80 EA</td><td>100 EA</td><td><span class="badge badge-danger">🔴 High</span></td></tr>
-                <tr><td><strong>432B</strong></td><td>BC3 전용 센서</td><td>Gamma Ltd</td><td>240 EA</td><td>0 EA</td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
-                <tr><td><strong>435D</strong></td><td>전용 마운팅 킷</td><td>Alpha Co.</td><td>60 EA</td><td>50 EA</td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
-                <tr><td colspan="6" style="text-align:center;color:var(--sap-text-muted);font-size:12px">... 외 24개 품목 (전체 Fiori Report에서 확인 →)</td></tr>
+                <tr><td><strong>431A</strong></td><td>특수 가스켓</td><td>Alpha Co.</td><td>150 EA</td><td>30 EA</td><td>200 EA</td><td><span class="badge badge-danger">PO 200 취소</span></td></tr>
+                <tr><td><strong>431C</strong></td><td>전용 브래킷</td><td>Beta Inc.</td><td>80 EA</td><td>20 EA</td><td>100 EA</td><td><span class="badge badge-danger">PO 100 취소</span></td></tr>
+                <tr><td><strong>432B</strong></td><td>BC3 전용 센서</td><td>Gamma Ltd</td><td>240 EA</td><td>10 EA</td><td>0 EA</td><td><span class="badge badge-warning">잉여 230 EA</span></td></tr>
+                <tr><td><strong>435D</strong></td><td>전용 마운팅 킷</td><td>Alpha Co.</td><td>60 EA</td><td>15 EA</td><td>50 EA</td><td><span class="badge badge-danger">PO 50 취소</span></td></tr>
+                <tr><td><strong>433E</strong></td><td>전용 커넥터 하우징</td><td>Gamma Ltd</td><td>20 EA</td><td>70 EA</td><td>60 EA</td><td><span class="badge badge-success">50 유지 · 10 축소</span></td></tr>
+                <tr><td colspan="7" style="text-align:center;color:var(--sap-text-muted);font-size:12px">... 외 23개 품목 — 이 중 5개도 부족분만큼 PO 유지 (전체 Fiori Report에서 확인 →)</td></tr>
               </tbody>
             </table>
           </div>`);
@@ -276,7 +277,7 @@ demoPlayers['agent2'] = new DemoPlayer({
       touchGuide.hideAll();
       p.addMsg('user', '431A 품번의 향후 3개월 입고 예정 물량은?');
       setTimeout(() => {
-        p.addThinking(["431A 품번의 미입고 PO 잔량을 확인하고 있어요", "향후 3개월 납기 일정별로 입고 예정 물량을 나누는 중", "단산 시점 이후 입고분이 있는지 판단합니다"]);
+        p.addThinking(["431A 품번의 미입고 PO 잔량을 확인하고 있어요", "향후 3개월 납기 일정별로 입고 예정 물량을 나누는 중", "단산 전 잔여 소요를 현재고로 채울 수 있는지 계산합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p.addMsg('ai', `431A (특수 가스켓) 향후 입고 예정:
@@ -289,7 +290,7 @@ demoPlayers['agent2'] = new DemoPlayer({
               </tbody>
             </table>
           </div>
-          BC3 단산(${demoMon(1,'ykr')} 말)을 고려하면 두 PO 모두 불필요합니다. 단, 최종 발주(LTB) 수량을 먼저 확정해야 합니다. <strong>취소를 추천합니다.</strong>`);
+          431A는 현재고 150 EA로 단산(${demoMon(1,'ykr')} 말) 전 잔여 소요 30 EA를 충분히 채웁니다. 두 PO는 입고돼도 쓸 곳이 없어 <strong>취소를 추천합니다.</strong><br><span style="color:var(--j-text-2)">공급업체 LTB 회신이나 생산계획 변경으로 잔여 소요가 바뀌면 다시 계산합니다.</span>`);
           p.addPresets([
             {label:'✉ 공급업체에 단산 안내 메일 발송', highlight:true},
             {label:'🚫 PO 4500018721 취소 요청'}
@@ -829,7 +830,7 @@ demoPlayers['agent6'] = new DemoPlayer({
         stampDoc('pr');
         p.addMsg('ai', `<span class="text-success">✅ PR 생성 및 승인 요청 발송 완료</span><br>
         PR 10008976 생성됨<br>
-        승인 요청: 이도윤 상무 (구매본부장) — Flexible Workflow · 요청자와 승인자 분리<br>
+        승인 요청: 이도윤 상무 (구매본부장) — Flexible Workflow<br>
         예상 승인 처리: 1 영업일 이내
         <div style="margin-top:10px">
           <button class="action-btn action-btn-primary" onclick="router.go('fiori-pr-display')">📄 구매요청 조회하기</button>
@@ -1871,7 +1872,7 @@ ${kv('19개','총 영향 재고 개수','#ff9a3c','28개 부품 중 재고 보�
   </div>
   </div>
 </div>
-<div class="db-insight" style="margin-top:10px">📌 단산일(${demoMD(2,0,'iso')}) 기준 <strong>입고 예정 물량 전체</strong>에 대한 PO 검토 필요</div></div>`,
+<div class="db-insight" style="margin-top:10px">📌 단산일(${demoMD(2,0,'iso')})까지 잔여 소요를 넘는 입고 예정분만 취소 · <strong>6개 부품은 부족분만큼 PO 유지</strong></div></div>`,
 
 /* card 1: Mail status */
 `<div class="db-card">
@@ -2093,7 +2094,7 @@ ${bar('Alpha Co. (B-2290)',31,'#A78BFA','18.1M')}
 ${bar('Beta Inc. (D-5501)',28,'#A78BFA','16.5M')}
 ${bar('Gamma Ltd (F-1120, G-3380)',20,'#C4B5FD','11.6M')}
 </div>
-<div class="db-insight" style="margin-top:10px">✅ 승인자(이도윤 상무) 승인 시 <strong>자동 발주 확정</strong> · 요청자(김재형)와 분리 · 공급업체 자동 통보</div></div>`
+<div class="db-insight" style="margin-top:10px">✅ 승인자(이도윤 상무) 승인 시 <strong>자동 발주 확정</strong> · 공급업체 자동 통보</div></div>`
 ]);
 
 /* ═══ AGENT 7 — Stock Transfer ═══ */

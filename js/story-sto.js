@@ -399,6 +399,7 @@
     $('sb-say').textContent = sc.s;
     $('sb-next').textContent = story.i < STORY.length - 1 ? `다음: ${STORY[story.i + 1].t} →` : '스토리 종료';
     $('sb-dots').innerHTML = STORY.map((s, i) => `<i class="${i < story.i ? 'done' : i === story.i ? 'on' : ''}" title="${s.t}"></i>`).join('');
+    const bb = $('sb-brief'); if (bb) bb.hidden = !BRIEF[sc.page];
     $('story-bar').hidden = false;
     document.body.classList.add('story-on');
   }
@@ -409,6 +410,13 @@
     const start = () => { if (pl && pl.curStep === 0 && !pl.playing) setTimeout(() => pl.start(), 350); };
     if (pl && pl.curStep === 0) showBrief(pg, start); else start();
   }
+  /* 진행 바의 '장면 브리핑' — 현재 장면 브리핑 다시 보기 */
+  window.storyBrief = function () {
+    if (!story.on) return;
+    const pg = STORY[story.i].page;
+    const pl = (window.demoPlayers || {})[pg];
+    showBrief(pg, () => { if (pl && pl.curStep === 0 && !pl.playing) setTimeout(() => pl.start(), 350); });
+  };
   window.storyStart = function () {
     Object.values(window.demoPlayers || {}).forEach(p => { try { p.reset(); } catch (e) {} });
     $('si-scenes').innerHTML = STORY.map((s, i) => `<li><b>${i + 1}. ${s.t}</b> — ${s.s}</li>`).join('');
