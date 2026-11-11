@@ -494,7 +494,7 @@
         <div style="background:var(--sap-darker);border-radius:8px;padding:12px;font-family:Consolas,monospace;font-size:12px;color:#5aafff;">
           F₃ = urgency(D) × 20<br><br>
           <span style="color:var(--sap-text-muted);">D≤3일: 1.0 / 4-7일: 0.7<br>8-14일: 0.4 / 15↑: 0.1</span><br>
-          <span style="color:#2196f3;font-weight:700;">D=1일 → F₃=20점</span>
+          <span style="color:#2196f3;font-weight:700;">D=0일 (오늘) → F₃=20점</span>
         </div>
         <div style="margin-top:12px;font-size:11px;color:var(--sap-text-muted);">
           📌 데이터 소스: <span style="color:#5aafff;">I_PurOrdScheduleLineAPI01</span><br>
@@ -993,7 +993,7 @@
       <div class="fop-hc fop-hc-std">
         <div class="fop-hero-img" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 12h5l5 20h18l4-14H16" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="20" cy="38" r="3" fill="#fff"/><circle cx="34" cy="38" r="3" fill="#fff"/></svg></div>
         <div class="fop-facet"><div class="fop-hf-lbl">상태</div><div class="fop-hf-val">승인 대기 중</div></div>
-        <div class="fop-facet"><div class="fop-hf-lbl">총 금액</div><div class="fop-hf-val">127,700,000 &nbsp; KRW</div></div>
+        <div class="fop-facet"><div class="fop-hf-lbl">총 금액</div><div class="fop-hf-val">151,300,000 &nbsp; KRW</div></div>
       </div>
     </div>
     <nav class="fop-anchor">
@@ -1022,7 +1022,7 @@
           <div class="fop-tabs"><button class="on">헤더 메모</button></div>
           <div class="fop-note-area">
             <b>[Joule 수요예측 Agent]</b> SAP AI Core의 SAP-RPT 1.6 Large 예측 모델로 <span data-rel-mon="1" data-rel-dom="1" data-rel-fmt="month">12월</span> 수요를 예측해 부족 자재 8개를 선정했습니다. 평균 신뢰도 85% · 오차 ±8%.<br>
-            A-4315는 입고 예정 PO 95 EA, 재고 이전 4500019567(40 EA), 품질 검사 합격 18 EA를 차감한 순부족 67 EA에 안전재고 20 EA를 더해 최소발주량(50) 단위로 100 EA 요청합니다.<br>
+            A-4315는 이번 주 생산오더 소요 85 EA를 반영한 다음 달 초 가용 18 EA와 입고 예정 PO 95 EA를 차감한 순부족 152 EA에 안전재고 20 EA를 더해 최소발주량(50) 단위로 200 EA를 ACME Components Korea에 요청합니다.<br>
             요청: 김재형 (Joule 대행) · 승인 요청: 이도윤 상무 (구매본부장) · <span data-doc-time="pr" data-fmt="minute">2026.11.10 08:20</span>
           </div>
         </div>
@@ -1044,13 +1044,13 @@
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>유압실린더</b><div class="fop-sub">10</div></td><td></td>
                   <td><a class="fop-link">유압실린더 (A-4315)</a></td><td>유압 부품 (HYD01)</td><td>1050 (부산 생산공장)</td>
-                  <td class="r">100</td><td>EA</td><td class="fop-chev">›</td>
+                  <td class="r">200</td><td>EA</td><td class="fop-chev">›</td>
                 </tr>
                 <tr class="fop-popin"><td colspan="8">
                   <span><span class="fop-k">평가 가격:</span> 236,000 KRW</span>
-                  <span><span class="fop-k">총 금액:</span> 23,600,000 KRW</span>
+                  <span><span class="fop-k">총 금액:</span> 47,200,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="5">2026.12.05</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Alpha</span>
+                  <span><span class="fop-k">희망 공급업체:</span> ACME Components Korea</span>
                 </td></tr>
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>베어링 어셈블리</b><div class="fop-sub">20</div></td><td></td>
@@ -1061,7 +1061,7 @@
                   <span><span class="fop-k">평가 가격:</span> 181,000 KRW</span>
                   <span><span class="fop-k">총 금액:</span> 18,100,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="8">2026.12.08</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Alpha</span>
+                  <span><span class="fop-k">희망 공급업체:</span> Alpha Co.</span>
                 </td></tr>
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>클러치 디스크</b><div class="fop-sub">30</div></td><td></td>
@@ -1072,7 +1072,7 @@
                   <span><span class="fop-k">평가 가격:</span> 165,000 KRW</span>
                   <span><span class="fop-k">총 금액:</span> 16,500,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="15">2026.12.15</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Beta</span>
+                  <span><span class="fop-k">희망 공급업체:</span> Beta Inc.</span>
                 </td></tr>
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>오일씰 킷 A</b><div class="fop-sub">40</div></td><td></td>
@@ -1083,7 +1083,7 @@
                   <span><span class="fop-k">평가 가격:</span> 89,167 KRW</span>
                   <span><span class="fop-k">총 금액:</span> 5,350,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="10">2026.12.10</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Gamma</span>
+                  <span><span class="fop-k">희망 공급업체:</span> Gamma Ltd</span>
                 </td></tr>
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>구동축 베어링</b><div class="fop-sub">50</div></td><td></td>
@@ -1094,7 +1094,7 @@
                   <span><span class="fop-k">평가 가격:</span> 155,000 KRW</span>
                   <span><span class="fop-k">총 금액:</span> 6,200,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="12">2026.12.12</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Gamma</span>
+                  <span><span class="fop-k">희망 공급업체:</span> Gamma Ltd</span>
                 </td></tr>
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>브레이크 패드 세트</b><div class="fop-sub">60</div></td><td></td>
@@ -1105,7 +1105,7 @@
                   <span><span class="fop-k">평가 가격:</span> 98,750 KRW</span>
                   <span><span class="fop-k">총 금액:</span> 19,750,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="10">2026.12.10</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Epsilon</span>
+                  <span><span class="fop-k">희망 공급업체:</span> Epsilon Co.</span>
                 </td></tr>
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>유압 호스 어셈블리</b><div class="fop-sub">70</div></td><td></td>
@@ -1116,7 +1116,7 @@
                   <span><span class="fop-k">평가 가격:</span> 128,000 KRW</span>
                   <span><span class="fop-k">총 금액:</span> 19,200,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="12">2026.12.12</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Epsilon</span>
+                  <span><span class="fop-k">희망 공급업체:</span> Epsilon Co.</span>
                 </td></tr>
                 <tr class="fop-main" onclick="fopToast('데모에서는 항목 상세 화면을 제공하지 않습니다')">
                   <td><b>실린더 피스톤</b><div class="fop-sub">80</div></td><td></td>
@@ -1127,7 +1127,7 @@
                   <span><span class="fop-k">평가 가격:</span> 190,000 KRW</span>
                   <span><span class="fop-k">총 금액:</span> 19,000,000 KRW</span>
                   <span><span class="fop-k">납품일:</span> <span data-rel-mon="1" data-rel-dom="15">2026.12.15</span></span>
-                  <span><span class="fop-k">희망 공급업체:</span> Supplier Zeta</span>
+                  <span><span class="fop-k">희망 공급업체:</span> Zeta Co.</span>
                 </td></tr>
               </tbody>
             </table>
@@ -1355,19 +1355,19 @@
 ════════════════════════════════════ -->
 <section id="story-closing" class="page sc-page">
   <div class="sc-wrap">
-    <div class="sc-eyebrow"><span data-rel-day="0" data-rel-fmt="kr">11월 10일</span> · 오전 8:00 → 8:30</div>
-    <h1 class="sc-h1">오늘 아침, Joule과 함께 지킨 것들</h1>
+    <div class="sc-eyebrow"><span data-rel-day="0" data-rel-fmt="kr">11월 10일</span> · 오전 8:00 → 오후 1:00</div>
+    <h1 class="sc-h1">오늘 오전, Joule과 함께 지킨 것들</h1>
     <p class="sc-lead">결품 경보 하나에서 시작해 MM·PP·QM의 9개 Agent가 이어서 판단했고, S/4HANA 문서까지 실행했습니다.</p>
     <div class="sc-kpis">
       <div class="sc-kpi">
         <div class="sc-kpi-lbl">생산 차질</div>
         <div class="sc-kpi-val pos">0<span>건</span></div>
-        <div class="sc-kpi-sub">A-4315 결품 40 EA — 재고 이전 4500019567 + 라인 순서 교체 (MO-26-0894 ↔ 0889)</div>
+        <div class="sc-kpi-sub">이번 주 결품 40 EA — 재고 이전 + 라인 순서 교체 · 다음 달 과소 발주 100 EA 방지</div>
       </div>
       <div class="sc-kpi">
         <div class="sc-kpi-lbl">막아낸 불필요 지출</div>
-        <div class="sc-kpi-val">59.0<span>M원</span></div>
-        <div class="sc-kpi-sub">악성재고 발주 차단 41.1M (취소 수수료 차감) · 이중 발주 회피 13.7M · 긴급 조달 회피 4.2M</div>
+        <div class="sc-kpi-val">35.7<span>M원</span></div>
+        <div class="sc-kpi-sub">악성재고 발주 차단 31.5M (취소 수수료 차감 · LTB 잔여분 제외) · 긴급 조달 회피 4.2M</div>
       </div>
       <div class="sc-kpi">
         <div class="sc-kpi-lbl">AI가 검토한 업무</div>
@@ -1386,12 +1386,12 @@
       <li><span class="sc-n">1</span><div><b>선제 경보</b><p>Delta Co. 납기 위험 75점 — 내일 08시 MO-26-0889 결품 위험 감지 → 독촉 메일</p></div></li>
       <li><span class="sc-n">2</span><div><b>외부 조달 대신 내부 재고</b><p>1060 → 1050 A-4315 40 EA 재고 이전 · 내일 15시 입고 (외부 발주 18일 대비)</p></div><button class="sc-proof" onclick="router.go('fiori-sto-object')">구매오더(STO) 보기</button></li>
       <li><span class="sc-n">3</span><div><b>7시간 공백 메우기 (PP)</b><p>MO-26-0894를 먼저 돌리고 MO-26-0889는 모레 착수 — 라인 유휴 16 → 0시간</p></div></li>
-      <li><span class="sc-n">4</span><div><b>검사 대기 재고 꺼내기 (QM)</b><p>검사 로트 010000004718 — 18 EA 가용 · 2 EA 반품 · Delta Co. 품질 통보 200000112</p></div></li>
-      <li><span class="sc-n">5</span><div><b>다음 달까지 내다보기</b><p>MO-26-0891 대비 ACME 납기 3일 단축 요청 (확약 대기) · 거절 대비 1060 재고 40 EA 예약</p></div><button class="sc-proof" onclick="router.go('fiori-po-delivery')">구매오더 보기</button></li>
-      <li><span class="sc-n">6</span><div><b>남은 부족분만 발주</b><p>재고 이전·검사 합격분까지 차감 → PR 10008976 · 127.7M (승인자 이도윤 상무)</p></div><button class="sc-proof" onclick="router.go('fiori-pr-display')">구매요청 보기</button></li>
+      <li><span class="sc-n">4</span><div><b>검사 대기 재고 꺼내기 (QM)</b><p>검사 로트 010000004718 — 전수 재시험 후 18 EA 가용 · 2 EA 반품 · Delta Co. 품질 통보 200000112</p></div></li>
+      <li><span class="sc-n">5</span><div><b>다음 달까지 내다보기</b><p>MO-26-0891 대비 ACME 납기 3일 단축 요청 (확약 대기) · 거절 대비 1060 여유 20 EA 예약</p></div><button class="sc-proof" onclick="router.go('fiori-po-delivery')">구매오더 보기</button></li>
+      <li><span class="sc-n">6</span><div><b>다음 달 발주량 정하기</b><p>이번 주 소요까지 날짜별로 계산 → A-4315 200 EA · PR 10008976 · 151.3M (승인자 이도윤 상무)</p></div><button class="sc-proof" onclick="router.go('fiori-pr-display')">구매요청 보기</button></li>
       <li><span class="sc-n">7</span><div><b>막힌 송장과 숨은 원인</b><p>INV-2946 계약 조항 근거로 해제 + 같은 원인 PO 3건 선제 수정 · 확신도 낮은 INV-3012는 사람 검토로</p></div><button class="sc-proof" onclick="router.go('fiori-accounting-doc')">회계전표 보기</button></li>
       <li><span class="sc-n">8</span><div><b>반대편 리스크: BC3 단산</b><p>전용 부품 28개 식별 · 공급업체 9곳에 LTB 수량·보상 조건 안내</p></div></li>
-      <li><span class="sc-n">9</span><div><b>악성재고 선제 차단</b><p>후속 자재가 지정돼 소요가 급감한 K-7720 발견 · 미입고 PO 15건 Block (순 41.1M)</p></div></li>
+      <li><span class="sc-n">9</span><div><b>악성재고 선제 차단</b><p>후속 자재가 지정돼 소요가 급감한 K-7720 발견 · 미입고 PO 12건 Block, BC3 잔여 소요 3건 유지 (순 31.5M)</p></div></li>
     </ol>
 
     <h2 class="sc-h2">기존 방식 vs Joule</h2>

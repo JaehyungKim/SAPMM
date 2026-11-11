@@ -46,7 +46,7 @@
   window.stoReset = function () {
     const now = Date.now();
     Object.assign(sto, { s: 0, dlv: null, gi: null, gr: null, giAt: null, grAt: null, log: [] });
-    sto.log.push({ at: new Date(now - 180000), who: 'Joule · Stock Transfer Agent', what: '플랜트 간 재고 불균형 탐지 (1050 부족 40 EA · 1060 여유 80 EA)', res: '추천 생성' });
+    sto.log.push({ at: new Date(now - 180000), who: 'Joule · Stock Transfer Agent', what: '플랜트 간 재고 불균형 탐지 (1050 부족 40 EA · 1060 여유 60 EA)', res: '추천 생성' });
     sto.log.push({ at: new Date(now - 60000), who: '김재형 (JKIM)', what: 'Joule 추천 승인 — 구매오더(STO) 생성 요청', res: '승인' });
     sto.log.push({ at: new Date(now), who: 'ERP MCP Server', what: '구매오더 4500019567 생성 (문서 유형 UB · 재고 이전 오더)', res: '성공' });
     sto.log.push({ at: new Date(now), who: 'Joule', what: '물류 담당자(인천 물류창고) 알림 발송', res: '발송됨' });
@@ -219,9 +219,9 @@
     <div class="j-alert-head">🚨 선제 경보 · 방금 감지</div>
     <div class="j-alert-title">A-4315 유압실린더 — 플랜트 1050 결품 위험</div>
     <ul>
-      <li>Delta Co. PO 4500019188 (50 EA) 납기 <b>내일 ${demoDay(1,'md')}</b> · 납기 확인 미회신</li>
-      <li>최근 3개월 4건 중 3건 지연 · 리스크 점수 <b>75점 (High)</b></li>
-      <li>1050 재고 45 EA vs 2주 필요량 85 EA → 지연 시 <b>40 EA 부족</b></li>
+      <li>Delta Co. PO 4500019188 (50 EA) 납기 <b>오늘 16시</b> · 납기 확인 미회신 — 야간 검사 후 내일 08시 투입 물량</li>
+      <li>납기 준수율 6개월 연속 하락 (최근 3개월 52%) · 리스크 점수 <b>75점 (High)</b></li>
+      <li>1050 재고 45 EA vs 이틀 내 필요량 85 EA (오늘 MO-26-0888 45 · 내일 MO-26-0889 40) → 지연 시 <b>40 EA 부족</b></li>
       <li>영향: 부산 조립라인 12 · 생산오더 MO-26-0889 <b>${demoDay(1,'md')} 08시 착수분</b> · 라인 정지 시 FG-2100 출하 차질 약 3.2억원/일</li>
     </ul>
     <div class="j-alert-foot">아무도 묻기 전에 Joule이 먼저 찾았습니다. 위험 PO 전체를 확인해 보세요.</div>
@@ -231,13 +231,13 @@
     <table class="chat-table">
       <thead><tr><th>대응 옵션</th><th>소요</th><th>추가 비용</th><th>성공 가능성</th><th>판단</th></tr></thead>
       <tbody>
-        <tr><td>① 1060 남은 여유재고 이동 (40 EA)</td><td>즉시</td><td>운송비 0.4M</td><td>98%</td><td><span class="badge badge-warning">백업 (예약)</span></td></tr>
+        <tr><td>① 1060 남은 여유 20 EA + 긴급 발주 25 EA</td><td>즉시~3일</td><td>운송비 0.4M + 할증 2.6M</td><td>95%</td><td><span class="badge badge-warning">백업 (예약)</span></td></tr>
         <tr><td><strong>② 납기 단축 요청 (ACME)</strong></td><td>1~2일</td><td><strong>0원</strong></td><td>89% (단축 수락 이력)</td><td><span class="badge badge-success">✅ 권장</span></td></tr>
         <tr><td>③ 긴급 외부 발주</td><td>3~5일</td><td>+4.6M</td><td>70%</td><td><span class="badge badge-danger">비권장</span></td></tr>
       </tbody>
     </table>
   </div>
-  <div style="margin-top:8px;font-size:13px">💡 1060 여유 재고 80 EA 중 40 EA는 이번 주 결품에 썼고, 남은 40 EA는 ② 거절 시 백업으로 예약합니다. 다음 달(${demoMon(1,'kr')})분은 비용이 들지 않는 ②로 해결합니다.</div>`;
+  <div style="margin-top:8px;font-size:13px">💡 1060 여유 재고(안전재고 제외 60 EA) 중 40 EA는 이번 주 결품에 썼고, 남은 20 EA는 ② 거절 시 백업으로 예약합니다. 다음 달(${demoMon(1,'kr')})분은 비용이 들지 않는 ②로 해결합니다.</div>`;
 
   window.rootCause = () => `🔎 <strong>추가 발견 — 같은 원인이 더 있습니다</strong><br>
     계약 PA-2026-112 갱신(${demoMD(-1,1,'md')})이 아래 미입고 PO 3건에도 반영되지 않았습니다. 그대로 두면 <strong>다음 달 송장 3건도 지급보류</strong>됩니다.
@@ -298,7 +298,7 @@
     { page: 'pp1', t: '7시간 공백 메우기 (PP)', s: '라인 순서를 바꿔 입고 전까지 라인이 멈추지 않게 합니다' },
     { page: 'qm2', t: '검사 대기 재고 꺼내기 (QM)', s: '검사에 묶인 20 EA를 판정해 18 EA를 가용으로' },
     { page: 'agent3', t: '다음 달까지 내다보기', s: 'MRP 재실행 — 다음 달분은 납기 단축 요청, 거절 대비 백업 예약' },
-    { page: 'agent6', t: '남은 부족분만 발주', s: '재고 이전·검사 합격분까지 차감해 이중 발주를 막습니다' },
+    { page: 'agent6', t: '다음 달 발주량 정하기', s: '이번 주 소요까지 날짜별로 계산해 과소 발주를 막습니다' },
     { page: 'agent4', t: '막힌 송장과 숨은 원인', s: '같은 원인의 다음 달 송장 3건까지 선제 해결' },
     { page: 'agent2', t: '반대편 리스크: BC3 단산', s: 'Knowledge Graph로 전용 부품만 골라냅니다' },
     { page: 'agent1', t: '악성재고 선제 차단', s: '단산 부품 PO를 Block해 악성재고 확대를 막습니다' },

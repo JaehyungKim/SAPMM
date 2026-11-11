@@ -214,7 +214,7 @@
     sec('첨부', emptyList('첨부 (0)')),
     { header: hc(`<Avatar src="sap-icon://cart" displayShape="Square" displaySize="L" backgroundColor="Accent6" class="sapUiMediumMarginEnd sapUiSmallMarginBottom"/>` +
       facet('상태', '<Text text="승인 대기 중" class="demoHeaderValue"/>') +
-      facet('총 금액', '<ObjectNumber number="127,700,000" unit="KRW" class="sapMObjectNumberLarge"/>')) }));
+      facet('총 금액', '<ObjectNumber number="151,300,000" unit="KRW" class="sapMObjectNumberLarge"/>')) }));
 
   /* ───────── 회계전표 (분개 관리) ───────── */
   const jeLine = (n, g, d, c) => `<ColumnListItem type="Navigation"><cells><Text text="${n}"/><Link text="${g}"/><ObjectNumber number="${d}" unit="KRW"/><ObjectNumber number="${c}" unit="KRW"/></cells></ColumnListItem>`;
@@ -265,14 +265,14 @@
 
   /* ───────── 모델 데이터 ───────── */
   const PR_ITEMS = [
-    ['10', '유압실린더', 'A-4315', '유압 부품 (HYD01)', 100, '236,000', '23,600,000', demoMD(1, 5), 'Supplier Alpha'],
-    ['20', '베어링 어셈블리', 'B-2290', '구동 부품 (DRV02)', 100, '181,000', '18,100,000', demoMD(1, 8), 'Supplier Alpha'],
-    ['30', '클러치 디스크', 'D-5501', '구동 부품 (DRV02)', 100, '165,000', '16,500,000', demoMD(1, 15), 'Supplier Beta'],
-    ['40', '오일씰 킷 A', 'F-1120', '씰·가스켓 (SEL03)', 60, '89,167', '5,350,000', demoMD(1, 10), 'Supplier Gamma'],
-    ['50', '구동축 베어링', 'G-3380', '구동 부품 (DRV02)', 40, '155,000', '6,200,000', demoMD(1, 12), 'Supplier Gamma'],
-    ['60', '브레이크 패드 세트', 'H-2210', '브레이크 부품 (BRK04)', 200, '98,750', '19,750,000', demoMD(1, 10), 'Supplier Epsilon'],
-    ['70', '유압 호스 어셈블리', 'J-4410', '유압 부품 (HYD01)', 150, '128,000', '19,200,000', demoMD(1, 12), 'Supplier Epsilon'],
-    ['80', '실린더 피스톤', 'K-5520', '유압 부품 (HYD01)', 100, '190,000', '19,000,000', demoMD(1, 15), 'Supplier Zeta']
+    ['10', '유압실린더', 'A-4315', '유압 부품 (HYD01)', 200, '236,000', '47,200,000', demoMD(1, 5), 'ACME Components Korea'],
+    ['20', '베어링 어셈블리', 'B-2290', '구동 부품 (DRV02)', 100, '181,000', '18,100,000', demoMD(1, 8), 'Alpha Co.'],
+    ['30', '클러치 디스크', 'D-5501', '구동 부품 (DRV02)', 100, '165,000', '16,500,000', demoMD(1, 15), 'Beta Inc.'],
+    ['40', '오일씰 킷 A', 'F-1120', '씰·가스켓 (SEL03)', 60, '89,167', '5,350,000', demoMD(1, 10), 'Gamma Ltd'],
+    ['50', '구동축 베어링', 'G-3380', '구동 부품 (DRV02)', 40, '155,000', '6,200,000', demoMD(1, 12), 'Gamma Ltd'],
+    ['60', '브레이크 패드 세트', 'H-2210', '브레이크 부품 (BRK04)', 200, '98,750', '19,750,000', demoMD(1, 10), 'Epsilon Co.'],
+    ['70', '유압 호스 어셈블리', 'J-4410', '유압 부품 (HYD01)', 150, '128,000', '19,200,000', demoMD(1, 12), 'Epsilon Co.'],
+    ['80', '실린더 피스톤', 'K-5520', '유압 부품 (HYD01)', 100, '190,000', '19,000,000', demoMD(1, 15), 'Zeta Co.']
   ].map(([no, name, mat, grp, qty, price, total, dd, sup]) => ({ no, name, mat, grp, qty, price, total, dd, sup }));
 
   const pad = n => String(n).padStart(2, '0');
@@ -302,7 +302,7 @@
         po: fmt(docT('po')), fi: fmt(docT('fi')), fiDate: fmt(docT('fi'), 'date'),
         prDate: fmt(docT('pr'), 'date'), stoDate: fmt(docT('sto'), 'date')
       });
-      model.setProperty('/pr/note', `[Joule 수요예측 Agent] SAP AI Core의 SAP-RPT 1.6 Large 예측 모델로 ${demoMon(1,'kr')} 수요를 예측해 부족 자재 8개를 선정했습니다. 평균 신뢰도 85% · 오차 ±8%.\nA-4315는 입고 예정 PO 95 EA, 재고 이전 4500019567(40 EA), 품질 검사 합격 18 EA를 차감한 순부족 67 EA에 안전재고 20 EA를 더해 최소발주량(50) 단위로 100 EA 요청합니다.\n요청: 김재형 (Joule 대행) · 승인 요청: 이도윤 상무 (구매본부장) · ${fmt(docT('pr'), 'minute')}`);
+      model.setProperty('/pr/note', `[Joule 수요예측 Agent] SAP AI Core의 SAP-RPT 1.6 Large 예측 모델로 ${demoMon(1,'kr')} 수요를 예측해 부족 자재 8개를 선정했습니다. 평균 신뢰도 85% · 오차 ±8%.\nA-4315는 이번 주 생산오더 소요 85 EA를 반영한 다음 달 초 가용 18 EA와 입고 예정 PO 95 EA(ACME 45 · Delta 50)를 차감한 순부족 152 EA에 안전재고 20 EA를 더해 최소발주량(50) 단위로 200 EA를 ACME Components Korea에 요청합니다.\n요청: 김재형 (Joule 대행) · 승인 요청: 이도윤 상무 (구매본부장) · ${fmt(docT('pr'), 'minute')}`);
     }
 
     const ST = [['생성됨', 'None', ''], ['납품 생성됨', 'Information', 'sap-icon://information'], ['운송 중', 'Information', 'sap-icon://shipping-status'], ['입고 완료', 'Success', 'sap-icon://sys-enter-2']];

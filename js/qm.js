@@ -248,15 +248,21 @@ demoPlayers['qm2'] = new DemoPlayer({
               <tr><td>③ 특채 (전량 합격)</td><td>20 EA</td><td><span class="text-danger">높음</span> — 클레임 재발 가능</td></tr>
             </tbody></table></div>
           <strong>추천: ②.</strong> 재시험은 4시간이면 끝나고, 합격분 18 EA가 가용 재고가 되면 MO-26-0889 부족분을 일부 메우고
-          추가 구매요청 수량을 <strong>18 EA 줄일</strong> 수 있습니다.`);
-          p.addPresets([{ label: '✅ 재시험 결과 반영해 사용결정', highlight: true }]);
+          다음 달 순부족도 <strong>18 EA 줄어듭니다</strong>.`);
+          p.addPresets([{ label: '🔬 전수 재시험 지시', highlight: true }]);
         }, 2400);
       }, 400);
     },
     (p) => {
       p._setFlowActive(4);
       p.presets().innerHTML = ''; touchGuide.hideAll();
-      p.addMsg('user', '전수 재시험 결과 반영해서 처리해줘');
+      p.addMsg('user', '전수 재시험 진행해줘');
+      setTimeout(() => {
+        p.addMsg('ai', `품질팀에 A-4315 20 EA <strong>전수 내압 재시험</strong>을 지시했습니다. 완료되면 결과를 바로 알려드릴게요. (예상 소요 4시간)`);
+      }, 600);
+      setTimeout(() => {
+        p.addMsg('sys', '⏱ &nbsp;4시간 후 · 품질팀 재시험 결과 수신');
+      }, 1800);
       setTimeout(() => {
         p.addMsg('ai', `전수 재시험 결과: <strong>18 EA 합격, 2 EA 누유</strong>. 처리안입니다.
           <div class="chat-table-wrap"><table class="chat-table"><tbody>
@@ -266,7 +272,7 @@ demoPlayers['qm2'] = new DemoPlayer({
           </tbody></table></div>
           ${jConfirm('qm2', '이 내용으로 사용결정과 공급업체 품질 통보(Q2)를 처리하시겠습니까?')}`);
         touchGuide.showPulse(jYesBtn(p), '👆 사용결정 승인');
-      }, 600);
+      }, 3000);
     },
     (p) => {
       touchGuide.hideAll(); p.presets().innerHTML = '';
@@ -282,7 +288,7 @@ demoPlayers['qm2'] = new DemoPlayer({
           A-4315 가용 재고가 18 EA 늘었습니다. 생산계획 담당자와 구매 담당자에게 알렸습니다.`);
         p.addResultCard(DB.card(
           DB.hdr('✅', '사용결정 완료', '검사 로트 010000004718 · A-4315') +
-          DB.kpis([['18 EA', '가용 전환', 'var(--j-pos)', '이동 유형 321'], ['2 EA', '반품 보류', 'var(--j-neg)', '이동 유형 350'], ['−18 EA', '추가 발주 감소', 'var(--j-pos)', 'A-4315 구매요청'], ['3시간 → 5분', '판정 시간', 'var(--j-brand)', '측정값·이력 대조 수작업 대비']]) +
+          DB.kpis([['18 EA', '가용 전환', 'var(--j-pos)', '이동 유형 321'], ['2 EA', '반품 보류', 'var(--j-neg)', '이동 유형 350'], ['−18 EA', '다음 달 순부족 감소', 'var(--j-pos)', 'A-4315'], ['3시간 → 5분', '판정 시간', 'var(--j-brand)', '측정값·이력 대조 수작업 대비']]) +
           DB.chart('📐 A-4315 판정 결과',
             DB.bar('합격 → 가용', 90, 'var(--j-pos-icon)', '18 EA') +
             DB.bar('누유 → 반품 보류', 10, 'var(--j-neg-icon)', '2 EA')) +

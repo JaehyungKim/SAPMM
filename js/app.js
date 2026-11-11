@@ -136,14 +136,15 @@ demoPlayers['agent1'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>처리결과</th><th>건수</th><th>금액</th></tr></thead>
               <tbody>
-                <tr><td><span class="badge badge-success">✅ Block 완료</span></td><td><strong>15건</strong></td><td>42.3M원</td></tr>
+                <tr><td><span class="badge badge-success">✅ Block 완료</span></td><td><strong>12건</strong></td><td>32.7M원</td></tr>
+                <tr><td><span class="badge">↩ Block 제외</span></td><td>3건</td><td>9.6M원 — BC3 잔여 생산 소요분 (LTB 확정 전)</td></tr>
                 <tr><td><span class="badge badge-warning">📝 PR 보류</span></td><td>2건</td><td>— (PO 미전환 PR)</td></tr>
                 <tr><td><span class="badge badge-warning">⏳ 승인 필요</span></td><td>1건</td><td>8.1M원</td></tr>
               </tbody>
             </table>
           </div>
-          · BC3 부품 PO는 단산 안내 메일(단산 관리 Agent)을 받은 공급업체 9개사 건입니다.<br>
-          · 이미 생산에 들어간 2건은 공급업체 취소 수수료 <strong>약 1.2M원</strong>이 예상됩니다 → <strong>순 회피 41.1M원</strong>
+          · BC3 부품은 단산 전 남은 생산에 필요한 수량(3건)은 Block하지 않고, LTB 확정 후 다시 검토합니다.<br>
+          · 이미 생산에 들어간 2건은 공급업체 취소 수수료 <strong>약 1.2M원</strong>이 예상됩니다 → <strong>순 회피 31.5M원</strong>
           ${jConfirm('agent1', 'PR 보류 2건 및 승인 필요 1건에 대해 담당자(김재형 팀장)에게 알림을 발송하시겠습니까?')}`);
           p.addResultCard(`
             <h4>🚫 PO Block 처리 결과</h4>
@@ -247,10 +248,10 @@ demoPlayers['agent2'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>품번</th><th>품명</th><th>공급업체</th><th>현재 재고</th><th>발주잔량</th><th>위험등급</th></tr></thead>
               <tbody>
-                <tr><td><strong>431A</strong></td><td>특수 가스켓</td><td>Supplier A</td><td>150 EA</td><td>200 EA</td><td><span class="badge badge-danger">🔴 High</span></td></tr>
-                <tr><td><strong>431C</strong></td><td>전용 브래킷</td><td>Supplier B</td><td>80 EA</td><td>100 EA</td><td><span class="badge badge-danger">🔴 High</span></td></tr>
-                <tr><td><strong>432B</strong></td><td>BC3 전용 센서</td><td>Supplier C</td><td>240 EA</td><td>0 EA</td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
-                <tr><td><strong>435D</strong></td><td>전용 마운팅 킷</td><td>Supplier A</td><td>60 EA</td><td>50 EA</td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
+                <tr><td><strong>431A</strong></td><td>특수 가스켓</td><td>Alpha Co.</td><td>150 EA</td><td>200 EA</td><td><span class="badge badge-danger">🔴 High</span></td></tr>
+                <tr><td><strong>431C</strong></td><td>전용 브래킷</td><td>Beta Inc.</td><td>80 EA</td><td>100 EA</td><td><span class="badge badge-danger">🔴 High</span></td></tr>
+                <tr><td><strong>432B</strong></td><td>BC3 전용 센서</td><td>Gamma Ltd</td><td>240 EA</td><td>0 EA</td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
+                <tr><td><strong>435D</strong></td><td>전용 마운팅 킷</td><td>Alpha Co.</td><td>60 EA</td><td>50 EA</td><td><span class="badge badge-warning">🟠 Mid</span></td></tr>
                 <tr><td colspan="6" style="text-align:center;color:var(--sap-text-muted);font-size:12px">... 외 24개 품목 (전체 Fiori Report에서 확인 →)</td></tr>
               </tbody>
             </table>
@@ -283,8 +284,8 @@ demoPlayers['agent2'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>입고예정일</th><th>수량</th><th>PO번호</th><th>공급업체</th><th>취소 가능 여부</th></tr></thead>
               <tbody>
-                <tr><td>${demoMD(1,15,'iso')}</td><td>100 EA</td><td>4500018721</td><td>Supplier A</td><td><span class="badge badge-success">✅ 가능</span></td></tr>
-                <tr><td>${demoMD(2,20,'iso')}</td><td>100 EA</td><td>4500019105</td><td>Supplier A</td><td><span class="badge badge-warning">⚠️ 부분 가능</span></td></tr>
+                <tr><td>${demoMD(1,15,'iso')}</td><td>100 EA</td><td>4500018721</td><td>Alpha Co.</td><td><span class="badge badge-success">✅ 가능</span></td></tr>
+                <tr><td>${demoMD(2,20,'iso')}</td><td>100 EA</td><td>4500019105</td><td>Alpha Co.</td><td><span class="badge badge-warning">⚠️ 부분 가능</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -308,7 +309,7 @@ demoPlayers['agent2'] = new DemoPlayer({
           p._setFlowActive(4);
           p.addMsg('ai', `공급업체 9개사에 발송할 단산 안내 메일 초안입니다:
           <div style="margin-top:10px;padding:14px;background:var(--sap-darker);border:1px solid var(--sap-border);border-radius:8px;font-size:13px;font-family:monospace;line-height:1.7">
-          <span style="color:var(--sap-text-muted)">수신:</span> Supplier A, B, C 외 6개사 (총 9개사)<br>
+          <span style="color:var(--sap-text-muted)">수신:</span> Alpha Co., Beta Inc., Gamma Ltd 외 6개사 (총 9개사)<br>
           <span style="color:var(--sap-text-muted)">제목:</span> <strong>[긴급] BC3 차종 단산에 따른 발주 조정 안내</strong><br>
           <div class="divider"></div>
           안녕하세요. BestRun 구매팀입니다.<br><br>
@@ -410,11 +411,11 @@ demoPlayers['agent3'] = new DemoPlayer({
           p.addMsg('ai', `이번 주 A-4315 결품(MO-26-0889)은 재고 이전·라인 순서 교체로 처리 중입니다. MRP를 다시 돌린 결과 남은 예외 234건 중 <strong>긴급 처리 필요 12건</strong>을 선별했습니다:
           <div class="chat-table-wrap">
             <table class="chat-table">
-              <thead><tr><th>순위</th><th>예외유형</th><th>자재</th><th>지연위험</th><th>생산 차질 금액</th><th>AI 추천</th></tr></thead>
+              <thead><tr><th>순위</th><th>예외유형</th><th>자재</th><th>부족 일수</th><th>생산 차질 금액</th><th>AI 추천</th></tr></thead>
               <tbody>
-                <tr><td>1</td><td><span class="badge badge-danger">일정 앞당김 (10)</span></td><td>A-4315</td><td>D-3일</td><td>45.6M원</td><td>납기 단축 요청</td></tr>
+                <tr><td>1</td><td><span class="badge badge-danger">일정 앞당김 (10)</span></td><td>A-4315</td><td>3일 늦음</td><td>45.6M원</td><td>납기 단축 요청</td></tr>
                 <tr><td>2</td><td><span class="badge badge-warning">취소 제안 (20)</span></td><td>435D</td><td>—</td><td>8.0M원</td><td>PO 취소 (BC3 단산)</td></tr>
-                <tr><td>3</td><td><span class="badge badge-warning">개시일 경과 (06)</span></td><td>D-5501</td><td>D-5일</td><td>16.5M원</td><td>계획오더 즉시 확정</td></tr>
+                <tr><td>3</td><td><span class="badge badge-warning">개시일 경과 (06)</span></td><td>D-5501</td><td>5일 늦음</td><td>16.5M원</td><td>계획오더 즉시 확정</td></tr>
                 <tr><td colspan="6" style="text-align:center;color:var(--sap-text-muted);font-size:12px">... 외 9건 (AI 우선순위 정렬 완료)</td></tr>
               </tbody>
             </table>
@@ -443,7 +444,7 @@ demoPlayers['agent3'] = new DemoPlayer({
           • 영향 제조오더: <strong>MO-26-0891</strong> (${demoMD(1,12,'md')} 투입 예정 · 다음 달분)<br>
           • 공급업체 ACME Components Korea 최근 6개월 평균 리드타임: <strong>18일</strong> (OTD 88%)<br>
           • <strong>AI 판단:</strong> ACME는 최근 납기 단축 요청 9건 중 8건을 수락(89%) — 3일 단축은 수락 가능성이 높습니다<br>
-          • 거절 대비: 1060 여유 재고 80 EA 중 이번 주 결품에 쓰고 <strong>남은 40 EA를 백업으로 예약</strong>합니다
+          • 거절 대비: 1060 여유 재고(안전재고 제외 60 EA) 중 이번 주에 40 EA를 썼으므로 <strong>남은 20 EA를 백업으로 예약</strong>하고, 부족분 25 EA는 긴급 발주로 대비합니다
           </div>
           ${optCompare()}
           ${jConfirm('agent3', `ACME에 납기 단축을 요청할까요? PO 4500019234 항목 10은 확약(AB) 회신 시 ${demoMD(1,12,'iso')}로 확정됩니다.`)}`);
@@ -469,7 +470,7 @@ demoPlayers['agent3'] = new DemoPlayer({
           p.addMsg('ai', `<span class="text-success">✅ 납기 단축 요청 발송</span><br>
           PO 4500019234 항목 10: 납기 변경 요청 등록 (${demoMD(1,15,'iso')} → <strong>${demoMD(1,12,'iso')}</strong>, <strong>확약 대기</strong>)<br>
           확약 전까지 MRP는 기존 납기 기준으로 계획 · 확약(AB) 회신 시 자동 확정<br>
-          48시간 내 거절·미회신 시 1060 남은 재고 40 EA 재고 이전으로 자동 전환 (예약 완료)<br>
+          48시간 내 거절·미회신 시 1060 여유 20 EA 재고 이전 + 긴급 발주 25 EA로 자동 전환 (20 EA 예약 완료)<br>
           <span style="color:var(--j-text-2)">변경 이력: JKIM (Joule MRP Exception Agent 대행)</span>
           <div style="margin-top:10px"><button class="action-btn action-btn-primary" onclick="router.go('fiori-po-delivery')">📄 구매오더 조회하기</button></div>`);
         }, 2550);
@@ -563,6 +564,7 @@ demoPlayers['agent4'] = new DemoPlayer({
           p.removeThinking();
           p.addMsg('ai', `INV-2946 분석 결과:
           <div style="padding:12px;background:var(--sap-darker);border-radius:8px;font-size:13px;margin-top:8px;border:1px solid var(--sap-border);line-height:1.8">
+          • 자재: M-3305 실린더 튜브 (PO 4500019156 · Alpha Co. · 계약 PA-2026-112)<br>
           • PO 계약 단가: <strong>124,000원/EA × 100EA = 12,400,000원</strong><br>
           • 청구 단가: <strong>138,000원/EA × 100EA = 13,800,000원</strong><br>
           • 차이 원인: 구매계약 PA-2026-112가 <span class="text-warning">${demoMD(-1,1,'iso')}부로 갱신</span> (단가 +14,000원) — PO에 미반영<br>
@@ -659,17 +661,17 @@ demoPlayers['agent5'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>공급업체</th><th>PO번호</th><th>납기예정일</th><th>남은일수</th><th>OTD율(6M)</th><th>위험점수</th><th>현황</th></tr></thead>
               <tbody>
-                <tr><td><strong>Delta Co.</strong></td><td>4500019188</td><td>${demoDay(1,'iso')}</td><td style="color:var(--sap-danger)">D-1</td><td>62%</td><td><span class="badge badge-danger">🔴 75점</span></td><td>미확인</td></tr>
+                <tr><td><strong>Delta Co.</strong></td><td>4500019188</td><td>${demoDay(0,'iso')} 16시</td><td style="color:var(--sap-danger)">오늘</td><td>62%</td><td><span class="badge badge-danger">🔴 75점</span></td><td>미확인</td></tr>
                 <tr><td>Echo Ltd</td><td>4500019102</td><td>${demoDay(5,'iso')}</td><td style="color:var(--sap-warning)">D-5</td><td>71%</td><td><span class="badge badge-warning">🟠 51점</span></td><td>생산 중</td></tr>
                 <tr><td>Foxtrot</td><td>4500019076</td><td>${demoDay(9,'iso')}</td><td>D-9</td><td>85%</td><td><span class="badge badge-success" style="color:#fff">🟡 27점</span></td><td>출하 준비</td></tr>
               </tbody>
             </table>
           </div>
-          <div style="margin-top:8px;padding:8px 12px;background:var(--sap-danger-bg);border-radius:8px;font-size:13px;border:1px solid var(--sap-danger)">⚠️ Delta Co.는 최근 3개월간 4건 중 3건 지연. 즉각 조치 필요.</div>`);
+          <div style="margin-top:8px;padding:8px 12px;background:var(--sap-danger-bg);border-radius:8px;font-size:13px;border:1px solid var(--sap-danger)">⚠️ Delta Co.는 6개월 연속 납기 준수율 하락 (최근 3개월 52%). 즉각 조치 필요.<br><span style="color:var(--j-text-2)">High Risk 3개사 중 이번 달 납기 PO가 있는 곳은 Delta Co. 1곳입니다 (나머지 2곳은 다음 달 납기).</span></div>`);
           p.addResultCard(`<h4>🎯 리스크 현황</h4><div class="kpi-row">
             <div class="kpi-card danger"><div class="kpi-value">1</div><div class="kpi-label">즉각 조치 필요</div></div>
             <div class="kpi-card warning"><div class="kpi-value">1</div><div class="kpi-label">모니터링 필요</div></div>
-            <div class="kpi-card success"><div class="kpi-value">D-1</div><div class="kpi-label">최고 긴급 납기</div></div>
+            <div class="kpi-card success"><div class="kpi-value">오늘</div><div class="kpi-label">최고 긴급 납기</div></div>
           </div>`);
           p.addPresets([{label:'✉ Delta Co. 독촉 메일 작성', highlight:true},{label:'📞 담당자 전화 연결'}]);
         }, 3100);
@@ -689,8 +691,8 @@ demoPlayers['agent5'] = new DemoPlayer({
           <span style="color:var(--sap-text-muted)">제목:</span> <strong>[긴급] PO 4500019188 납기 확인 요청</strong><br>
           <div class="divider"></div>
           BestRun 구매팀입니다.<br>
-          귀사에 발주된 PO 4500019188 (A-4315 유압실린더 50EA, 납기 ${demoDay(1,'iso')})의<br>
-          현재 진행 상황을 <strong>금일 오후 3시까지</strong> 회신 부탁드립니다.<br>
+          귀사에 발주된 PO 4500019188 (A-4315 유압실린더 50EA, 납기 <strong>금일 16시</strong>)의<br>
+          출하 여부와 도착 예정 시각을 <strong>금일 오후 1시까지</strong> 회신 부탁드립니다. (입고 후 야간 검사를 거쳐 내일 08시 생산에 투입될 물량입니다)<br>
           미회신 시 긴급 대체 조달을 진행할 예정입니다.
           </div>
           ${jConfirm('agent5', '이 독촉 메일을 Delta Co.에 즉시 발송하시겠습니까?')}`);
@@ -710,7 +712,7 @@ demoPlayers['agent5'] = new DemoPlayer({
         p.addMsg('ai', `<span class="text-success">✅ 메일 발송 완료</span><br>
         수신: procurement@delta-co.com<br>
         발송일시: ${new Date().toLocaleString('ko-KR')}<br>
-        회신 기한: 오늘 오후 3시 · 미회신 시 자동 알림 예약됨`);
+        회신 기한: 오늘 오후 1시 · 미회신 시 자동 알림 예약됨`);
       }, 600);
     },
     (p) => { p._setFlowActive(5); p.addMsg('sys','✅ &nbsp;<strong>공급업체 납기 리스크</strong> 시나리오 완료.');
@@ -765,16 +767,16 @@ demoPlayers['agent6'] = new DemoPlayer({
       p.presets().innerHTML = ''; touchGuide.hideAll();
       p.addMsg('user', '다음 달 수요 예측 결과를 바탕으로 발주가 필요한 자재 추천해줘');
       setTimeout(() => {
-        p.addThinking(["상위 200개 자재의 과거 24개월 소비 패턴을 살펴보고 있어요", "계절성과 최근 추세를 반영해 다음 달 수요를 예측하는 중", "현재고·미입고 PO에 재고 이전과 품질 검사 합격분까지 빼서 부족 수량을 계산하고 있어요", "안전재고와 최소 발주량을 고려해 발주 대상을 선정합니다"]);
+        p.addThinking(["상위 200개 자재의 과거 24개월 소비 패턴을 살펴보고 있어요", "계절성과 최근 추세를 반영해 다음 달 수요를 예측하는 중", "이번 주 생산오더 소요와 재고 이전·검사 합격 입고를 날짜별로 반영해 다음 달 초 가용 재고를 계산하는 중", "안전재고와 최소 발주량을 고려해 발주 대상을 선정합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
           p.addMsg('ai', `수요 예측 완료. <strong>발주 필요 자재 Top 8</strong> (재고 부족 순):
           <div class="chat-table-wrap">
             <table class="chat-table">
-              <thead><tr><th>자재</th><th>예측수요</th><th>현재고</th><th>입고예정<br>(PO·STO)</th><th>순부족량</th><th>권장발주량</th><th>AI 신뢰도</th></tr></thead>
+              <thead><tr><th>자재</th><th>예측수요</th><th>다음 달 초<br>가용 재고</th><th>입고예정<br>(PO)</th><th>순부족량</th><th>권장발주량</th><th>AI 신뢰도</th></tr></thead>
               <tbody>
-                <tr><td><strong>A-4315</strong></td><td>265 EA</td><td>45 EA<br><small>+ 검사 합격 18</small></td><td>135 EA<br><small>PO 95 · 이전 40</small></td><td style="color:var(--sap-danger)"><strong>67 EA</strong></td><td>100 EA</td><td><span class="badge badge-success">87%</span></td></tr>
+                <tr><td><strong>A-4315</strong></td><td>265 EA</td><td>18 EA<br><small>45 − 이번 주 85 + 이전 40 + 검사 18</small></td><td>95 EA<br><small>ACME 45 · Delta 50</small></td><td style="color:var(--sap-danger)"><strong>152 EA</strong></td><td>200 EA</td><td><span class="badge badge-success">87%</span></td></tr>
                 <tr><td><strong>B-2290</strong></td><td>250 EA</td><td>80 EA</td><td>100 EA</td><td style="color:var(--sap-danger)"><strong>70 EA</strong></td><td>100 EA</td><td><span class="badge badge-success">91%</span></td></tr>
                 <tr><td><strong>D-5501</strong></td><td>90 EA</td><td>10 EA</td><td>0 EA</td><td style="color:var(--sap-danger)"><strong>80 EA</strong></td><td>100 EA</td><td><span class="badge badge-warning">79%</span></td></tr>
                 <tr><td>F-1120</td><td>90 EA</td><td>15 EA</td><td>30 EA</td><td style="color:var(--sap-warning)"><strong>45 EA</strong></td><td>60 EA</td><td><span class="badge badge-warning">82%</span></td></tr>
@@ -782,11 +784,12 @@ demoPlayers['agent6'] = new DemoPlayer({
               </tbody>
             </table>
           </div>
-          <span style="font-size:12.5px;color:var(--j-text-2)">권장발주량 = 순부족량 + 안전재고, 최소발주량(MOQ) 단위로 올림 — A-4315: 67 + 20 → MOQ 50 단위 100 EA</span><br>
-          💡 일반 MRP는 PO 입고분 95 EA만 차감합니다. Agent는 <strong>재고 이전 40 EA와 품질 검사 합격 18 EA</strong>까지 반영해 <strong>58 EA(13.7M원) 이중 발주</strong>를 막았습니다.`);
+          <span style="font-size:12.5px;color:var(--j-text-2)">권장발주량 = 순부족량 + 안전재고, 최소발주량(MOQ) 단위로 올림 — A-4315: 152 + 20 → MOQ 50 단위 200 EA</span><br>
+          💡 현재고 45 EA와 재고 이전 40 EA를 그대로 빼면 순부족이 67 EA로 잡혀 100 EA만 발주하게 됩니다. 이 재고는 <strong>이번 주 생산오더(MO-26-0888·0889)가 85 EA를 쓰는 물량</strong>이라,
+          Agent가 날짜별로 계산해 <strong>다음 달 과소 발주 약 100 EA(결품 위험)</strong>를 막았습니다.`);
           p.addResultCard(`<h4>📊 예측 요약</h4><div class="kpi-row">
             <div class="kpi-card danger"><div class="kpi-value">8</div><div class="kpi-label">발주 필요 자재</div></div>
-            <div class="kpi-card warning"><div class="kpi-value">127.7M</div><div class="kpi-label">예상 발주금액(원)</div></div>
+            <div class="kpi-card warning"><div class="kpi-value">151.3M</div><div class="kpi-label">예상 발주금액(원)</div></div>
             <div class="kpi-card success"><div class="kpi-value">85%</div><div class="kpi-label">평균 예측 신뢰도</div></div>
           </div>`);
           p.addPresets([{label:'📝 구매 요청서 초안 생성', highlight:true},{label:'📈 A-4315 예측 상세 보기'}]);
@@ -805,9 +808,9 @@ demoPlayers['agent6'] = new DemoPlayer({
           <div style="padding:12px;background:var(--sap-darker);border-radius:8px;font-size:13px;margin-top:8px;border:1px solid var(--sap-border);line-height:1.9">
           PR번호: <strong>10008976</strong><br>
           요청일: ${new Date().toLocaleDateString('ko-KR')} &nbsp;|&nbsp; 요청자: 김재형 (JKIM) — Joule 수요예측 Agent 대행<br>
-          총 <strong>8개 품목</strong> &nbsp;|&nbsp; 총금액: <strong>약 127.7백만원</strong><br>
+          총 <strong>8개 품목</strong> &nbsp;|&nbsp; 총금액: <strong>약 151.3백만원</strong><br>
           납기요청일: ${demoMD(1,5,'iso')} ~ ${demoMD(1,15,'md')} (품목별, 생산계획 기준)<br>
-          ※ A-4315는 입고예정 PO 95 EA + 재고 이전 40 EA + 검사 합격 18 EA를 차감한 순부족 기준 (236,000원/EA)
+          ※ A-4315는 이번 주 소요를 반영한 다음 달 초 가용 18 EA와 입고 예정 PO 95 EA 기준 · 공급업체 ACME Components Korea (236,000원/EA)
           </div>
           ${jConfirm('agent6', '승인자(이도윤 상무, 구매본부장)에게 승인 요청을 발송하시겠습니까?')}`);
           p.addResultCard(`<h4>📝 PR 생성 완료</h4>
@@ -898,7 +901,7 @@ demoPlayers['agent7'] = new DemoPlayer({
                   <td><strong>A-4315</strong></td>
                   <td><span class="badge badge-danger">1050 −40 EA</span></td>
                   <td><strong>${demoDay(1,'md')} 08시</strong> · MO-26-0889 착수 (Delta Co. 50 EA 지연 위험)</td>
-                  <td><span class="badge badge-success">1060 +80 EA</span></td>
+                  <td><span class="badge badge-success">1060 +60 EA</span></td>
                   <td>1060→1050 <strong>40 EA</strong></td>
                 </tr>
                 <tr>
@@ -1590,7 +1593,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       cloudBoxTitle: 'SAP AI Core & Multi-Option Analyzer',
       cloud1: ['AI Exception Triage & Option Analyzer', 'Top 12 선별 · 대응 옵션 3개 비용·시간·성공확률 비교'],
       cloud2: ['Supplier Lead-Time & OTD Analyzer', 'ACME 리드타임 18일 · OTD 88% 기반 단축 가능성 검증'],
-      cloud3: ['Cross-Plant Stock Alternative Check', '1060 여유재고 80 EA를 백업 옵션으로 확보'],
+      cloud3: ['Cross-Plant Stock Alternative Check', '1060 여유재고 20 EA 예약 + 긴급 발주 백업'],
       cloud4: ['A2A: 재고 이동 최적화 Agent 연계', '확약 회신 시 자동 확정 · 미회신 시 STO 전환'],
       fioriApp: '구매오더 관리 · 자재 MRP 모니터링',
       highlightSpend: false,
@@ -1688,7 +1691,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       cds1: ['I_MaterialDocumentItem_2 (24개월 이력)', '상위 200개 자재 과거 24개월 소비 패턴 추출'],
       cds2: ['I_MaterialStock_2 & Open PO / STO', '현재고 + 미입고 PO 95 EA + STO 입고 예정 40 EA 대조'],
       cds3: ['I_ProductPlant (Safety Stock & Lot)', '자재별 안전재고 기준 및 최소 발주량(MOQ) 반영'],
-      cds4: ['Purchase Requisition API', '구매요청 10008976 · 8개 품목 · 127.7M 자동 생성'],
+      cds4: ['Purchase Requisition API', '구매요청 10008976 · 8개 품목 · 151.3M 자동 생성'],
       cloudBoxTitle: 'SAP AI Core (SAP-RPT 1.6) & HANA Cloud DB',
       cloud1: ['SAP SAP-RPT 1.6 Large Tabular AI', '별도 모델 재학습 없이 Tabular 수요 예측 수행'],
       cloud2: ['HANA Cloud Prediction Results DB', '자재별 익월 예측 소요량 및 평균 신뢰도(85%) 저장'],
@@ -1720,7 +1723,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       rightTitle: 'S/4HANA Multi-Plant Logistics & Execution',
       s4BoxTitle: 'S/4HANA Cloud (Multi-Plant Stock CDS)',
       cds1: ['I_MaterialStock_2 (Plant 1050 부산)', '부족 재고 탐지 (A-4315 현재 45EA / 필요 85EA)'],
-      cds2: ['I_MaterialStock_2 (Plant 1060 인천)', '과잉 잉여재고 탐지 (현재 140EA / 잉여 +80EA)'],
+      cds2: ['I_MaterialStock_2 (Plant 1060 인천)', '잉여재고 탐지 (현재 140EA / 안전재고 제외 여유 +60EA)'],
       cds3: ['I_MaterialStock_2 (Plant 1070 수원)', '권역별 적정 재고 균형 및 안전재고 모니터링'],
       cds4: ['I_Plant & I_StorageLocation', '출하지점 1060 · 저장위치 0001 이동 경로 검증'],
       cloudBoxTitle: 'AI Transfer Matcher & STO Execution',
@@ -1807,8 +1810,8 @@ ${hdr('📦','Inventory Aging 대시보드','플랜트 1050 · '+demoMon(1,'ykr'
 <div class="db-kpi-row">
 ${kv('4건','🔴 High Risk','#ff4444','후속 자재 1건 · BOM 종료 3건')}
 ${kv('112.5M','총 장기재고 금액','#ff9a3c','↑ 12.4M원')}
-${kv('10건','전환 예상 (1M 내)','#5aafff','이달 확정')}
-${kv('16건','Block 대상 PO','#4cde72','미입고 PO')}
+${kv('10건','전환 예상','#5aafff','다음 달 전환')}
+${kv('15건','Block 검토 PO','#4cde72','미입고 PO')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
   <div class="db-chart-ttl">💰 금액 기준 Top 5 품목 (백만원)</div>
@@ -1830,17 +1833,18 @@ ${seg([[4,'#BB0000','High (4건)'],[4,'#E9730C','Med (4건)'],[2,'#30914C','Low 
 `<div class="db-card">
 ${hdr('🚫','PO Block 처리 결과','플랜트 1050 · 18건 처리')}
 <div class="db-kpi-row">
-${kv('15건','✅ Block 완료','#4cde72','42.3M · 수수료 1.2M')}
+${kv('12건','✅ Block 완료','#4cde72','32.7M · 수수료 1.2M')}
 ${kv('2건','📝 PR 보류','#ff9a3c','PO 미전환 PR')}
 ${kv('1건','⏳ 승인 필요','#ff9a3c','8.1M원 대기')}
 </div>
 <div class="db-row" style="margin-top:12px;align-items:center;gap:16px">
-${donut(83,'#30914C','완료율')}
+${donut(67,'#30914C','완료율')}
 <div style="flex:1">
 <div class="db-chart-ttl" style="margin-bottom:8px">금액 보호 현황</div>
-${bar('Block 완료 (42.3M)',84,'#30914C','84%')}
+${bar('Block 완료 (32.7M)',65,'#30914C','65%')}
+${bar('LTB 잔여 소요 유지 (9.6M)',19,'#0070F2','19%')}
 ${bar('승인 대기 (8.1M)',16,'#E9730C','16%')}
-<div class="db-insight" style="margin-top:8px">✅ 총 <strong>50.4M원</strong> 중 <strong style="color:#4cde72">42.3M원(84%)</strong> 즉시 보호 · 취소 수수료 1.2M 차감 시 <strong>순 41.1M원</strong></div>
+<div class="db-insight" style="margin-top:8px">✅ 총 <strong>50.4M원</strong> 중 <strong style="color:#4cde72">32.7M원(65%)</strong> Block · BC3 잔여 소요 9.6M은 LTB 확정까지 유지 · 수수료 1.2M 차감 시 <strong>순 31.5M원</strong></div>
 </div>
 </div></div>`
 ]);
@@ -1879,10 +1883,10 @@ ${kv('<span class="a2-sent">0</span>건','발송 완료','#30914C','<span class=
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">📋 공급업체별 영향 부품 수</div>
-${bar('Supplier A (431A, 431B)',100,'#7C3AED','5건')}
-${bar('Supplier B (431C)',72,'#7C3AED','3건')}
-${bar('Supplier C (431D)',56,'#7C3AED','2건')}
-${bar('Supplier D~I',30,'#A78BFA','각 1건')}
+${bar('Alpha Co. (431A, 435D 외)',80,'#7C3AED','8건')}
+${bar('Beta Inc. (431C 외)',60,'#7C3AED','6건')}
+${bar('Gamma Ltd (432B 외)',40,'#7C3AED','4건')}
+${bar('그 외 6개사',100,'#A78BFA','10건 (각 1~2건)')}
 </div>
 <div class="db-insight a2-mail-ins" style="margin-top:10px">⚖️ 메일 초안 검토 후 <strong>일괄 승인 발송</strong> 가능 · 예상 소요시간 3분</div></div>`
 ]);
@@ -1894,7 +1898,7 @@ patch('agent3',[
 ${hdr('⚡','MRP 예외 관리 대시보드','플랜트 1050 · AI 자동 트리아지')}
 <div class="db-kpi-row">
 ${kv('234건','총 예외 메시지','#5aafff','금주 MRP Run')}
-${kv('12건','🔴 긴급 처리','#ff4444','D-3일 이내')}
+${kv('12건','🔴 긴급 처리','#ff4444','생산 영향 큰 순')}
 ${kv('84M','생산 차질 금액','#ff9a3c','12건 합계')}
 ${kv('8건','자동 해결 가능','#4cde72','AI 추천')}
 </div>
@@ -1917,8 +1921,8 @@ ${donut(75,'#30914C','자동해결')}
 `<div class="db-card">
 ${hdr('💡','조치 방안 & 영향 분석','A-4315 일정 재조정')}
 <div class="db-kpi-row">
-${kv('D-3일','납기 단축 요청','#ff9a3c',demoMD(1,15,'md')+' → '+demoMD(1,12,'md'))}
-${kv('40EA','1060 백업 예약','#4cde72','80 EA 중 남은 분')}
+${kv('3일','납기 단축 요청','#ff9a3c',demoMD(1,15,'md')+' → '+demoMD(1,12,'md'))}
+${kv('20EA','1060 백업 예약','#4cde72','안전재고 제외 남은 여유')}
 ${kv('45.6M','생산 차질 방지','#5aafff','MO-26-0891')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
@@ -1927,7 +1931,7 @@ ${bar('① 1060 여유재고 이동 (백업)',30,'#30914C','즉시')}
 ${bar('② 공급업체 납기 조정 요청',65,'#0070F2','1~2일')}
 ${bar('③ 긴급 발주 생성',100,'#E9730C','3~5일')}
 </div>
-<div class="db-insight" style="margin-top:10px">🎯 권장: <strong style="color:#4cde72">②번 납기 단축 요청</strong> — 3일 차이, ACME OTD 88%로 대응 가능 · 확약 실패 시 ①번 1060 남은 재고(40EA, 예약됨) 이동으로 자동 전환</div></div>`
+<div class="db-insight" style="margin-top:10px">🎯 권장: <strong style="color:#4cde72">②번 납기 단축 요청</strong> — 3일 차이, ACME OTD 88%로 대응 가능 · 확약 실패 시 ①번 1060 여유 20EA(예약) + 긴급 발주 25EA로 자동 전환</div></div>`
 ]);
 
 /* ═══ AGENT 4 — 3-Way Matching ═══ */
@@ -1951,7 +1955,7 @@ ${bar('🟡 추가 요금',39,'#F59E0B','4건')}
 ${bar('🔵 중복 청구',6,'#0070F2','1건')}
 </div>
 </div>
-<div class="db-insight" style="margin-top:10px">💡 단가 불일치 11건 중 <strong>8건</strong>은 계약 갱신 반영 누락 — 일괄 PO 수정 후 승인 가능</div></div>`,
+<div class="db-insight" style="margin-top:10px">💡 단가 불일치 11건 중 <strong>8건</strong>은 계약 갱신 반영 누락 — PA-2026-112 관련은 INV-2946 1건, 나머지 7건은 다른 계약 3개 (같은 근거 확인 후 일괄 처리 대기)</div></div>`,
 
 /* card 1: Resolution */
 `<div class="db-card">
@@ -1992,26 +1996,26 @@ ${kv('5건','납기 지연 예상','#ff9a3c','D-7 이내')}
   <text x="34" y="29" text-anchor="end" font-size="7.5" fill="#E9730C" font-weight="700">80%</text>
   <text x="34" y="47" text-anchor="end" font-size="7.5" fill="#5a7a9a">60%</text>
   <text x="34" y="65" text-anchor="end" font-size="7.5" fill="#5a7a9a">40%</text>
-  <rect x="43" y="12" width="28" height="50" rx="3" fill="#30914C" opacity="0.85"/>
-  <text x="57" y="9" text-anchor="middle" font-size="8.5" fill="#5de080" font-weight="700">89%</text>
-  <rect x="81" y="17" width="28" height="45" rx="3" fill="#30914C" opacity="0.75"/>
-  <text x="95" y="14" text-anchor="middle" font-size="8.5" fill="#5de080" font-weight="700">84%</text>
-  <rect x="119" y="22" width="28" height="40" rx="3" fill="#E9730C" opacity="0.85"/>
-  <text x="133" y="19" text-anchor="middle" font-size="8.5" fill="#ffb86c" font-weight="700">78%</text>
-  <rect x="157" y="28" width="28" height="34" rx="3" fill="#E9730C" opacity="0.85"/>
-  <text x="171" y="25" text-anchor="middle" font-size="8.5" fill="#ffb86c" font-weight="700">72%</text>
-  <rect x="195" y="33" width="28" height="29" rx="3" fill="#BB0000" opacity="0.9"/>
-  <text x="209" y="30" text-anchor="middle" font-size="8.5" fill="#ff6666" font-weight="700">67%</text>
-  <rect x="233" y="37" width="28" height="25" rx="3" fill="#BB0000"/>
-  <text x="247" y="34" text-anchor="middle" font-size="8.5" fill="#ff4444" font-weight="700">63%</text>
+  <rect x="43" y="27.8" width="28" height="34.2" rx="3" fill="#E9730C" opacity="0.85"/>
+  <text x="57" y="24.8" text-anchor="middle" font-size="8.5" fill="#ffb86c" font-weight="700">78%</text>
+  <rect x="81" y="33.2" width="28" height="28.8" rx="3" fill="#E9730C" opacity="0.75"/>
+  <text x="95" y="30.2" text-anchor="middle" font-size="8.5" fill="#ffb86c" font-weight="700">72%</text>
+  <rect x="119" y="38.6" width="28" height="23.4" rx="3" fill="#BB0000" opacity="0.85"/>
+  <text x="133" y="35.6" text-anchor="middle" font-size="8.5" fill="#ff6666" font-weight="700">66%</text>
+  <rect x="157" y="45.8" width="28" height="16.2" rx="3" fill="#BB0000" opacity="0.85"/>
+  <text x="171" y="42.8" text-anchor="middle" font-size="8.5" fill="#ff6666" font-weight="700">58%</text>
+  <rect x="195" y="51.2" width="28" height="10.8" rx="3" fill="#BB0000" opacity="0.9"/>
+  <text x="209" y="48.2" text-anchor="middle" font-size="8.5" fill="#ff4444" font-weight="700">52%</text>
+  <rect x="233" y="56.6" width="28" height="5.4" rx="3" fill="#BB0000"/>
+  <text x="247" y="53.6" text-anchor="middle" font-size="8.5" fill="#ff4444" font-weight="700">46%</text>
   <line x1="38" y1="26" x2="312" y2="26" stroke="#E9730C" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.8"/>
-  <polyline points="57,37 95,40 133,44 171,45 209,48 247,49" fill="none" stroke="#ff4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="57" cy="37" r="3" fill="#30914C"/>
-  <circle cx="95" cy="40" r="3" fill="#30914C"/>
-  <circle cx="133" cy="44" r="3" fill="#E9730C"/>
-  <circle cx="171" cy="45" r="3" fill="#E9730C"/>
-  <circle cx="209" cy="48" r="3" fill="#BB0000"/>
-  <circle cx="247" cy="49" r="4" fill="#BB0000" stroke="#ff6666" stroke-width="1.5"/>
+  <polyline points="57,27.8 95,33.2 133,38.6 171,45.8 209,51.2 247,56.6" fill="none" stroke="#ff4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="57" cy="27.8" r="3" fill="#30914C"/>
+  <circle cx="95" cy="33.2" r="3" fill="#30914C"/>
+  <circle cx="133" cy="38.6" r="3" fill="#E9730C"/>
+  <circle cx="171" cy="45.8" r="3" fill="#E9730C"/>
+  <circle cx="209" cy="51.2" r="3" fill="#BB0000"/>
+  <circle cx="247" cy="56.6" r="4" fill="#BB0000" stroke="#ff6666" stroke-width="1.5"/>
   <text x="57" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-5,'kr')}</text>
   <text x="95" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-4,'kr')}</text>
   <text x="133" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-3,'kr')}</text>
@@ -2033,7 +2037,7 @@ ${bar('🟢 Low (0~39)',68,'#30914C','32개사')}
 ${hdr('📧','알림 발송 현황','Delta Co. · 납기 독촉')}
 <div class="db-kpi-row">
 ${kv('75점','리스크 점수','#ff4444','🔴 High')}
-${kv('D-1일','납기까지','#ff4444','PO 4500019188')}
+${kv('오늘 16시','납기','#ff4444','PO 4500019188')}
 ${kv('1건','메일 초안 생성','#A78BFA','AI 작성')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
@@ -2057,16 +2061,16 @@ ${hdr('📊','수요 예측 발주 대시보드','SAP-RPT 1.6 Large · 200개 �
 <div class="db-kpi-row">
 ${kv('200개','분석 자재','#5aafff','상위 소비액')}
 ${kv('8개','발주 필요','#ff4444','재고 부족')}
-${kv('127.7M','총 발주 예상','#ff9a3c','원')}
+${kv('151.3M','총 발주 예상','#ff9a3c','원')}
 ${kv('85%','AI 신뢰도 (평균)','#A78BFA','SAP-RPT 1.6')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">📈 수요 예측 vs 현재 재고 Gap 분석</div>
-${bar('A-4315 (부족 67EA)',84,'#BB0000','100EA 발주')}
-${bar('B-2290 (부족 70EA)',82,'#E9730C','100EA 발주')}
-${bar('D-5501 (부족 80EA)',100,'#BB0000','100EA 발주')}
-${bar('F-1120 (부족 45EA)',53,'#F59E0B','60EA 발주')}
-${bar('G-3380 (부족 30EA)',35,'#30914C','40EA 발주')}
+${bar('A-4315 (부족 152EA)',100,'#BB0000','200EA 발주')}
+${bar('B-2290 (부족 70EA)',50,'#E9730C','100EA 발주')}
+${bar('D-5501 (부족 80EA)',50,'#BB0000','100EA 발주')}
+${bar('F-1120 (부족 45EA)',30,'#F59E0B','60EA 발주')}
+${bar('G-3380 (부족 30EA)',20,'#30914C','40EA 발주')}
 </div>
 <div class="db-row" style="margin-top:12px;align-items:center;gap:16px">
 ${donut(85,'#A78BFA','신뢰도')}
@@ -2078,15 +2082,16 @@ ${donut(85,'#A78BFA','신뢰도')}
 ${hdr('📝','구매 요청서 자동 생성','PR 10008976')}
 <div class="db-kpi-row">
 ${kv('8개','발주 품목','#5aafff','')}
-${kv('127.7M','총 금액','#ff9a3c','원')}
+${kv('151.3M','총 금액','#ff9a3c','원')}
 ${kv('PR 생성','시스템 상태','#4cde72','승인 대기')}
 </div>
 <div class="db-chart-wrap" style="margin-top:12px">
 <div class="db-chart-ttl">🏭 공급업체별 발주 금액 분포</div>
-${bar('기타 공급업체 (3건)',100,'#7C3AED','58.0M')}
-${bar('Supplier Alpha (A-4315, B-2290)',72,'#7C3AED','41.7M')}
-${bar('Supplier Beta (D-5501)',28,'#A78BFA','16.5M')}
-${bar('Supplier Gamma (F-1120, G-3380)',20,'#C4B5FD','11.6M')}
+${bar('Epsilon Co. · Zeta Co. (3건)',100,'#7C3AED','58.0M')}
+${bar('ACME Components Korea (A-4315)',81,'#7C3AED','47.2M')}
+${bar('Alpha Co. (B-2290)',31,'#A78BFA','18.1M')}
+${bar('Beta Inc. (D-5501)',28,'#A78BFA','16.5M')}
+${bar('Gamma Ltd (F-1120, G-3380)',20,'#C4B5FD','11.6M')}
 </div>
 <div class="db-insight" style="margin-top:10px">✅ 승인자(이도윤 상무) 승인 시 <strong>자동 발주 확정</strong> · 요청자(김재형)와 분리 · 공급업체 자동 통보</div></div>`
 ]);
@@ -2107,7 +2112,7 @@ ${kv('12.3M','예상 절감','var(--j-pos)','외부 조달 대비')}
 <div class="tl">
 <div class="tl-row"><span class="tl-t">오늘</span><span class="tl-dot"></span><span class="tl-e">현재고</span><span class="tl-q">45 EA</span></div>
 <div class="tl-row"><span class="tl-t">오늘</span><span class="tl-dot"></span><span class="tl-e">MO-26-0888 투입 (FG-2100 45 EA)</span><span class="tl-q">0 EA</span></div>
-<div class="tl-row warn"><span class="tl-t">${demoDay(1,'md')}</span><span class="tl-dot"></span><span class="tl-e">Delta Co. PO 4500019188 50 EA 입고 예정 — 지연 위험 75점</span><span class="tl-q">미확정</span></div>
+<div class="tl-row warn"><span class="tl-t">오늘 16시</span><span class="tl-dot"></span><span class="tl-e">Delta Co. PO 4500019188 50 EA 입고 예정 (야간 검사 후 투입) — 지연 위험 75점</span><span class="tl-q">미확정</span></div>
 <div class="tl-row neg"><span class="tl-t">${demoDay(1,'md')} 08시</span><span class="tl-dot"></span><span class="tl-e"><b>MO-26-0889 착수 · 40 EA 필요 → 결품</b></span><span class="tl-q">−40 EA</span></div>
 <div class="tl-row pos"><span class="tl-t">${demoDay(1,'md')} 15시</span><span class="tl-dot"></span><span class="tl-e">재고 이전 1060→1050 입고 (+40 EA) — 7시간 공백은 PP 순서 조정</span><span class="tl-q">0 EA</span></div>
 <div class="tl-row"><span class="tl-t">${demoDay(18,'md')}</span><span class="tl-dot"></span><span class="tl-e">외부 발주 시 입고 (리드타임 18일) — 결품 후 17일</span><span class="tl-q">✗</span></div>

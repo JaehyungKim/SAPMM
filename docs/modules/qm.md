@@ -37,7 +37,7 @@
 - Block: `POST /sap/opu/odata/sap/API_MATERIAL_DOCUMENT_SRV/A_MaterialDocumentHeader` (GoodsMovementCode 04, 이동 유형 344)
 
 ## Q1 → Q2 → MM 연결
-고객 클레임(FG-2100 누유) → 원인 후보 A-4315 Delta Co. 로트 → **Q2** 같은 로트 계열 입고분 검사에서 누유 1/8 → 합격분 18 EA 가용 → MM 결품(A-4315) 일부 해소, 추가 구매요청 18 EA 감소 → Delta Co. 시정 조치(Q2 통보).
+고객 클레임(FG-2100 누유) → 원인 후보 A-4315 Delta Co. 로트 → **Q2** 같은 로트 계열 입고분 검사에서 누유 1/8 → 전수 재시험(4시간) 후 18 EA 가용 → 다음 달 A-4315 순부족 18 EA 감소 → Delta Co. 시정 조치(Q2 통보).
 
 ## 기타 후보 (미착수)
 | 후보 | 실행 | MM 연결 |

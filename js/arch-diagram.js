@@ -183,14 +183,14 @@
       proc: [['Create Purchase Requisition', ''], ['Flexible Workflow 승인', ''], MI], fiori: [['구매요청 관리', 'SAP Fiori 앱'], ['My Inbox', 'SAP Fiori 앱'], EA],
       cf: ['Demand Forecast & Auto-PR Agent Logic', '집계 · 순부족 · 수량 최적화'], aicore: ['Predictive Model Deployment', 'SAP-RPT 1.6 Large (표 데이터 예측)'], genai: ['Orchestration · Prompt', '예측 근거 설명'],
       hana: ['예측 결과 · 부족 수량', '저장 · 조회'], integ: ['ERP API', '재고 · 소비 · 미결 PO/STO 조회'],
-      kpi: [['평균 예측 신뢰도 85%', 'KPI'], ['자재 200개 · 24개월 이력', '가정'], ['구매요청 10008976 · 127.7M', '결과']], doc: 'MM-AI-ARCH-06' },
+      kpi: [['평균 예측 신뢰도 85%', 'KPI'], ['자재 200개 · 24개월 이력', '가정'], ['구매요청 10008976 · 151.3M', '결과']], doc: 'MM-AI-ARCH-06' },
     agent7: { title: '07. Stock Transfer Optimization Agent', role: '물류 / 멀티플랜트 재고 관리자', scope: 'Inventory Management · Logistics', agent: 'Stock Transfer Optimizer', tools: '재고 조회 · 매칭 · STO 생성',
       data: [['I_MaterialStock_2', '플랜트별 재고'], ['I_Plant', '플랜트'], ['I_StorageLocation', '저장위치']],
       exec: [['Purchase Order API (UB)', '재고 이전 오더 생성'], ['Outbound Delivery API', '납품 · 출고 641'], ['Material Document API', '입고 101']],
       proc: [['재고 이전 오더 (UB)', ''], ['출고 641 → 입고 101', ''], MI], fiori: [['구매오더 관리', 'SAP Fiori 앱'], ['자재 문서', 'SAP Fiori 앱'], EA],
       cf: ['Stock Transfer Optimizer Logic', '과잉/부족 매칭 · 비용 비교'], aicore: ['최적화 모델 배포', '이전 경로 · 수량'], genai: ['Orchestration · Prompt', '추천 사유 설명'],
       hana: ['추천 결과 · 절감액', '저장 · 조회'], integ: ['ERP API', '재고 조회 · 구매오더(UB) 생성'],
-      kpi: [['A-4315 이전 절감 4.2M', 'KPI'], ['추천 5건 합계 12.3M', '결과'], ['1050 부족 40 · 1060 여유 80', '결과']], doc: 'MM-AI-ARCH-07' }
+      kpi: [['A-4315 이전 절감 4.2M', 'KPI'], ['추천 5건 합계 12.3M', '결과'], ['1050 부족 40 · 1060 여유 60', '결과']], doc: 'MM-AI-ARCH-07' }
   };
   window.AGENT_ARCH = window.AGENT_ARCH || {};
   Object.keys(NC).forEach(k => { window.AGENT_ARCH[k] = build(NC[k], HL[k] || []); });
