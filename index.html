@@ -878,7 +878,7 @@
           <div class="fop-fgroup"><h3>일자 및 시간</h3>
             <div class="fop-fe"><span class="fop-k">분개 일자:</span><span class="fop-v" data-doc-time="fi" data-fmt="date">2026.11.10</span></div>
             <div class="fop-fe"><span class="fop-k">전기일:</span><span class="fop-v" data-doc-time="fi" data-fmt="date">2026.11.10</span></div>
-            <div class="fop-fe"><span class="fop-k">회계연도 기간:</span><span class="fop-v">011.2026</span></div>
+            <div class="fop-fe"><span class="fop-k">회계연도 기간:</span><span class="fop-v" data-rel-period>011.2026</span></div>
             <div class="fop-fe"><span class="fop-k">분개 생성자:</span><span class="fop-v"><a class="fop-link">JKIM (김재형)</a></span></div>
             <div class="fop-fe"><span class="fop-k">생성일:</span><span class="fop-v" data-doc-time="fi" data-fmt="datetime">2026.11.10 08:24:00</span></div>
           </div>
@@ -932,11 +932,11 @@
             <table class="fop-table fop-grid fop-tree" id="fi-reltree">
               <thead><tr><th>문서 유형</th><th>문서</th><th>참조 문서 논리 시스템</th><th>회사코드</th><th>분개 유형</th><th>회계연도</th></tr></thead>
               <tbody>
-                <tr class="fop-tree-p"><td><span class="fop-tree-tog" onclick="fopTree(this)">⌄</span>회계 문서</td><td>5100003421</td><td></td><td>1000</td><td>RE</td><td>2026</td></tr>
-                <tr class="fop-tree-c"><td>송장 문서 (INV-2946)</td><td><a class="fop-link">5105623000</a></td><td></td><td>1000</td><td></td><td>2026</td></tr>
-                <tr class="fop-tree-c"><td>구매오더</td><td><a class="fop-link">4500019156</a></td><td></td><td>1000</td><td></td><td>2026</td></tr>
-                <tr class="fop-tree-c"><td>자재 문서 (입고 101)</td><td><a class="fop-link">5000538488</a></td><td></td><td>1000</td><td>WE</td><td>2026</td></tr>
-                <tr class="fop-tree-c"><td>구매계약 (갱신 <span data-rel-mon="-1" data-rel-dom="1" data-rel-fmt="iso">2026-10-01</span>)</td><td><a class="fop-link">PA-2026-112</a></td><td></td><td>1000</td><td></td><td>2026</td></tr>
+                <tr class="fop-tree-p"><td><span class="fop-tree-tog" onclick="fopTree(this)">⌄</span>회계 문서</td><td>5100003421</td><td></td><td>1000</td><td>RE</td><td data-rel-year>2026</td></tr>
+                <tr class="fop-tree-c"><td>송장 문서 (INV-2946)</td><td><a class="fop-link">5105623000</a></td><td></td><td>1000</td><td></td><td data-rel-year>2026</td></tr>
+                <tr class="fop-tree-c"><td>구매오더</td><td><a class="fop-link">4500019156</a></td><td></td><td>1000</td><td></td><td data-rel-year>2026</td></tr>
+                <tr class="fop-tree-c"><td>자재 문서 (입고 101)</td><td><a class="fop-link">5000538488</a></td><td></td><td>1000</td><td>WE</td><td data-rel-year>2026</td></tr>
+                <tr class="fop-tree-c"><td>구매계약 (갱신 <span data-rel-mon="-1" data-rel-dom="1" data-rel-fmt="iso">2026-10-01</span>)</td><td><a class="fop-link">PA-2026-112</a></td><td></td><td>1000</td><td></td><td data-rel-year>2026</td></tr>
               </tbody>
             </table>
           </div>
@@ -1391,7 +1391,7 @@
       <li><span class="sc-n">6</span><div><b>남은 부족분만 발주</b><p>재고 이전·검사 합격분까지 차감 → PR 10008976 · 127.7M (승인자 이도윤 상무)</p></div><button class="sc-proof" onclick="router.go('fiori-pr-display')">구매요청 보기</button></li>
       <li><span class="sc-n">7</span><div><b>막힌 송장과 숨은 원인</b><p>INV-2946 계약 조항 근거로 해제 + 같은 원인 PO 3건 선제 수정 · 확신도 낮은 INV-3012는 사람 검토로</p></div><button class="sc-proof" onclick="router.go('fiori-accounting-doc')">회계전표 보기</button></li>
       <li><span class="sc-n">8</span><div><b>반대편 리스크: BC3 단산</b><p>전용 부품 28개 식별 · 공급업체 9곳에 LTB 수량·보상 조건 안내</p></div></li>
-      <li><span class="sc-n">9</span><div><b>악성재고 선제 차단</b><p>신형 대체로 소요가 급감한 K-7720 발견 · 미입고 PO 15건 Block (순 41.1M)</p></div></li>
+      <li><span class="sc-n">9</span><div><b>악성재고 선제 차단</b><p>후속 자재가 지정돼 소요가 급감한 K-7720 발견 · 미입고 PO 15건 Block (순 41.1M)</p></div></li>
     </ol>
 
     <h2 class="sc-h2">기존 방식 vs Joule</h2>

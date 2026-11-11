@@ -52,7 +52,7 @@ demoPlayers['agent1'] = new DemoPlayer({
       touchGuide.hideAll();
       p.addMsg('user', '플랜트 1050의 장기/악성 재고 전환 예상 품목을 위험도 순으로 상위 10개 보여줘');
       setTimeout(() => {
-        const t = p.addThinking(["플랜트 1050 보유 재고의 최종 입출고일 기준 체류 기간을 계산하고 있어요", "다음 달 장기재고 전환 기준일에 도달하는 품목을 추려내는 중", "향후 소요 계획이 없는 품목에 위험 가중치를 부여하고 있어요", "설계 변경으로 대체품이 생긴 품목도 찾고 있어요", "전환 위험과 재고금액으로 정렬해 상위 10개를 선정합니다"]);
+        const t = p.addThinking(["플랜트 1050 보유 재고의 최종 입출고일 기준 체류 기간을 계산하고 있어요", "다음 달 장기재고 전환 기준일에 도달하는 품목을 추려내는 중", "향후 소요 계획이 없는 품목에 위험 가중치를 부여하고 있어요", "자재 마스터의 단종 지시자·후속 자재와 BOM 유효 종료일을 확인하는 중", "전환 위험과 재고금액으로 정렬해 상위 10개를 선정합니다"]);
         setTimeout(() => {
           p.removeThinking();
           p._setFlowActive(2);
@@ -61,16 +61,17 @@ demoPlayers['agent1'] = new DemoPlayer({
             <table class="chat-table">
               <thead><tr><th>순위</th><th>품번</th><th>품명</th><th>재고량</th><th>전환예상일</th><th>재고금액</th><th>원인 (AI)</th></tr></thead>
               <tbody>
-                <tr><td>1</td><td><strong>K-7720</strong></td><td>구형 와이어링 하네스</td><td>200 EA</td><td>${demoMD(1,5,'iso')}</td><td><strong>8.4M</strong></td><td><span class="badge badge-danger">신형 대체</span></td></tr>
-                <tr><td>2</td><td>432B</td><td>BC3 전용 센서</td><td>240 EA</td><td>${demoMD(1,8,'iso')}</td><td><strong>26.4M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
-                <tr><td>3</td><td>431A</td><td>특수 가스켓</td><td>150 EA</td><td>${demoMD(1,12,'iso')}</td><td><strong>18.0M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
-                <tr><td>4</td><td>431C</td><td>전용 브래킷</td><td>80 EA</td><td>${demoMD(1,15,'iso')}</td><td><strong>12.8M</strong></td><td><span class="badge badge-danger">BC3 단산</span></td></tr>
-                <tr><td>5</td><td>435D</td><td>전용 마운팅 킷</td><td>60 EA</td><td>${demoMD(1,20,'iso')}</td><td><strong>9.6M</strong></td><td><span class="badge badge-warning">BC3 단산</span></td></tr>
+                <tr><td>1</td><td><strong>K-7720</strong></td><td>구형 와이어링 하네스</td><td>200 EA</td><td>${demoMD(1,5,'iso')}</td><td><strong>8.4M</strong></td><td><span class="badge badge-danger">후속 자재 지정</span></td></tr>
+                <tr><td>2</td><td>432B</td><td>BC3 전용 센서</td><td>240 EA</td><td>${demoMD(1,8,'iso')}</td><td><strong>26.4M</strong></td><td><span class="badge badge-danger">BOM 종료 예정</span></td></tr>
+                <tr><td>3</td><td>431A</td><td>특수 가스켓</td><td>150 EA</td><td>${demoMD(1,12,'iso')}</td><td><strong>18.0M</strong></td><td><span class="badge badge-danger">BOM 종료 예정</span></td></tr>
+                <tr><td>4</td><td>431C</td><td>전용 브래킷</td><td>80 EA</td><td>${demoMD(1,15,'iso')}</td><td><strong>12.8M</strong></td><td><span class="badge badge-danger">BOM 종료 예정</span></td></tr>
+                <tr><td>5</td><td>435D</td><td>전용 마운팅 킷</td><td>60 EA</td><td>${demoMD(1,20,'iso')}</td><td><strong>9.6M</strong></td><td><span class="badge badge-warning">BOM 종료 예정</span></td></tr>
                 <tr><td colspan="7" style="text-align:center;color:var(--sap-text-muted);font-size:12px">... 외 5개 품목 (총 재고금액 112.5M원)</td></tr>
               </tbody>
             </table>
           </div>
-          1위 K-7720은 신형 K-7721로 설계 변경되면서 최근 3개월 소요가 70% 줄었습니다. 2~5위는 BC3 단산(${demoMon(1,'ykr')} 말) 전용 부품입니다.`);
+          1위 K-7720은 자재 마스터에 후속 자재 K-7721과 단종 유효일(${demoMD(1,5,'kr')})이 지정되어 있고, 최근 3개월 소요가 70% 줄었습니다.<br>
+          2~5위는 BC3 완제품 BOM에서만 쓰이는 부품인데 BOM 유효 종료일이 ${demoMD(2,0,'kr')}이라, BC3 단산 예정으로 보입니다.`);
           p.addResultCard(`
             <h4>📊 요약 현황</h4>
             <div class="kpi-row">
@@ -1490,7 +1491,7 @@ document.querySelectorAll('.joule-avatar').forEach(el=>{
       <line x1="22" y1="604" x2="1418" y2="604" stroke="#E2E8F0" stroke-width="1"/>
       ${sapLogo(28, 614, 1.05)}
       <text x="86" y="625" font-size="12.5" font-weight="800" fill="#0F172A" ${F}>Architecture Center</text>
-      <text x="86" y="639" font-size="9.5" font-style="italic" fill="#64748B" ${F}>SAP S/4HANA MM Agentic AI Reference Architecture · Updated Nov 2026</text>
+      <text x="86" y="639" font-size="9.5" font-style="italic" fill="#64748B" ${F}>SAP S/4HANA MM Agentic AI Reference Architecture</text>
       <text x="720" y="633" text-anchor="middle" font-size="10.5" font-weight="600" fill="#475569" ${F}>${cfg.docCode}</text>
       <text x="1412" y="633" text-anchor="end" font-size="10" font-weight="700" fill="#0070F2" ${F}>BestRun Korea · MM AI Demo</text>
     </svg>`;
@@ -1804,7 +1805,7 @@ patch('agent1',[
 `<div class="db-card">
 ${hdr('📦','Inventory Aging 대시보드','플랜트 1050 · '+demoMon(1,'ykr')+' 전환 예상 품목')}
 <div class="db-kpi-row">
-${kv('4건','🔴 High Risk','#ff4444','설계 변경 1건 · BC3 3건')}
+${kv('4건','🔴 High Risk','#ff4444','후속 자재 1건 · BOM 종료 3건')}
 ${kv('112.5M','총 장기재고 금액','#ff9a3c','↑ 12.4M원')}
 ${kv('10건','전환 예상 (1M 내)','#5aafff','이달 확정')}
 ${kv('16건','Block 대상 PO','#4cde72','미입고 PO')}
@@ -1821,7 +1822,7 @@ ${bar('K-7720 구형 와이어링 하네스',32,'#E9730C','8.4M')}
 ${donut(40,'#BB0000','High Risk')}
 <div style="flex:1">
 ${seg([[4,'#BB0000','High (4건)'],[4,'#E9730C','Med (4건)'],[2,'#30914C','Low (2건)']])}
-<div class="db-insight">⚠️ AI 분석: 전체의 <strong style="color:#ff4444">40%</strong>가 High Risk — BC3 단산 3건 + <strong>신형 대체로 소요가 급감한 K-7720</strong>. 즉각 PO Block 조치 권고</div>
+<div class="db-insight">⚠️ AI 분석: 전체의 <strong style="color:#ff4444">40%</strong>가 High Risk — BC3 BOM 종료 예정 3건 + <strong>후속 자재가 지정돼 소요가 급감한 K-7720</strong>. 즉각 PO Block 조치 권고</div>
 </div>
 </div></div>`,
 
@@ -2011,7 +2012,7 @@ ${kv('5건','납기 지연 예상','#ff9a3c','D-7 이내')}
   <circle cx="171" cy="45" r="3" fill="#E9730C"/>
   <circle cx="209" cy="48" r="3" fill="#BB0000"/>
   <circle cx="247" cy="49" r="4" fill="#BB0000" stroke="#ff6666" stroke-width="1.5"/>
-  <text x="57" y="80" text-anchor="middle" font-size="8" fill="#8090A0">6월</text>
+  <text x="57" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-5,'kr')}</text>
   <text x="95" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-4,'kr')}</text>
   <text x="133" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-3,'kr')}</text>
   <text x="171" y="80" text-anchor="middle" font-size="8" fill="#8090A0">${demoMon(-2,'kr')}</text>

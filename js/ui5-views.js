@@ -119,7 +119,7 @@
   const poNoteTab = (t, content = '') => `<IconTabFilter text="${t}">${content || '<TextArea editable="false" width="100%" rows="6" value=""/>'}</IconTabFilter>`;
   /* ───────── 자재 문서 ───────── */
   const V_MD = view(shell('자재 문서', 'fiori-sto-object', 'agent7') + op(
-    title('{/md/no} 2026', '', '<Button text="역분개" press="H.toast(\'데모에서는 역분개를 실행하지 않습니다\')"/><Button text="관련 앱"/>' + ico('action', '공유'),
+    title('{/md/no} ' + demoYear(), '', '<Button text="역분개" press="H.toast(\'데모에서는 역분개를 실행하지 않습니다\')"/><Button text="관련 앱"/>' + ico('action', '공유'),
       `<uxap:breadcrumbs><Breadcrumbs><Link text="구매오더 4500019567" press="H.go('fiori-sto-object')"/></Breadcrumbs></uxap:breadcrumbs>`),
     sec('일반 정보', form([
       ['일반 정보', [['문서일', '{/md/date}'], ['전기일', '{/md/date}'], ['생성자', 'JKIM'], ['문서유형', '{/md/type}']]],
@@ -176,7 +176,7 @@
       ['공급업체 주소', [['전체 이름', 'ACME Components Korea'], ['도로', '테헤란로'], ['번지', '152']]],
       ['', [['우편번호', '06236'], ['도시', '서울'], ['국가 / 지역 키', 'KR'], ['지역', '서울특별시']]],
       ['', [['전화번호', '02-555-0142'], ['팩스 번호', '–'], ['이메일 주소', 'order@acme-components.kr']]],
-      ['담당자', [['영업 담당자', '박민수'], ['공급업체 전화', '010-2345-6789'], ['귀사 참조', '–'], ['당사 참조', 'MMK-2026-1101']]]
+      ['담당자', [['영업 담당자', '박민수'], ['공급업체 전화', '010-2345-6789'], ['귀사 참조', '–'], ['당사 참조', 'MMK-' + demoDay(-9, 'iso').slice(0, 4) + '-' + demoDay(-9, 'md').replace('-', '')]]]
     ], 4)) +
     sec('제품 규정 준수', `<form:Form editable="false"><form:layout><form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" labelCellsLarge="12"/></form:layout><form:formContainers>
       <form:FormContainer><form:formElements>${poStat('공급업체 점검 상태', 'OK – 관련 없음')}</form:formElements></form:FormContainer>
@@ -225,8 +225,8 @@
       <uxap:navigationActions><Button icon="sap-icon://full-screen" type="Transparent" tooltip="전체 화면"/><Button icon="sap-icon://decline" type="Transparent" tooltip="닫기" press="H.go('agent4')"/></uxap:navigationActions>
     </uxap:ObjectPageDynamicHeaderTitle>`,
     sec('일반 정보', form([
-      ['트랜잭션 데이터', [['문서 헤더 텍스트', 'INV-2946 Alpha Co.'], ['분개 유형', 'RE (송장 - 총액)'], ['회사코드', '1000 (BestRun Korea)'], ['문서 참조 ID', 'INV-2946'], ['참조 문서 유형', 'RMRP (송장 문서)'], ['원래 참조 문서', '51056230002026', true]]],
-      ['일자 및 시간', [['분개 일자', '{/times/fiDate}'], ['전기일', '{/times/fiDate}'], ['회계연도 기간', '011.2026'], ['분개 생성자', 'JKIM (김재형)', true], ['생성일', '{/times/fi}']]],
+      ['트랜잭션 데이터', [['문서 헤더 텍스트', 'INV-2946 Alpha Co.'], ['분개 유형', 'RE (송장 - 총액)'], ['회사코드', '1000 (BestRun Korea)'], ['문서 참조 ID', 'INV-2946'], ['참조 문서 유형', 'RMRP (송장 문서)'], ['원래 참조 문서', '5105623000' + demoYear(), true]]],
+      ['일자 및 시간', [['분개 일자', '{/times/fiDate}'], ['전기일', '{/times/fiDate}'], ['회계연도 기간', demoPeriod()], ['분개 생성자', 'JKIM (김재형)', true], ['생성일', '{/times/fi}']]],
       ['금액', [['회사코드 통화 금액', '13,800,000 KRW'], ['거래 통화 금액', '13,800,000 KRW'], ['기능 통화 금액', '13,800,000 KRW']]],
       ['워크플로', [['워크플로 상태', '워크플로 관련 없음'], ['지급 보류', '해제됨 (이전: R — 가격 차이)']]]
     ])) +
@@ -250,7 +250,7 @@
           <table:Column><Label text="참조 문서 논리 시스템"/><table:template><Text text=""/></table:template></table:Column>
           <table:Column width="8rem"><Label text="회사코드"/><table:template><Text text="{cc}"/></table:template></table:Column>
           <table:Column width="8rem"><Label text="분개 유형"/><table:template><Text text="{je}"/></table:template></table:Column>
-          <table:Column width="8rem"><Label text="회계연도"/><table:template><Text text="2026"/></table:template></table:Column>
+          <table:Column width="8rem"><Label text="회계연도"/><table:template><Text text="${demoYear()}"/></table:template></table:Column>
         </table:columns></table:TreeTable>`, 'fiRel') +
     sec('메모', `<VBox><FeedInput placeholder="여기에 게시하세요" showIcon="false"/>
       <List showSeparators="Inner"><FeedListItem sender="Joule · 3-Way Matching Agent" icon="${JOULE}" iconDensityAware="false" timestamp="{/times/fi}" showIcon="true"
@@ -348,12 +348,12 @@
       const n = (id, lane, title, done, stateText, texts, children, extra = {}) =>
         Object.assign({ id, lane, title, abbr: '', state: done ? 'Positive' : 'Planned', stateText, texts, children, focused: false }, extra);
       const nodes = [
-        n('m0', '0', s.gi, true, 'OK', ['2026', '641 · 1060 / 0001'], ['m1', 'm3'], { focused: !gr }),
+        n('m0', '0', s.gi, true, 'OK', [demoYear(), '641 · 1060 / 0001'], ['m1', 'm3'], { focused: !gr }),
         n('m1', '1', '1050 · 40 EA', true, s.gr ? '해소됨' : '운송 중', ['운송 중 재고'], ['m2'], s.gr ? {} : { state: 'Neutral' }),
-        n('m2', '2', s.gr || '입고 대기', !!s.gr, s.gr ? 'OK' : '대기', ['2026', '101 · 1050 / 0001'], s.gr ? ['m4'] : [], { focused: gr }),
-        n('m3', '3', '4900006711', true, 'OK', ['2026'], [])
+        n('m2', '2', s.gr || '입고 대기', !!s.gr, s.gr ? 'OK' : '대기', [demoYear(), '101 · 1050 / 0001'], s.gr ? ['m4'] : [], { focused: gr }),
+        n('m3', '3', '4900006711', true, 'OK', [demoYear()], [])
       ];
-      if (s.gr) nodes.push(n('m4', '3', '4900006719', true, 'OK', ['2026'], []));
+      if (s.gr) nodes.push(n('m4', '3', '4900006719', true, 'OK', [demoYear()], []));
       model.setProperty('/md', Object.assign({ no: gr ? s.gr : s.gi, date: fmt(at, 'date'), at: fmt(at) }, d, {
         flow: { lanes: [
           { id: '0', icon: 'sap-icon://less', label: '출고 재고', position: 0 },
@@ -417,7 +417,7 @@
         if (id === 'fiori-accounting-doc') setTimeout(() => { const tt = v.byId('relTree'); if (tt) tt.expandToLevel(1); }, 0);
         if (id === 'fiori-sto-display') {
           const drs = v.byId('drs');
-          if (drs) { drs.setDateValue(new Date(2026, 10, 1)); drs.setSecondDateValue(new Date(2026, 10, 30)); }
+          if (drs) { const t = new Date(); drs.setDateValue(new Date(t.getFullYear(), t.getMonth(), 1)); drs.setSecondDateValue(new Date(t.getFullYear(), t.getMonth() + 1, 0)); }
         }
       }).catch(err => { console.error('UI5 view error', id, err); rendered[id] = false; host.remove(); });
     }

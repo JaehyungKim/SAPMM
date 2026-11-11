@@ -110,14 +110,14 @@
     sto.s = 2; sto.gi = '4900817242'; sto.giAt = new Date();
     log('김재형 (JKIM)', '출고 전기 — 이동 유형 641, 40 EA (1060 → 운송 중)', '자재 문서 4900817242');
     stoRender();
-    fopDialog('자재 문서 <b>4900817242/2026</b>이(가) 생성되었습니다.', '자재 문서 표시', () => fopOpenMatdoc('gi'));
+    fopDialog(`자재 문서 <b>4900817242/${demoYear()}</b>이(가) 생성되었습니다.`, '자재 문서 표시', () => fopOpenMatdoc('gi'));
   };
   window.stoPostGR = function () {
     if (sto.s !== 2) return;
     sto.s = 3; sto.gr = '4900817251'; sto.grAt = new Date();
     log('김재형 (JKIM)', '입고 전기 — 이동 유형 101, 40 EA (1050 / 0001)', '자재 문서 4900817251');
     stoRender();
-    fopDialog('자재 문서 <b>4900817251/2026</b>이(가) 생성되었습니다.', '자재 문서 표시', () => fopOpenMatdoc('gr'));
+    fopDialog(`자재 문서 <b>4900817251/${demoYear()}</b>이(가) 생성되었습니다.`, '자재 문서 표시', () => fopOpenMatdoc('gr'));
   };
 
   /* ── 자재 문서 Object Page ── */
@@ -135,7 +135,7 @@
     <div class="fop-header">
       <nav class="fop-crumbs"><a onclick="router.go('fiori-sto-object')">구매오더 4500019567</a><span>/</span><a>자재 문서</a></nav>
       <div class="fop-title-row">
-        <div class="fop-title-wrap"><h1 class="fop-title">${no} 2026</h1><div class="fop-subtitle">${d.type} · A-4315 유압실린더 40 EA</div></div>
+        <div class="fop-title-wrap"><h1 class="fop-title">${no} ${demoYear()}</h1><div class="fop-subtitle">${d.type} · A-4315 유압실린더 40 EA</div></div>
         <div class="fop-actions">
           <button class="fop-btn ghost" onclick="fopToast('데모에서는 역분개를 실행하지 않습니다')">역분개</button>
           <button class="fop-btn ghost">관련 앱</button>
@@ -197,10 +197,10 @@
         <div class="fop-card"><div class="fop-pfw">
           <div class="fop-pf">${lane('−', '출고 재고', true)}${sp}${lane('⇢', '운송 중 재고', true)}${sp}${lane('+', '입고 재고', !!sto.gr)}${sp}${lane('₩', '회계 문서', true)}</div>
           <div class="fop-pf">
-            ${flowNode('자재 문서', sto.gi, okS('OK'), { sub: '2026 · 641', onclick: "fopOpenMatdoc('gi')", current: !isGR })}${conn}
+            ${flowNode('자재 문서', sto.gi, okS('OK'), { sub: demoYear() + ' · 641', onclick: "fopOpenMatdoc('gi')", current: !isGR })}${conn}
             ${flowNode('운송 중', '1050 · 40 EA', sto.gr ? okS('해소됨') : `<span class="fop-status info">${ico('fi-info')}운송 중</span>`)}${conn}
-            ${flowNode('자재 문서', sto.gr, sto.gr ? okS('OK') : waitS('입고 대기'), { sub: '2026 · 101', onclick: "fopOpenMatdoc('gr')", current: isGR })}${conn}
-            ${flowNode('회계 문서', d.acct, okS('OK'), { sub: '2026' })}
+            ${flowNode('자재 문서', sto.gr, sto.gr ? okS('OK') : waitS('입고 대기'), { sub: demoYear() + ' · 101', onclick: "fopOpenMatdoc('gr')", current: isGR })}${conn}
+            ${flowNode('회계 문서', d.acct, okS('OK'), { sub: demoYear() })}
           </div>
           <div class="fop-pf">
             ${flowNode('인천 물류창고 1060', '0001', `<span class="fop-pf-sub">재고 유형 01 · 가용</span>`)}${conn}

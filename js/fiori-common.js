@@ -24,9 +24,14 @@ window.demoMon = function (m, fmt) {
   if (fmt === 'ym') return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
   return `${d.getMonth() + 1}월`;
 };
+window.demoYear = () => String(new Date().getFullYear());
+/* 회계연도 기간 표기 (예: 011.2026) */
+window.demoPeriod = () => { const d = new Date(); return `${String(d.getMonth() + 1).padStart(3, '0')}.${d.getFullYear()}`; };
 /* HTML: <span data-rel-day="-9"> · <span data-rel-mon="1" data-rel-dom="12"> (다음 달 12일) · <span data-rel-mon="1" data-rel-fmt="month"> */
 window.applyRelDays = function () {
   document.querySelectorAll('[data-rel-day]').forEach(el => { el.textContent = demoDay(+el.dataset.relDay, el.dataset.relFmt || 'dot'); });
+  document.querySelectorAll('[data-rel-year]').forEach(el => { el.textContent = demoYear(); });
+  document.querySelectorAll('[data-rel-period]').forEach(el => { el.textContent = demoPeriod(); });
   document.querySelectorAll('[data-rel-mon]').forEach(el => {
     const f = el.dataset.relFmt || 'dot';
     el.textContent = f === 'month' || f === 'ymonth' ? demoMon(+el.dataset.relMon, f === 'month' ? 'kr' : 'ykr') : demoMD(+el.dataset.relMon, +el.dataset.relDom, f);
